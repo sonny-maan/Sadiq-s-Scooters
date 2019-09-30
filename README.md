@@ -1,4 +1,4 @@
-# Sadiq's Scooters The Game- [![badge](https://img.shields.io/badge/made--by-hunnies-red)](https://github.com/sindresorhus/awesome#readme) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+# Sadiq's Scooters- [![badge](https://img.shields.io/badge/made--by-hunnies-red)](https://github.com/sindresorhus/awesome#readme) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 
 ## The hunnies
 
