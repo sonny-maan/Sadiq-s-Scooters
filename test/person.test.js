@@ -17,8 +17,8 @@ describe('person', () => {
   test('returns true if person is at destination', () => {
     for (var i = 0; i < 51; i++) {
       person.walk();
-     }
-     console.log(person._destination)
+    }
+    console.log(person._destination)
     expect(person.atDestination()).toEqual(true);
   });
 });
