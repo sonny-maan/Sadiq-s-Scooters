@@ -30,11 +30,17 @@ describe('custom person', () => {
     person = new Person({
       location: [0.1, 0.1],
       destination: [0.8, 0.8],
-      speed: 1
+      speed: 5
     })
-    expect(person.atDestination()).toEqual(true);
+
+    expect(person.atDestination()).toEqual(false);
+    expect(person.nearDestination()).toEqual(true);
+
     person.walk()
+
     expect(person.atDestination()).toEqual(true);
+    expect(person.nearDestination()).toEqual(true);
+
     expect(person.location).toEqual([0.8, 0.8])
 
   });
@@ -46,18 +52,37 @@ describe('custom person', () => {
       destination: [0.2, 0.38],
       speed: 0.02
     })
+
     expect(person.atDestination()).toEqual(false);
+
     steps = 0
     while (!person.atDestination() && steps < 1000) {
-      steps++
       person.walk()
+      steps++
     }
 
     expect(person.atDestination()).toEqual(true);
+
     person.walk();
+
     expect(person.location).toEqual([0.2, 0.38])
 
   });
 
+  test('person heads to destination and completes quest', () => {
+    options = {
+      location: [0, 0],
+      destination: [0.5, 0],
+      speed: 0.2,
+    }
+    person = new Person(options)
+
+    person.walk() // to 0.2
+    person.walk() // to 0.4
+    person.walk() // to 0.5
+    person.walk() // no movement, questCompleted == True
+    expect(person.questCompleted).toEqual(true)
+
+  })
 
 });
