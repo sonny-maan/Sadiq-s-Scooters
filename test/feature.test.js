@@ -1,4 +1,3 @@
-const Person = require('../lib/person');
 const World = require('../lib/world');
 
 
