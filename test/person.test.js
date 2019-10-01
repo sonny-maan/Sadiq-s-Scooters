@@ -15,7 +15,6 @@ describe('person', () => {
   });
 
   test('returns true if person is at destination', () => {
-    console.log(person)
     for (var i = 0; i < 51; i++) {
       person.walk();
     }
@@ -83,6 +82,35 @@ describe('custom person', () => {
     person.walk() // no movement, questCompleted == True
     expect(person.questCompleted).toEqual(true)
 
+  })
+
+  test('person follows path', () => {
+    options = {
+      location: [0, 0.5],
+      destination: [1, 0.5],
+      speed: 0.1,
+      path: [
+        [0, 0.5]
+      ]
+    }
+    person = new Person(options)
+
+    for (let i = 0; i < 5; i++) {
+      person.walk();
+    }
+
+    expect(person.questCompleted).toEqual(false)
+
+    for (let i = 0; i < 10; i++) {
+      person.walk();
+    }
+
+    expect(person.questCompleted).toEqual(false)
+    for (let i = 0; i < 15; i++) {
+      person.walk();
+      person.walk();
+    }
+    expect(person.questCompleted).toEqual(true)
   })
 
 });

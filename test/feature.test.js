@@ -28,41 +28,21 @@ describe('world', () => {
       speed: 0.2,
     }
     world.generatePerson(options);
-    console.log('starting arriving test')
-    console.log(world.people)
+
     world.tick();
     expect(world.people.length).toEqual(1); // at 0.2
-
-    console.log(world.people)
-
-
 
     world.tick();
     expect(world.people.length).toEqual(1); // at 0.4
 
-
-    console.log(world.people)
-
-
     world.tick();
     expect(world.people.length).toEqual(1); // at 0.5
-
-
-    console.log(world.people)
-
 
     world.tick();
     expect(world.people.length).toEqual(1); // still at 0.5?
 
-
-
-    console.log(world.people)
-
     world.tick();
     expect(world.people.length).toEqual(0); // still at 0.5?
-
-
-
   });
 
 })
