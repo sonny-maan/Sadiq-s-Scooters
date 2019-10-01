@@ -1,3 +1,4 @@
+const Person = require('../lib/person');
 const World = require('../lib/world');
 
 
@@ -9,17 +10,17 @@ describe('world', () => {
     world = new World();
   })
 
-test('world to generate person who moves towards destination', () => {
-  world.generatePerson();
-  expect(world.people.length).toEqual(1);
-  let originalLocation = world.people[0].location
-  world.tick()
-  expect(world.people.location).not.toEqual(originalLocation);
-  for (var i = 0; i < 101; i++) {
-    world.tick();
-   }
-   expect(world.people.length).toEqual(0);
-})
+  test('world to generate person who moves towards destination', () => {
+    world.generatePerson();
+    expect(world.people.length).toEqual(1);
+    let originalLocation = world.people[0].location
+    world.tick()
+    expect(world.people.location).not.toEqual(originalLocation);
+    for (var i = 0; i < 101; i++) {
+      world.tick();
+    }
+    expect(world.people.length).toEqual(0);
+  })
 
 
 test('person will use a scooter when it goes past a docking station, and will put it back at the end' , () => {
@@ -40,9 +41,7 @@ test('person will use a scooter when it goes past a docking station, and will pu
   expect(scootCounter).toBeLessThan(8)
   expect(person.vehicle).toEqual(false)
 
-} )
-
-
-
-
+ })
 })
+
+
