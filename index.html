@@ -12,7 +12,8 @@
 
 <body>
 
-  <button id="button">Create</button>
+<button id="button">Create</button>
+<button id="button">Move</button>
   <script>
 
     var body = document.getElementsByTagName("body")[0];
@@ -34,29 +35,40 @@
       var color = '#' + Math.round(0xffffff * Math.random()).toString(16);
       context.fillStyle = color;
       // Each rectangle's size is (20 ~ 100, 20 ~ 100)
-      var width =  20;
-      var height = 20;
+     
 
-
-      var rect = {
-
-        w: width,
-        h: height
-      }
-
-      if (true) {
-        context.fillRect(person._location[0], person._location[1], width, height);
-        world.generatePerson()
-      } else {
-        console.log('rect dropped');
-      }
+      world.generatePerson()
+     
 
       console.log(world.people);
 
     }
 
+    function drawPeople() {
+      world.tick();
+      // Remove people
+      // Redraw all people
+       var width = 20;
+      var height = 20;
+      people = world.people
+      people.forEach(person => {
+        context.fillRect(person._location[0]*canvas.width, person._location[1]* canvas.height, width, height);
+      });
+
+    }
+    setInterval(drawPeople,50)
+
+    // function Square(width, height, color, x, y) {
+    //     this.person = world.generatePerson()
+
+    //     context.fillRect(person._location[0], person._location[1], width, height);
+    //   }
+
     document.getElementById('button').addEventListener('click', create);
+        
   </script>
+  <br>
+
 
 
 </body>
