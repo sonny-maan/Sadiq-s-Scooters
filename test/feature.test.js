@@ -21,4 +21,11 @@ test('world to generate person who moves towards destination', () => {
    expect(world.people.length).toEqual(0);
 })
 
+
+
+
+
+} )
+
+
 })
