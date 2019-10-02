@@ -16,6 +16,7 @@ describe('world', () => {
 
   test('world will generate a new person', () => {
     expect(world.generatePerson()).toHaveProperty('location');
+    console.log(world.people)
     expect(world.people.length).toEqual(1)
     expect(world.people[0]).toHaveProperty('location');
   });
