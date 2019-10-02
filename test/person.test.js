@@ -113,4 +113,8 @@ describe('custom person', () => {
     expect(person.questCompleted).toEqual(true)
   })
 
+
+  test('by default person is not on a vehicle', () => {
+    expect(person.vehicle).toEqual(false)
+  })
 });
