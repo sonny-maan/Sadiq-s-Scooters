@@ -58,8 +58,6 @@ describe('world', () => {
     let person = world.generatePerson(personOptions)
     person.vehicle = new Scooter
 
-    console.log(person)
-
     dockingStationOptions = {
       location: [0.01, 0.7]
     }
@@ -70,7 +68,6 @@ describe('world', () => {
       world.tick();
       scootCounter++
       if ((person.location[0] == dockingStation.location[0]) && (person.location[1] == dockingStation.location[1])) {
-        console.log('were here?')
         break;
       }
     }
@@ -81,7 +78,6 @@ describe('world', () => {
       world.tick();
       walkCounter++
       if ((person.location[0] === 0) && (person.location[1] === 1)) {
-        console.log('were fiiinally?')
         break;
       }
     }
@@ -104,26 +100,32 @@ describe('world', () => {
       location: [0, 0],
       destination: [0, 1]
     });
+
     let stepCounter = 0
 
-    while ((person.location != dockingStation1.location) && (stepCounter < 2000)) {
+    while (stepCounter < 2000) {
       world.tick();
       stepCounter++
+      if ((person.location[0] == dockingStation1.location[0]) && (person.location[1] == dockingStation1.location[1])) {
+        break;
+      }
     }
+    expect(person.onVehicle).toEqual(true)
 
-    expect(person.onVehicle()).toEqual(true)
-    while ((person.location != dockingStation2.location) && (scootCounter < 2000)) {
+    let scootCounter = 0
+    while (scootCounter < 2000) {
       world.tick();
       scootCounter++
+      if ((person.location[0] == dockingStation2.location[0]) && (person.location[1] == dockingStation2.location[1])) {
+        break;
+      }
     }
 
     expect(scootCounter).toBeLessThan(8)
 
-    expect(person.vehicle).toEqual(false)
+    expect(person.onVehicle).toEqual(false)
 
   });
-
-
 
 
 });

@@ -129,9 +129,6 @@ describe('person on scooter', () => {
     person_fast.walk();
     person.walk();
 
-    console.log(person_fast)
-    console.log(person)
-
     expect(person_fast.location[0]).toBeGreaterThan(person.location[0]);
 
   })
