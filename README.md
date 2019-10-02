@@ -19,21 +19,62 @@ UPDATE THIS AFTER BUILDING
 ```bash
 UPDATE THIS AFTER BUILDING
 ```
-
-
 ## User Stories/Features
 **Buy and place docking station**
 ```
 As a User
 So that people can buy scooters and have a sick time
-I want to be able to buy a docking station and place it on the map
+I want to be able to buy a docking station and put it on the map
 ```
-
+```
+As a User
+So that people can rent scooters,
+I want a person to be able to get a scooter from a station
+```
+```
+As a User
+So that people can drop off scooters
+I want a person to be able to put a scooter back in a station
+```
 **Money**
 ```
 As a User
 So that people can tell how well Im doing
 I want to be able to see how much money I have
+```
+**People**
+```
+As a User
+So that there are people to rent my scooters
+I want to be able to create a person
+```
+```
+As a User
+So that people can rent scooters,
+I want people to be able to rent scoot's from stations
+```
+```
+As a User
+So that the game is realistic
+I want to people to move towards their destination
+```
+
+```
+As a User
+So that my world doesn't get overpopulated,
+I want people to disappear when they reach their destination
+```
+
+```
+As a User
+So that I know that people have arrived at their destination
+I want to be able to see them there
+```
+**Road**
+```
+As a User
+So that people don't get their shoes dirty,
+I want a road for them to follow
 ```
 
 
