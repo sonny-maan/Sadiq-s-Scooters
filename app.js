@@ -52,9 +52,10 @@ function drawPeople() {
   people.forEach(Person => {
     context.fillRect(Person._location[0] * canvas.width, Person._location[1] * canvas.height, width, height);
   });
-
+  setTimeout(drawPeople, 50)
 }
-setInterval(drawPeople, 50)
+// setInterval(drawPeople, 50)
+drawPeople()
 
 // function Square(width, height, color, x, y) {
 //     this.Person = world.generatePerson()
@@ -62,4 +63,4 @@ setInterval(drawPeople, 50)
 //     context.fillRect(person._location[0], person._location[1], width, height);
 //   }
 
-document.getElementById('button').addEventListener('click', create);
+document.addEventListener('click', create);
