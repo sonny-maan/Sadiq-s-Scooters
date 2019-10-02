@@ -1,13 +1,12 @@
+sudo: false
+
 language: node_js
+
 node_js:
- - "node"
-- "10"
-- "8"
-- "6"
+  - node
+
+install:
+  - npm ci
+
 script:
-- npm test
-- npm run build
-cache:
-  directories:
-    - node_modules
-    
+  - npm test
