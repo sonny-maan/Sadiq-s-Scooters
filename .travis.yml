@@ -4,3 +4,10 @@ node_js:
 - "10"
 - "8"
 - "6"
+script:
+- npm test
+- npm run build
+cache:
+  directories:
+    - node_modules
+    
