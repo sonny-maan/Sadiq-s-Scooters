@@ -10,10 +10,11 @@ install:
 
 script:
   - npm test
-  
-# script:
-#   - npm test
-#   - npm run build
-# cache:
-#   directories:
-#     - node_modules
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: MIGJAoGBALeFvpaS4szqW9jo3uH3kaS2YJZSyghvokomKuiPIBr8mnO6BNm6C5sJ\nDKX7ihhJdKUA/MpEFCiObj5ZPiXcV7gHlyVN2FCP5ucFLHtasa3j6nCH5lvdLxAw\nAbPKq8PPCq8rurmFWBLuuCWXR0VW2OG1+Oo4b9U1d5ywST7hpvOrAgMBAAE=
+  app: Sadiq-s-Scooters
+  on:
+    repo: JodiFoster/Sadiq-s-Scooters
