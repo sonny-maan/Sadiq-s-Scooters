@@ -18,8 +18,7 @@ describe('person', () => {
     for (var i = 0; i < 51; i++) {
       person.walk();
     }
-    console.log(person._location + "HI this is location")
-      console.log(person._destination + "HI this is destination")
+    
     expect(person.nearDestination()).toEqual(true);
   });
 

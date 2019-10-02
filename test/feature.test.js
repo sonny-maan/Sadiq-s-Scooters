@@ -52,6 +52,7 @@ describe('world', () => {
     let dockingStation2 = world.generateDockingStation({
       location: [0, 0.8]
     })
+
     expect(world.dockingStations.length).toEqual(2);
 
     let person = world.generatePerson({
@@ -78,6 +79,11 @@ describe('world', () => {
   });
 
 
+ test('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
+   expect(world.balance).toEqual(100)
+   world.generateDockingStation()
+   expect(world.balance).toEqual(50)
+ })
 
 
 
