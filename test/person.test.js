@@ -19,7 +19,8 @@ describe('person', () => {
     for (var i = 0; i < 51; i++) {
       person.walk();
     }
-    expect(person.atDestination()).toEqual(true);
+
+    expect(person.nearDestination()).toEqual(true);
   });
 
 });

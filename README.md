@@ -16,9 +16,7 @@ UPDATE THIS AFTER BUILDING
 
 ## Usage
 
-```bash
-UPDATE THIS AFTER BUILDING
-```
+Simply visit [here](https://jodifoster.github.io/Sadiq-s-Scooters/)
 
 
 ## User Stories/Features
