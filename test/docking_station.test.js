@@ -1,10 +1,13 @@
 const DockingStation = require('../lib/docking_station');
+const Scooter = require('../lib/scooter');
 
 describe('docking station', () => {
   let dockingStation;
 
   beforeEach(() => {
-    dockingStation = new DockingStation();
+    dockingStation = new DockingStation({
+      vehicleClass: Scooter
+    });
   });
 
 
@@ -16,8 +19,8 @@ describe('docking station', () => {
     expect(dockingStation.cost).toEqual(50)
   });
 
-  test('docking station releases a scooter', () => {
-    expect(dockingStation.release()).toEqual('Scooter');
+  test('docking station releases an object with speed', () => {
+    expect(dockingStation.release()).toHaveProperty('speed');
   });
 
   test('docking station accepts a vehicle', () => {
