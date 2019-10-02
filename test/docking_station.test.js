@@ -28,6 +28,11 @@ describe('docking station', () => {
     expect(dockingStation.dock()).toEqual(true);
   });
 
+  test('docking station default price per ride', () => {
+    expect(dockingStation.pricePerRide).toEqual(5)
+  });
+
+
 });
 
 describe('unique docking station', () => {
