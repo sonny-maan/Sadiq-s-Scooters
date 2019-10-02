@@ -1,4 +1,5 @@
 const Person = require('../lib/person');
+const Scooter = require('../lib/scooter');
 
 describe('person', () => {
 
@@ -115,6 +116,23 @@ describe('custom person', () => {
 
 
   test('by default person is not on a vehicle', () => {
-    expect(person.vehicle).toEqual(false)
+    expect(person.vehicle).toEqual(undefined)
   })
 });
+
+describe('person on scooter', () => {
+  test('person on vehicle moves fast', () => {
+    person_fast = new Person();
+    person_fast.vehicle = new Scooter();
+    person = new Person();
+
+    person_fast.walk();
+    person.walk();
+
+    console.log(person_fast)
+    console.log(person)
+
+    expect(person_fast.location[0]).toBeGreaterThan(person.location[0]);
+
+  })
+})

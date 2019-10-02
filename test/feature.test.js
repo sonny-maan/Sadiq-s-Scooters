@@ -65,7 +65,7 @@ describe('world', () => {
       stepCounter++
     }
 
-    expect(person.vehicle).toEqual(true)
+    expect(person.onVehicle()).toEqual(true)
     while ((person.location != dockingStation2.location) && (scootCounter < 2000)) {
       world.tick();
       scootCounter++
