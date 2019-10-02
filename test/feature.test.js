@@ -45,7 +45,7 @@ describe('world', () => {
     expect(world.people.length).toEqual(0); // still at 0.5?
   });
 
-  test('person will use a scooter when it goes past a docking station, and will put it back at the end', () => {
+  test('person will use a scooter when it goes past a docking station, and will put it back at the end, AND the world balance will increase', () => {
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -76,6 +76,9 @@ describe('world', () => {
 
     expect(person.vehicle).toEqual(false)
 
+    // TO DO   expect(world.balance).toEqual(5)
+
+
   });
 
 
@@ -84,6 +87,18 @@ describe('world', () => {
    world.generateDockingStation()
    expect(world.balance).toEqual(50)
  })
+
+
+ test('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
+   expect(world.balance).toEqual(100)
+   let dockingStation = world.generateDockingStation()
+   dockingStation.dock(world)
+   expect(world.balance).toEqual(55)
+ })
+
+
+
+
 
 
 
