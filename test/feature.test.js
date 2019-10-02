@@ -76,8 +76,6 @@ describe('world', () => {
 
     expect(person.vehicle).toEqual(false)
 
-    // TO DO   expect(world.balance).toEqual(5)
-
 
   });
 
