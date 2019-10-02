@@ -48,10 +48,22 @@ function drawPeople() {
   // Redraw all people
   var width = 20;
   var height = 20;
-  people = world.people
-  people.forEach(Person => {
-    context.fillRect(Person._location[0] * canvas.width, Person._location[1] * canvas.height, width, height);
+
+  people = world.people.slice()
+  people.forEach(person => {
+    if (person.onVehicle) {
+      context.fillRect(person._location[0] * canvas.width, person._location[1] * canvas.height, width + 20, height);
+    } else {
+      context.fillRect(person._location[0] * canvas.width, person._location[1] * canvas.height, width, height);
+    }
   });
+
+  dockingStations = world.dockingStations.slice()
+  dockingStations.forEach(dockingStation => {
+    context.fillRect(dockingStation._location[0] * canvas.width, dockingStation._location[1] * canvas.height, 5, 15);
+  });
+
+
   setTimeout(drawPeople, 50)
 }
 // setInterval(drawPeople, 50)

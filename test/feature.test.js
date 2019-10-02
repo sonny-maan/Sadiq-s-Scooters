@@ -63,6 +63,7 @@ describe('world', () => {
     }
     let dockingStation = world.generateDockingStation(dockingStationOptions)
     let scootCounter = 0
+    expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
 
     while (scootCounter < 2000) {
       world.tick();
@@ -72,16 +73,22 @@ describe('world', () => {
       }
     }
     expect(scootCounter).toBeLessThan(8)
+    expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
 
     let walkCounter = 0
     while (walkCounter < 2000) {
       world.tick();
       walkCounter++
+      // console.log(walkCounter)
+
+      // expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
+
       if ((person.location[0] === 0) && (person.location[1] === 1)) {
         break;
       }
     }
     expect(walkCounter).toBeGreaterThan(10)
+    expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
 
 
   });
@@ -102,15 +109,25 @@ describe('world', () => {
       destination: [0, 1]
     });
 
+    world.tick();
+    console.log(person);
+    world.tick();
+    console.log(person);
+
     let stepCounter = 0
 
     while (stepCounter < 2000) {
       world.tick();
       stepCounter++
       if ((person.location[0] == dockingStation1.location[0]) && (person.location[1] == dockingStation1.location[1])) {
+        console.log(person);
         break;
       }
     }
+    world.tick();
+    console.log(person);
+    world.tick();
+    console.log(person);
     expect(person.onVehicle).toEqual(true)
 
     let scootCounter = 0
