@@ -1,4 +1,5 @@
 const World = require('../lib/world');
+const Scooter = require('../lib/scooter');
 
 
 describe('world', () => {
@@ -44,6 +45,51 @@ describe('world', () => {
     world.tick();
     expect(world.people.length).toEqual(0); // still at 0.5?
   });
+
+
+  test('person on vehicle goes to docking station closest to destination and walks', () => {
+    world = new World();
+
+    personOptions = {
+      location: [0, 0.5],
+      path: [0, 1],
+      destination: [0, 1],
+    }
+    let person = world.generatePerson(personOptions)
+    person.vehicle = new Scooter
+
+    console.log(person)
+
+    dockingStationOptions = {
+      location: [0.01, 0.7]
+    }
+    let dockingStation = world.generateDockingStation(dockingStationOptions)
+    let scootCounter = 0
+
+    while (scootCounter < 2000) {
+      world.tick();
+      scootCounter++
+      if ((person.location[0] == dockingStation.location[0]) && (person.location[1] == dockingStation.location[1])) {
+        console.log('were here?')
+        break;
+      }
+    }
+    expect(scootCounter).toBeLessThan(8)
+
+    let walkCounter = 0
+    while (walkCounter < 2000) {
+      world.tick();
+      walkCounter++
+      if ((person.location[0] === 0) && (person.location[1] === 1)) {
+        console.log('were fiiinally?')
+        break;
+      }
+    }
+    expect(walkCounter).toBeGreaterThan(10)
+
+
+  });
+
 
   test('person will use a scooter when it goes past a docking station, and will put it back at the end', () => {
     let dockingStation1 = world.generateDockingStation({
