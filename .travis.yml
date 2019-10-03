@@ -5,10 +5,8 @@ language: node_js
 node_js:
   - node
 
-  services:
+services:
   - xvfb # service necessary for launching a virtual display (for mocha testing in Firefox)
-before_script:
-  - npm install
 
 install:
   - npm ci
