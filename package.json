@@ -1,11 +1,14 @@
 {
+  "name": "Sadiq-s-Scooters",
   "scripts": {
-    "test": "jest"
+    "test": "karma start --browsers Firefox --single-run",
+    "linter": "eslint . --fix"
   },
   "devDependencies": {
     "eslint": "^6.5.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jasmine": "^2.10.1",
     "jasmine": "^3.5.0",
     "jasmine-core": "^3.5.0",
     "jest": "^24.9.0",

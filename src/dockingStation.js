@@ -5,14 +5,14 @@ class DockingStation {
     this._pricePerRide = 5
     this._vehicleClass = Scooter
     this.setOptions(options)
-  };
+  }
 
   get location() {
     return this._location;
-  };
+  }
   get cost() {
     return this._cost;
-  };
+  }
 
   get pricePerRide() {
     return this._pricePerRide
@@ -20,7 +20,7 @@ class DockingStation {
 
   release() {
     return new this._vehicleClass();
-  };
+  }
 
   dock(the_world) {
 
@@ -30,7 +30,7 @@ class DockingStation {
       the_world.payToBalance(this._pricePerRide)
     }
     return true;
-  };
+  }
 
 
   setOptions(options) {
@@ -46,4 +46,4 @@ class DockingStation {
     }
   }
 
-};
+}

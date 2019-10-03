@@ -1,3 +1,5 @@
+/* exported World */
+
 class World {
   constructor() {
     this._people = []
