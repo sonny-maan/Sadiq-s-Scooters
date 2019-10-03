@@ -11,9 +11,9 @@ var context = canvas.getContext("2d");
 body.appendChild(canvas);
 
 world = new World
-person = new Person
 
-// console.log(person === )
+console.log('new world!')
+console.log(world)
 
 function create() {
   //  Opacity
@@ -28,9 +28,10 @@ function create() {
     path.push([Math.random(), Math.random()])
   }
   let options = {
-    location: [0, 0],
-    destination: [0, 0],
-    path: path,
+    location: [Math.random(), Math.random()],
+    destination: [Math.random(), Math.random()],
+    path: [],
+    // path: path,
     speed: Math.random() / 10
   }
   world.generatePerson(options)
@@ -48,10 +49,43 @@ function drawPeople() {
   // Redraw all people
   var width = 20;
   var height = 20;
-  people = world.people
-  people.forEach(Person => {
-    context.fillRect(Person._location[0] * canvas.width, Person._location[1] * canvas.height, width, height);
+
+  world.people.forEach(person1 => {
+    if (person1.onVehicle) {
+      context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width + 20, height);
+    } else {
+      context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width, height);
+    }
+    context.lineWidth = 1
+    context.strokeStyle = 'red'
+    context.beginPath();
+    context.moveTo(person1.location[0] * canvas.width, person1.location[1] * canvas.height);
+    context.lineTo(person1._destination[0] * canvas.width, person1._destination[1] * canvas.height);
+    context.stroke();
+
+    if (person1._path[0]) {
+      context.strokeStyle = 'green'
+      context.beginPath();
+
+      context.moveTo(person1.location[0] * canvas.width, person1.location[1] * canvas.height);
+      context.lineTo(person1._path[0][0] * canvas.width, person1._path[0][1] * canvas.height);
+      context.stroke();
+      context.strokeStyle = 'blue'
+      context.beginPath();
+      context.moveTo(person1._destination[0] * canvas.width, person1._destination[1] * canvas.height);
+      context.lineTo(person1._path[0][0] * canvas.width, person1._path[0][1] * canvas.height);
+      context.stroke();
+    }
+
   });
+
+  world.dockingStations.forEach(dockingStation => {
+    let eh1 = dockingStation._location[0]
+    let eh2 = dockingStation._location[1]
+    context.fillRect(eh1 * canvas.width, eh2 * canvas.height, 5, 15);
+  });
+
+
   setTimeout(drawPeople, 50)
 }
 // setInterval(drawPeople, 50)
