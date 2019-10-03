@@ -44,12 +44,10 @@ describe('docking station', () => {
 
   test('a docking station cannot release a scooter when its empty', () => {
     let i
-    for (i=0; i <10; i++)
+    for (i=0; i <11; i++)
     {dockingStation.release()}
 
-    expect(() => {
-      dockingStation.release()
-    }).toThrowError('There are no vehicles at this docking station')
+
     expect(dockingStation.dockedVehicles).toEqual(0)
   });
 

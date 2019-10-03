@@ -161,7 +161,7 @@ describe('world', () => {
     expect(world.balance).toEqual(55)
   })
 
-  test('a person cant pick up a scooter from an empty docking station', () => {
+  test('a person cant pick up a scooter from an empty docking station, so they wait by it', () => {
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -183,7 +183,7 @@ describe('world', () => {
       world.tick();
         }
 
-      expect(world.people.length).toEqual(0)
+      expect(world.people.length).toEqual(2)
       expect(world.balance).toEqual(50)
 
   })
