@@ -39,13 +39,21 @@ describe('docking station', () => {
   test('docking station dockedVehicles decreases as scooters are taken out', () => {
     dockingStation.release()
     dockingStation.release()
-    expect(dockingStation.dockedVehicles).toEqual(8)
+    expect(dockingStation.dockedVehicles).toEqual(3)
   });
 
   test('docking station spaces increases as scooters are docked', () => {
+    dockingStation.release()
+    dockingStation.release()
     dockingStation.dock()
-    expect(dockingStation.dockedVehicles).toEqual(11)
+    expect(dockingStation.dockedVehicles).toEqual(4)
   });
+
+  test('docking station cant accept scooter if it is full', () => {
+    dockingStation.dock()
+    expect(dockingStation.dockedVehicles).toEqual(6)
+  });
+
 
   test('a docking station cannot release a scooter when its empty', () => {
     let i
