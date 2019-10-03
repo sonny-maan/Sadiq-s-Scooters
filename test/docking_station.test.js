@@ -19,6 +19,10 @@ describe('docking station', () => {
     expect(dockingStation.cost).toEqual(50)
   });
 
+  test('docking station default capacity', () => {
+    expect(dockingStation.capacity).toEqual(10)
+  });
+
   test('docking station releases an object with speed', () => {
     expect(dockingStation.release()).toHaveProperty('speed');
   });

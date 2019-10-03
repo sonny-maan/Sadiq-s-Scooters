@@ -161,4 +161,31 @@ describe('world', () => {
     expect(world.balance).toEqual(55)
   })
 
+  test('a person cant pick up a scooter from an empty docking station', () => {
+    let dockingStation1 = world.generateDockingStation({
+      location: [0, 0.6]
+    })
+    let dockingStation2 = world.generateDockingStation({
+      location: [0, 0.8]
+    })
+
+
+    let i
+    for (i=0; i< 12; i++){
+    world.generatePerson({
+      location: [0, 0],
+      destination: [0, 1]
+    });
+      }
+
+      let j
+      for (j=0; j< 1000; j++){
+      world.tick();
+        }
+
+      expect(world.people.length).toEqual(0)
+      expect(world.balance).toEqual(50)
+
+  })
+
 });
