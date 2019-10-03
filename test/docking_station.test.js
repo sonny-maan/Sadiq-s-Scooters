@@ -36,6 +36,11 @@ describe('docking station', () => {
     expect(dockingStation.pricePerRide).toEqual(5)
   });
 
+  test('docking station capacity decreases as scooters are taken out', () => {
+    dockingStation.release()
+    dockingStation.release()
+    expect(dockingStation.capacity).toEqual(8)
+  });
 
 });
 
