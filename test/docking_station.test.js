@@ -39,7 +39,18 @@ describe('docking station', () => {
   test('docking station capacity decreases as scooters are taken out', () => {
     dockingStation.release()
     dockingStation.release()
-    expect(dockingStation.capacity).toEqual(8)
+    expect(dockingStation.dockedVehicles).toEqual(8)
+  });
+
+  test('a docking station cannot release a scooter when its empty', () => {
+    let i
+    for (i=0; i <10; i++)
+    {dockingStation.release()}
+
+    expect(() => {
+      dockingStation.release()
+    }).toThrowError('There are no vehicles at this docking station')
+    expect(dockingStation.dockedVehicles).toEqual(0)
   });
 
 });
