@@ -161,4 +161,14 @@ describe('world', () => {
     expect(world.balance).toEqual(55)
   })
 
+  test('balance cannot be negative, a user cannot buy a docking station they cannot afford', () => {
+    world.generateDockingStation()
+    world.generateDockingStation()
+    expect(() => {
+      world.generateDockingStation()
+    }).toThrow('You do not have enough money to buy that docking station')
+    expect(world._dockingStations.length).toEqual(2)
+
+  })
+
 });
