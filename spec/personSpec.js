@@ -20,6 +20,10 @@ describe('person', () => {
     expect(person.nearDestination()).toEqual(true);
   });
 
+  it('by default person is not on a vehicle', () => {
+    expect(person.vehicle).toEqual(undefined)
+  })
+
 });
 
 describe('custom person', () => {
@@ -83,6 +87,8 @@ describe('custom person', () => {
 
   })
 
+
+
   it('person follows path', () => {
     options = {
       location: [0, 0.5],
@@ -113,9 +119,7 @@ describe('custom person', () => {
   })
 
 
-  it('by default person is not on a vehicle', () => {
-    expect(person.vehicle).toEqual(undefined)
-  })
+
 });
 
 describe('person on scooter', () => {
