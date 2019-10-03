@@ -1,6 +1,3 @@
-const DockingStation = require('../lib/docking_station');
-const Scooter = require('../lib/scooter');
-
 describe('docking station', () => {
   let dockingStation;
 
@@ -11,24 +8,24 @@ describe('docking station', () => {
   });
 
 
-  test('docking station default location is map center', () => {
+  it('docking station default location is map center', () => {
     expect(dockingStation.location).toEqual([0.5, 0.5])
   });
 
-  test('docking station default cost', () => {
+  it('docking station default cost', () => {
     expect(dockingStation.cost).toEqual(50)
   });
 
-  test('docking station releases an object with speed', () => {
-    expect(dockingStation.release()).toHaveProperty('speed');
+  it('docking station releases an object with speed', () => {
+    expect(Object.keys(dockingStation.release())).toContain('_speed')
   });
 
-  test('docking station accepts a vehicle', () => {
+  it('docking station accepts a vehicle', () => {
     // Will need to mock Player / points for this so that the player gets points once a journey is completed.
     expect(dockingStation.dock()).toEqual(true);
   });
 
-  test('docking station default price per ride', () => {
+  it('docking station default price per ride', () => {
     expect(dockingStation.pricePerRide).toEqual(5)
   });
 
@@ -36,13 +33,13 @@ describe('docking station', () => {
 });
 
 describe('unique docking station', () => {
-  test('docking station accepts a unique location', () => {
+  it('docking station accepts a unique location', () => {
     dockingStation = new DockingStation({
       location: [0, 0]
     })
     expect(dockingStation.location).toEqual([0, 0])
   });
-  test('docking station accepts a unique cost', () => {
+  it('docking station accepts a unique cost', () => {
     dockingStation = new DockingStation({
       cost: 25
     })

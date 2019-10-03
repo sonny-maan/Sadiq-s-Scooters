@@ -1,9 +1,3 @@
-// const Person = require('../lib/person');
-
-const Person = require('../lib/person');
-const DockingStation = require('../lib/docking_station');
-
-
 class World {
   constructor() {
     this._people = []
@@ -56,5 +50,3 @@ class World {
 
   }
 }
-
-module.exports = World;

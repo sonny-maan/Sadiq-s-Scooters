@@ -1,6 +1,3 @@
-const Person = require('../lib/person');
-const Scooter = require('../lib/scooter');
-
 describe('person', () => {
 
   let person;
@@ -9,13 +6,13 @@ describe('person', () => {
     person = new Person();
   })
 
-  test('person moves when commanded to walk', () => {
+  it('person moves when commanded to walk', () => {
     let location = person.location.slice();
     person.walk();
     expect(person.location).not.toEqual(location);
   });
 
-  test('returns true if person is at destination', () => {
+  it('returns true if person is at destination', () => {
     for (var i = 0; i < 51; i++) {
       person.walk();
     }
@@ -27,7 +24,7 @@ describe('person', () => {
 
 describe('custom person', () => {
 
-  test('person moves to destination if within speed', () => {
+  it('person moves to destination if within speed', () => {
     person = new Person({
       location: [0.1, 0.1],
       destination: [0.8, 0.8],
@@ -47,7 +44,7 @@ describe('custom person', () => {
   });
 
 
-  test('person moves to destination at angles', () => {
+  it('person moves to destination at angles', () => {
     person = new Person({
       location: [0.8, 0.9],
       destination: [0.2, 0.38],
@@ -70,7 +67,7 @@ describe('custom person', () => {
 
   });
 
-  test('person heads to destination and completes quest', () => {
+  it('person heads to destination and completes quest', () => {
     options = {
       location: [0, 0],
       destination: [0.5, 0],
@@ -86,7 +83,7 @@ describe('custom person', () => {
 
   })
 
-  test('person follows path', () => {
+  it('person follows path', () => {
     options = {
       location: [0, 0.5],
       destination: [1, 0.5],
@@ -116,13 +113,13 @@ describe('custom person', () => {
   })
 
 
-  test('by default person is not on a vehicle', () => {
+  it('by default person is not on a vehicle', () => {
     expect(person.vehicle).toEqual(undefined)
   })
 });
 
 describe('person on scooter', () => {
-  test('person on vehicle moves fast', () => {
+  it('person on vehicle moves fast', () => {
     person_fast = new Person();
     person_fast.vehicle = new Scooter();
     person = new Person();

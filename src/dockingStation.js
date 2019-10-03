@@ -1,5 +1,3 @@
-const Scooter = require('../lib/scooter');
-
 class DockingStation {
   constructor(options) {
     this._location = [0.5, 0.5]
@@ -49,5 +47,3 @@ class DockingStation {
   }
 
 };
-
-module.exports = DockingStation;
