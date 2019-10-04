@@ -1,0 +1,4 @@
+canvas{background:green;margin:0 auto;display:block;}
+ #start-btn button{text-align:center;margin:30% auto;padding:20px;border:none;background:#a8b3f1;color:#fff;font-size:20px;border-radius:5px;}
+ #start-btn button:hover{background:#000000;cursor:pointer;}
+ #start-btn{display:block;margin:0 auto;width:500px;text-align:center;height:500px;}

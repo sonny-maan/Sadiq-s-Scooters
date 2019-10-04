@@ -1,3 +1,4 @@
+
 class World {
   constructor() {
     this._people = []
