@@ -7,5 +7,3 @@ class Scooter {
     return this._speed
   }
 }
-
-module.exports = Scooter;

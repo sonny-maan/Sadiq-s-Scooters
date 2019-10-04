@@ -1,5 +1,3 @@
- const Scooter = require('../lib/scooter');
-
 class DockingStation {
   constructor(options) {
     this._location = [0.5, 0.5]
@@ -10,14 +8,14 @@ class DockingStation {
     this._vehicleClass = Scooter
     this._increaseCapacityCost = 20
     this.setOptions(options)
-  };
+  }
 
   get location() {
     return this._location;
-  };
+  }
   get cost() {
     return this._cost;
-  };
+  }
 
   get pricePerRide() {
     return this._pricePerRide
@@ -35,7 +33,7 @@ class DockingStation {
     if (this._dockedVehicles < 1) return
     this._dockedVehicles -= 1
     return new this._vehicleClass();
-  };
+  }
 
   dock(the_world) {
 
@@ -52,7 +50,7 @@ class DockingStation {
 
 
     return true;
-  };
+  }
 
 
   setOptions(options) {
@@ -68,6 +66,7 @@ class DockingStation {
     }
   }
 
+
   increaseCapacity(the_world) {
     this._capacity += 2
     this._dockedVehicles +=1
@@ -81,6 +80,4 @@ class DockingStation {
 
   }
 
-};
-
-module.exports = DockingStation;
+}

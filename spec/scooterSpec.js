@@ -1,5 +1,3 @@
-const Scooter = require('../lib/scooter');
-
 describe('scooter', () => {
 
   let scooter;
@@ -8,7 +6,7 @@ describe('scooter', () => {
     scooter = new Scooter();
   })
 
-  test('scooter returns its speed', () => {
+  it('scooter returns its speed', () => {
     expect(scooter.speed).toEqual(0.04);
   })
 

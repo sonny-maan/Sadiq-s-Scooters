@@ -49,31 +49,35 @@ function drawPeople() {
   // Redraw all people
   var width = 20;
   var height = 20;
-
+  // redraw
   world.people.forEach(person1 => {
     if (person1.onVehicle) {
       context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width + 20, height);
     } else {
       context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width, height);
     }
+
+
+    // draw lines to see where people are going.
+    // does not affect the people or world at all
     context.lineWidth = 1
     context.strokeStyle = 'red'
     context.beginPath();
     context.moveTo(person1.location[0] * canvas.width, person1.location[1] * canvas.height);
-    context.lineTo(person1._destination[0] * canvas.width, person1._destination[1] * canvas.height);
+    context.lineTo(person1.destination[0] * canvas.width, person1.destination[1] * canvas.height);
     context.stroke();
 
-    if (person1._path[0]) {
+    if (person1.path[0]) {
       context.strokeStyle = 'green'
       context.beginPath();
 
       context.moveTo(person1.location[0] * canvas.width, person1.location[1] * canvas.height);
-      context.lineTo(person1._path[0][0] * canvas.width, person1._path[0][1] * canvas.height);
+      context.lineTo(person1.path[0][0] * canvas.width, person1.path[0][1] * canvas.height);
       context.stroke();
       context.strokeStyle = 'blue'
       context.beginPath();
-      context.moveTo(person1._destination[0] * canvas.width, person1._destination[1] * canvas.height);
-      context.lineTo(person1._path[0][0] * canvas.width, person1._path[0][1] * canvas.height);
+      context.moveTo(person1.destination[0] * canvas.width, person1.destination[1] * canvas.height);
+      context.lineTo(person1.path[0][0] * canvas.width, person1.path[0][1] * canvas.height);
       context.stroke();
     }
 
