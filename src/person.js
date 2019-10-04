@@ -59,8 +59,6 @@ class Person {
     return (this.atDestination() && this.path.length === 0)
   }
 
-  goTo
-
   walk(the_world) {
     // Look around
     // // Set destination goal ie. at destination, dock/release/next destination.
