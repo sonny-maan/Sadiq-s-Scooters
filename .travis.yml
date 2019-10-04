@@ -5,8 +5,12 @@ language: node_js
 node_js:
   - node
 
+services:
+  - xvfb # service necessary for launching a virtual display (for mocha testing in Firefox)
+
 install:
   - npm ci
 
 script:
   - npm test
+  - npm run linter

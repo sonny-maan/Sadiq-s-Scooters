@@ -1,8 +1,3 @@
-// const Person = require('../lib/person');
-
-// const Person = require('../lib/person');
-// const DockingStation = require('../lib/docking_station');
-
 
 class World {
   constructor() {
@@ -27,7 +22,11 @@ class World {
   }
 
   generateDockingStation(options) {
-    let newDockingStationIndex = this._dockingStations.push(new DockingStation(options)) - 1;
+
+    let newDockingStation = new DockingStation(options)
+
+    if (newDockingStation.cost > this.balance) { return}
+    let newDockingStationIndex = this._dockingStations.push(newDockingStation) - 1;
     this.updateBalanceDSPurchase()
     return this._dockingStations[newDockingStationIndex]
   }
@@ -55,6 +54,5 @@ class World {
     })
 
   }
-}
 
-module.exports = World;
+}
