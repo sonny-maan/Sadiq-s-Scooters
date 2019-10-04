@@ -2,109 +2,146 @@ class Person {
   constructor(options, imgSrc) {
 
     // default properties
-    this._location = [-0.01, 0.5]
-    this._destination = [1.01, 0.5]
-    this._speed = 0.02
-    this._questCompleted = false
-    this._path = []
+    this.location = [-0.01, 0.5]
+    this.destination = [1.01, 0.5]
+    this.path = []
+    this.questCompleted = false
+    this.speed = 0.02
     this.imgSrc = imgSrc
-    this._vehicle
+    this.vehicle
     // this.planetEarth = options['planetEarth']
-
     // overwrite from options
-    if (options) {
-      if (Object.keys(options).includes('location')) {
-        this._location = options['location']
-      }
-      if (Object.keys(options).includes('destination')) {
-        this._destination = options['destination']
-      }
-      if (Object.keys(options).includes('speed')) {
-        this._speed = options['speed']
-      }
-      if (Object.keys(options).includes('path')) {
-        this._path = options['path']
-      }
-    }
-  }
-
-  get location() {
-    return this._location;
-  }
-
-  get questCompleted() {
-    return this._questCompleted;
+    this.setOptions(options)
   }
 
   get onVehicle() {
-    if (this._vehicle) {
-      return true
+    return (!!this.vehicle)
+  }
+
+  currentSpeed() {
+    return this.onVehicle ? this.vehicle._speed : this.speed
+  }
+
+  atDestination() {
+    return this.sameLoc(this.location, this.destination);
+  }
+
+  nearDestination() {
+    return (this.distance2(this.location, this.destination) <= (this.currentSpeed() * this.currentSpeed()))
+  }
+
+  newLocation() {
+
+    if (this.nearDestination()) {
+      return this.destination
     }
-    return false
+
+    let direction = this.aToB(this.location, this.destination)
+    let angle = Math.atan2(direction[1], direction[0]);
+    let newX = (this.location[0] + (this.currentSpeed() * Math.cos(angle)));
+    let newY = (this.location[1] + (this.currentSpeed() * Math.sin(angle)));
+    return [newX, newY]
   }
 
-  get vehicle() {
-    return this._vehicle
+  nextDestination() {
+    return this.path.length > 0 ? this.path.pop() : this.destination
   }
 
-  set vehicle(vehicle) {
-    this._vehicle = vehicle
-  }
-
-  get speed() {
-    if (this.onVehicle) {
-      return this._vehicle.speed
-    }
-    return this._speed
+  isQuestCompleted() {
+    return (this.atDestination() && this.path.length === 0)
   }
 
   walk(the_world) {
+
+    this.questCompleted = this.isQuestCompleted()
+    this.location = this.newLocation()
     if (this.atDestination()) {
-
-      if (this._path.length > 0) {
-        this._destination = this._path.pop()
-      } else {
-        this._questCompleted = true // means they did NOT move on previous turn
-      }
-
-    } else if (this.nearDestination()) {
-      // console.log('SNAPPING')
-      this._location = this._destination
-    } else {
-      // this.moveLocation()
-      this._location = this.newLocation()
+      this.destination = this.nextDestination()
     }
 
     if (the_world) {
       this.updateBehaviour(the_world);
     }
-    return this._location
-  }
-
-  newLocation() {
-    let direction = this.aToB(this._location, this._destination)
-    let angle = Math.atan2(direction[1], direction[0]);
-    let newX = (this._location[0] + (this.speed * Math.cos(angle)));
-    let newY = (this._location[1] + (this.speed * Math.sin(angle)));
-    return [newX, newY]
+    return this.location
   }
 
 
 
+
+  updateBehaviour(the_world) {
+    if (the_world.dockingStations.length > 0) {
+
+      let closestToDestination = this.closestTo(this.destination, the_world.dockingStations)
+
+      if (this.onVehicle) {
+
+        // if at this docking station
+        if (this.sameLoc(this.location, closestToDestination.location)) {
+          this.destination = this.endDestination
+          this.path = []
+          closestToDestination.dock(the_world)
+          this.vehicle = undefined
+
+        } else { // if not there yet
+
+          this.path = [this.endDestination]
+          this.destination = closestToDestination.location
+
+        }
+
+      } else {
+        // without vehicle
+        let closestToPerson = this.closestTo(this.location, the_world.dockingStations)
+
+        // only matters if closest to person and closest to destination is different
+        if (this.sameLoc(closestToDestination.location, closestToPerson.location) === false) {
+          // if there:
+          if (this.sameLoc(this.location, closestToPerson.location)) {
+
+            this.path = [this.endDestination]
+            this.destination = closestToDestination.location
+            this.vehicle = closestToPerson.release();
+
+          } else { // go to closest
+            this.path = [this.endDestination, closestToDestination.location]
+            this.destination = closestToPerson.location
+          }
+        }
+      }
+    }
+  }
+
+  get endDestination() {
+    return (this.path[0] || this.destination)
+  }
+
+
+  // draw() {
+  //   let img = new Image();
+  //   img.src = this.imgSrc;
+  //   // './assets/person_scooter.png';
+  //   img1.onload = function () {
+  //     //draw background image
+  //     ctx.drawImage(img, 0, 0);
+  //   };
+  // }
+
+
+  // Location Helper Functions
   aToB(locA, locB) {
     return [locB[0] - locA[0], locB[1] - locA[1]]
   }
-  mag2(loc) {
+  length2(loc) {
     return (loc[0] * loc[0]) + (loc[1] * loc[1])
   }
-  mag(loc) {
-    Math.sqrt(this.mag2(loc))
+  length(loc) {
+    return Math.sqrt(this.length2(loc))
   }
-  dist2(loc1, loc2) {
-    return this.mag2(this.aToB(loc2, loc1))
+  distance2(loc1, loc2) {
+    return this.length2(this.aToB(loc2, loc1))
   }
-  dist(loc1, loc2) {
-    return Math.sqrt(this.dist2(loc1, loc2))
+  distance(loc1, loc2) {
+    return Math.sqrt(this.distance2(loc1, loc2))
   }
 
   sameLoc(loc1, loc2) {
@@ -116,9 +153,9 @@ class Person {
 
   closestTo(loc, array) {
     let closest = array[0]
-    let currentDist2 = this.dist2(loc, closest._location)
+    let currentDist2 = this.distance2(loc, closest.location)
     array.forEach(element => {
-      let newDist2 = this.dist2(loc, element._location)
+      let newDist2 = this.distance2(loc, element.location)
       if (newDist2 < currentDist2) {
         closest = element
         currentDist2 = newDist2
@@ -127,78 +164,17 @@ class Person {
     return closest
   }
 
-  get endDestination() {
-    return (this._path[0] || this._destination)
-  }
+  setOptions(options) {
+    if (options) {
+      let optionKeys = Object.keys(options)
+      let dockingStationKeys = Object.keys(this)
 
-  updateBehaviour(the_world) {
-    if (the_world.dockingStations.length > 0) {
-
-      let closestToDestination = this.closestTo(this._destination, the_world.dockingStations)
-
-      if (this.onVehicle) {
-
-        // if at this docking station
-        if (this.sameLoc(this._location, closestToDestination._location)) {
-          this._destination = this.endDestination
-          this._path = []
-          closestToDestination.dock(the_world)
-          this._vehicle = undefined
-
-        } else { // if not there yet
-
-          this._path = [this.endDestination]
-          this._destination = closestToDestination._location
-
+      optionKeys.forEach(optionKey => {
+        if (dockingStationKeys.includes(optionKey)) {
+          this[optionKey] = options[optionKey]
         }
-
-      } else {
-        // without vehicle
-        let closestToPerson = this.closestTo(this._location, the_world.dockingStations)
-
-        // only matters if closest to person and closest to destination is different
-        if (this.sameLoc(closestToDestination._location, closestToPerson._location) === false) {
-          // if there:
-          if (this.sameLoc(this._location, closestToPerson._location)) {
-
-            this._path = [this.endDestination]
-            this._destination = closestToDestination._location
-            this._vehicle = closestToPerson.release();
-
-          } else { // go to closest
-            this._path = [this.endDestination, closestToDestination._location]
-            this._destination = closestToPerson._location
-          }
-        }
-      }
+      })
     }
   }
-
-
-  atDestination() {
-    return this.sameLoc(this._location, this._destination);
-  }
-
-  nearDestination() {
-
-    let x = (this._destination[0] - this._location[0]);
-    let y = (this._destination[1] - this._location[1]);
-    let distance_squared = ((x * x) + (y * y));
-
-    if (distance_squared <= (this.speed * this.speed)) {
-      return true;
-    }
-    return false;
-  }
-
-  // draw() {
-  //   let img = new Image();
-  //   img.src = this.imgSrc;
-  //   // './assets/person_scooter.png';
-  //   img1.onload = function () {
-  //     //draw background image
-  //     ctx.drawImage(img, 0, 0);
-  //   };
-  // }
 
 }
