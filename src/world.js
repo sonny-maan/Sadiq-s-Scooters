@@ -24,7 +24,7 @@ class World {
 
     let newDockingStation = new DockingStation(options)
 
-    if (newDockingStation.cost > this.balance) { throw new Error('You do not have enough money to buy that docking station')}
+    if (newDockingStation.cost > this.balance) { return}
     let newDockingStationIndex = this._dockingStations.push(newDockingStation) - 1;
     this.updateBalanceDSPurchase()
     return this._dockingStations[newDockingStationIndex]
