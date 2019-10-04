@@ -3,6 +3,7 @@ class World {
     this._people = []
     this._dockingStations = []
     this.balance = 100
+    this.map = []
   }
 
   get people() {
@@ -24,7 +25,9 @@ class World {
 
     let newDockingStation = new DockingStation(options)
 
-    if (newDockingStation.cost > this.balance) { return}
+    if (newDockingStation.cost > this.balance) {
+      return
+    }
     let newDockingStationIndex = this._dockingStations.push(newDockingStation) - 1;
     this.updateBalanceDSPurchase()
     return this._dockingStations[newDockingStationIndex]

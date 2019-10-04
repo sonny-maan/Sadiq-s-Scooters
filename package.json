@@ -5,6 +5,7 @@
     "linter": "eslint . --fix"
   },
   "devDependencies": {
+    "easystarjs": "^0.4.3",
     "eslint": "^6.5.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
@@ -15,5 +16,6 @@
     "karma": "^4.3.0",
     "karma-firefox-launcher": "^1.2.0",
     "karma-jasmine": "^2.0.1"
-  }
+  },
+  "dependencies": {}
 }
