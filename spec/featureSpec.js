@@ -91,6 +91,7 @@ describe('world', () => {
 
 
   it('person will use a scooter when it goes past a docking station, and will put it back at the end', () => {
+    console.log('FAIL')
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -104,6 +105,7 @@ describe('world', () => {
       location: [0, 0],
       destination: [0, 1]
     });
+    console.log(person);
 
     world.tick();
     console.log(person);
@@ -116,10 +118,11 @@ describe('world', () => {
       world.tick();
       stepCounter++
       if ((person.location[0] == dockingStation1.location[0]) && (person.location[1] == dockingStation1.location[1])) {
-        console.log(person);
+        console.log('made it to ds 1', person);
         break;
       }
     }
+
     world.tick();
     console.log(person);
     world.tick();
@@ -138,7 +141,7 @@ describe('world', () => {
     expect(scootCounter).toBeLessThan(8)
 
     expect(person.onVehicle).toEqual(false)
-
+    console.log('END FAIL')
 
   });
 

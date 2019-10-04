@@ -3,7 +3,19 @@ class World {
     this._people = []
     this._dockingStations = []
     this.balance = 100
-    this.map = []
+    this.map = [
+      [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+      [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 0, 0, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+      [1, 1, 0, 0, 0, 1, 1, 0, 1, 1],
+      [1, 1, 0, 1, 0, 1, 1, 0, 1, 1],
+      [1, 1, 0, 1, 0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
+      [0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    ]
+    this.graph = new Graph(this.map)
   }
 
   get people() {
@@ -11,10 +23,19 @@ class World {
   }
 
   generatePerson(options) {
+    if (options) {
+      options = {
+        world: this,
+        ...options
+      }
+    } else {
+      options = {
+        world: this
+      }
+    }
 
     let newPersonIndex = this._people.push(new Person(options, './assets/person_scooter.png')) - 1;
     return this._people[newPersonIndex]
-
   }
 
   get dockingStations() {
