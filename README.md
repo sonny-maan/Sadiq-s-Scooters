@@ -42,6 +42,12 @@ As a User
 So that people can tell how well Im doing
 I want to be able to see how much money I have
 ```
+
+```
+As a User
+So that the game isn't too easy
+I want to only be able to buy docking stations I can afford
+```
 **People**
 ```
 As a User
