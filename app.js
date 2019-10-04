@@ -1,20 +1,15 @@
 // const Person = require('../lib/person');
 // const World = require('../lib/world');
-
-
-
-var body = document.getElementsByTagName("body")[0];
-var canvas = document.createElement("canvas");
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-var context = canvas.getContext("2d");
-body.appendChild(canvas);
+function start(){
+  document.getElementById("start-btn").style.display = 'none';
+  canvas.width = 700;
+  canvas.height = 700;
+  document.body.insertBefore(canvas, document.body.childNodes[0]);
+}
 
 world = new World
-
-console.log('new world!')
-console.log(world)
-
+person = new Person
+// console.log(person === )
 function create() {
   //  Opacity
   // world.generatePerson()
@@ -28,27 +23,26 @@ function create() {
     path.push([Math.random(), Math.random()])
   }
   let options = {
-    location: [Math.random(), Math.random()],
-    destination: [Math.random(), Math.random()],
-    path: [],
-    // path: path,
+    location: [0, 0],
+    destination: [0, 0],
+    path: path,
     speed: Math.random() / 10
   }
   world.generatePerson(options)
-
-
   console.log(world.people);
-
 }
 
 function drawPeople() {
-  const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
   world.tick();
   // Remove people
   // Redraw all people
   var width = 20;
   var height = 20;
+
+  people = world.people
+
+
   // redraw
   world.people.forEach(person1 => {
     if (person1.onVehicle) {
@@ -87,18 +81,20 @@ function drawPeople() {
     let eh1 = dockingStation._location[0]
     let eh2 = dockingStation._location[1]
     context.fillRect(eh1 * canvas.width, eh2 * canvas.height, 5, 15);
+
   });
-
-
   setTimeout(drawPeople, 50)
 }
 // setInterval(drawPeople, 50)
-drawPeople()
 
 // function Square(width, height, color, x, y) {
 //     this.Person = world.generatePerson()
-
 //     context.fillRect(person._location[0], person._location[1], width, height);
 //   }
 
-document.addEventListener('click', create);
+
+function startGame() {
+  start();
+  create();
+  drawPeople();
+}

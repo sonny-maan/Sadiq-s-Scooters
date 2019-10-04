@@ -1,3 +1,4 @@
+
 class World {
   constructor() {
     this._people = []
@@ -21,7 +22,11 @@ class World {
   }
 
   generateDockingStation(options) {
-    let newDockingStationIndex = this._dockingStations.push(new DockingStation(options)) - 1;
+
+    let newDockingStation = new DockingStation(options)
+
+    if (newDockingStation.cost > this.balance) { return}
+    let newDockingStationIndex = this._dockingStations.push(newDockingStation) - 1;
     this.updateBalanceDSPurchase()
     return this._dockingStations[newDockingStationIndex]
   }

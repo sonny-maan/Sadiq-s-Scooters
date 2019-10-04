@@ -279,4 +279,14 @@ describe('world', () => {
 
 
 
+
+  it('balance cannot be negative, a user cannot buy a docking station they cannot afford', () => {
+    world.generateDockingStation()
+    world.generateDockingStation()
+    world.generateDockingStation()
+
+    expect(world._dockingStations.length).toEqual(2)
+
+  })
+
 });
