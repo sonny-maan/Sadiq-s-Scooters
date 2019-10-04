@@ -15,6 +15,10 @@ world = new World
 console.log('new world!')
 console.log(world)
 
+console.log(getCursorPosition())
+
+
+
 function create() {
   //  Opacity
   // world.generatePerson()
