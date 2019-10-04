@@ -228,6 +228,10 @@ describe('world', () => {
       dockedVehicles: 0
     })
 
+    console.log(dockingStation2.capacity + "OLD old CAPACITY")
+    console.log(dockingStation2.dockedVehicles + " old OLD DV")
+    console.log(world.balance + "old old balance ")
+
 
     let i
     for (i=0; i< 6; i++){
@@ -249,10 +253,12 @@ describe('world', () => {
 
       console.log(dockingStation2.capacity + "OLD CAPACITY")
       console.log(dockingStation2.dockedVehicles + "OLD DV")
+      console.log(world.balance + "old balance ")
 
       dockingStation2.increaseCapacity(world)
       console.log(dockingStation2.capacity + "NEW CAPACITY")
       console.log(dockingStation2.dockedVehicles + "NEW DV")
+      console.log(world.balance + "new balance ")
 
 
       expect(world.balance).toEqual(0)
@@ -262,9 +268,14 @@ describe('world', () => {
       world.tick();
         }
 
+        console.log(dockingStation2.capacity + "NEW new CAPACITY")
+        console.log(dockingStation2.dockedVehicles + "NEW new DV")
+        console.log(world.balance + "new new balance ")
+
         expect(dockingStation2.capacity).toEqual(6)
         expect(dockingStation2.dockedVehicles).toEqual(6)
       expect(world.people.length).toEqual(1)
+      expect(world.balance).toEqual(5)
 
 
 
