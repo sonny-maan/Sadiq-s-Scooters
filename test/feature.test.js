@@ -213,9 +213,65 @@ describe('world', () => {
       world.tick();
         }
 
-      expect(world.people.length).toEqual(1)
+      expect(world.people.length).toEqual(2)
       expect(world.balance).toEqual(20)
 
   })
+
+  test('docking station capacity can be increased - 2 spaces at a time, one full and one empty, balance goes down', () => {
+    let dockingStation1 = world.generateDockingStation({
+      location: [0, 0.6]
+    })
+    let dockingStation2 = world.generateDockingStation({
+      location: [0, 0.8],
+      capacity: 4,
+      dockedVehicles: 0
+    })
+
+
+    let i
+    for (i=0; i< 6; i++){
+    world.generatePerson({
+      location: [0, 0],
+      destination: [0, 1.1]
+    });
+      }
+
+      let j
+      for (j=0; j< 1000; j++){
+      world.tick();
+        }
+
+
+
+      expect(world.people.length).toEqual(2)
+      expect(world.balance).toEqual(20)
+
+      console.log(dockingStation2.capacity + "OLD CAPACITY")
+      console.log(dockingStation2.dockedVehicles + "OLD DV")
+
+      dockingStation2.increaseCapacity(world)
+      console.log(dockingStation2.capacity + "NEW CAPACITY")
+      console.log(dockingStation2.dockedVehicles + "NEW DV")
+
+
+      expect(world.balance).toEqual(0)
+
+      let h
+      for (h=0; h< 1000; h++){
+      world.tick();
+        }
+
+        expect(dockingStation2.capacity).toEqual(6)
+        expect(dockingStation2.dockedVehicles).toEqual(6)
+      expect(world.people.length).toEqual(1)
+
+
+
+  })
+
+  //decrease capacity
+
+
 
 });
