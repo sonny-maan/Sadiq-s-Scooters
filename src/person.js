@@ -87,8 +87,8 @@ class Person {
         if (this.sameLoc(this.location, closestToDestination.location)) {
           this.destination = this.endDestination()
           this.path = []
-          closestToDestination.dock(the_world)
-          this.vehicle = undefined
+          if(closestToDestination.dock(the_world))
+          {this.vehicle = undefined}
         } else { // if not there yet
           this.path = [this.endDestination()]
           this.destination = closestToDestination.location

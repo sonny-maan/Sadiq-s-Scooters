@@ -1,3 +1,7 @@
+const World = require('../lib/world');
+const Scooter = require('../lib/scooter');
+
+
 describe('world', () => {
 
   let world;
@@ -6,7 +10,7 @@ describe('world', () => {
     world = new World();
   });
 
-  it('world to generate person who moves towards destination', () => {
+  test('world to generate person who moves towards destination', () => {
     world.generatePerson();
     expect(world.people.length).toEqual(1);
     let originalLocation = world.people[0].location
@@ -18,7 +22,7 @@ describe('world', () => {
     expect(world.people.length).toEqual(0);
   });
 
-  it('person arrives at destination before disappearing', () => {
+  test('person arrives at destination before disappearing', () => {
     options = {
       location: [0, 0],
       destination: [0.5, 0],
@@ -43,7 +47,7 @@ describe('world', () => {
   });
 
 
-  it('person on vehicle goes to docking station closest to destination and walks', () => {
+  test('person on vehicle goes to docking station closest to destination and walks', () => {
     world = new World();
 
     personOptions = {
@@ -90,7 +94,7 @@ describe('world', () => {
   });
 
 
-  it('person will use a scooter when it goes past a docking station, and will put it back at the end', () => {
+  test('person will use a scooter when it goes past a docking station, and will put it back at the end', () => {
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -142,7 +146,7 @@ describe('world', () => {
 
   });
 
-  it('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
+  test('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
 
     expect(world.balance).toEqual(100)
     world.generateDockingStation()
@@ -150,14 +154,14 @@ describe('world', () => {
   })
 
 
-  it('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
+  test('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
     expect(world.balance).toEqual(100)
     let dockingStation = world.generateDockingStation()
     dockingStation.dock(world)
     expect(world.balance).toEqual(55)
   })
 
-  it('a person cant pick up a scooter from an empty docking station, so they wait by it', () => {
+  test('a person cant pick up a scooter from an empty docking station, so they wait by it', () => {
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -185,7 +189,7 @@ describe('world', () => {
   })
 
 
-  it('a person cannot dock a scooter at a full docking station, so they wait by it', () => {
+  test('a person cannot dock a scooter at a full docking station, so they wait by it', () => {
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -214,7 +218,7 @@ describe('world', () => {
 
   })
 
-  it('docking station capacity can be increased - 2 spaces at a time, one full and one empty, balance goes down', () => {
+  test('docking station capacity can be increased - 2 spaces at a time, one full and one empty, balance goes down', () => {
     let dockingStation1 = world.generateDockingStation({
       location: [0, 0.6]
     })
@@ -264,7 +268,9 @@ describe('world', () => {
       world.tick();
         }
 
-
+        console.log(dockingStation2.capacity + "NEW new CAPACITY")
+        console.log(dockingStation2.dockedVehicles + "NEW new DV")
+        console.log(world.balance + "new new balance ")
 
         expect(dockingStation2.capacity).toEqual(6)
         expect(dockingStation2.dockedVehicles).toEqual(6)
@@ -278,15 +284,5 @@ describe('world', () => {
   //decrease capacity
 
 
-
-
-  it('balance cannot be negative, a user cannot buy a docking station they cannot afford', () => {
-    world.generateDockingStation()
-    world.generateDockingStation()
-    world.generateDockingStation()
-
-    expect(world._dockingStations.length).toEqual(2)
-
-  })
 
 });
