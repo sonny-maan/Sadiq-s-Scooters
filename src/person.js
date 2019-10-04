@@ -60,11 +60,13 @@ class Person {
 
   walk(the_world) {
     if (this.atDestination()) {
+
       if (this._path.length > 0) {
         this._destination = this._path.pop()
       } else {
         this._questCompleted = true // means they did NOT move on previous turn
       }
+
     } else if (this.nearDestination()) {
       // console.log('SNAPPING')
       this._location = this._destination
@@ -87,16 +89,6 @@ class Person {
     return [newX, newY]
   }
 
-  moveLocation() {
-    let dx = this._destination[0] - this._location[0];
-    let dy = this._destination[1] - this._location[1];
-    let angle = Math.atan2(dy, dx);
-    let a = (this._location[0] + (this.speed * Math.cos(angle)));
-    let b = (this._location[1] + (this.speed * Math.sin(angle)));
-    this._location[0] = a
-    this._location[1] = b
-    return this._location
-  }
 
 
   aToB(locA, locB) {
@@ -199,21 +191,14 @@ class Person {
     return false;
   }
 
-
   // draw() {
   //   let img = new Image();
   //   img.src = this.imgSrc;
   //   // './assets/person_scooter.png';
   //   img1.onload = function () {
   //     //draw background image
-
   //     ctx.drawImage(img, 0, 0);
-
   //   };
-
   // }
 
-
 }
-
-module.exports = Person;
