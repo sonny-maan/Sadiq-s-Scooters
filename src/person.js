@@ -59,124 +59,63 @@ class Person {
     return (this.atDestination() && this.path.length === 0)
   }
 
+  endDestination() {
+    return (this.path[0] || this.destination)
+  }
+
   walk() {
-
-    // Look around
-    // // Set destination goal ie. at destination, dock/release/next destination.
-
-    // Interact
-    // // Drop off vehicle, pick up vehicle ?
-    // // Duplicating look around behaviour?
-
-    // Move
-    // // Take destination, move towards it. Update current location
-
     this.questCompleted = this.isQuestCompleted()
     this.location = this.newLocation()
     this.destination = this.newDestination()
 
     if (this.world) {
-
       let directions = this.getDirections()
       this.destination = directions.pop()
       this.path = directions
-      return this.location
     }
 
-    // if (this.world) {
-
-    //   let numDockingStations = this.world.dockingStations.length
-    //   let closestToDestination = this.closestTo(this.destination, this.world.dockingStations)
-    //   let closestToPerson = this.closestTo(this.location, this.world.dockingStations)
-
-    //   // 1 ds, on vehicle
-    //   if (numDockingStations >= 1 && this.onVehicle) {
-
-    //     // if at this docking station
-    //     if (this.sameLoc(this.location, closestToDestination.location)) {
-    //       this.destination = this.endDestination()
-    //       this.path = []
-    //       closestToDestination.dock(this.world)
-    //       this.vehicle = undefined
-    //     } else { // if not there yet
-    //       this.path = [this.endDestination()]
-    //       this.destination = closestToDestination.location
-    //     }
-    //     return this.location
-    //   }
-    //   if (numDockingStations >= 2 && !this.onVehicle) {
-    //     // 2 ds, not on vehicle
-    //     // only matters if closest to person and closest to destination is different
-    //     if (this.sameLoc(closestToDestination.location, closestToPerson.location) === false) {
-    //       // if there:
-    //       if (this.sameLoc(this.location, closestToPerson.location)) {
-    //         this.path = [this.endDestination()]
-    //         this.destination = closestToDestination.location
-    //         this.vehicle = closestToPerson.release();
-    //       } else { // go to closest
-    //         this.path = [this.endDestination(), closestToDestination.location]
-    //         this.destination = closestToPerson.location
-    //       }
-    //     }
-    //     return this.location
-    //   }
-    // }
-
-    // return this.location
+    return this.location
   }
-
-
 
   getDirections() {
-
     let numDockingStations = this.world.dockingStations.length
-    let closestToDestination = this.closestTo(this.destination, this.world.dockingStations)
+    let closestToDestination = this.closestTo(this.endDestination(), this.world.dockingStations)
     let closestToPerson = this.closestTo(this.location, this.world.dockingStations)
 
-    // 1 ds, on vehicle
     if (numDockingStations >= 1 && this.onVehicle) {
-
-      // if at this docking station
       if (this.sameLoc(this.location, closestToDestination.location)) {
-
         closestToDestination.dock(this.world)
         this.vehicle = undefined
-        return [this.endDestination()]
-
-      } else { // if not there yet
-
-        return [this.endDestination(), closestToDestination.location]
-
       }
+      return [this.endDestination(), closestToDestination.location]
     }
     if (numDockingStations >= 2 && !this.onVehicle) {
-      console.log('releasing')
-      // 2 ds, not on vehicle
-      // only matters if closest to person and closest to destination is different
+      if (this.isDetourSlower(this.location, closestToPerson.location, closestToDestination.location, this.endDestination())) {
+        return [this.endDestination()]
+      }
       if (this.sameLoc(closestToDestination.location, closestToPerson.location) === false) {
-        console.log('releasing')
-        // if there:
         if (this.sameLoc(this.location, closestToPerson.location)) {
-          console.log('releasing')
           this.vehicle = closestToPerson.release();
           return [this.endDestination(), closestToDestination.location]
-
         } else { // go to closest
-
           return [this.endDestination(), closestToDestination.location, closestToPerson.location]
-
         }
       }
-      return [this.destination]
     }
 
-
-    return [this.destination]
+    return [this.endDestination()]
 
   }
 
-  endDestination() {
-    return (this.path[0] || this.destination)
+  detourDistance2(currentLocation, stop1, stop2, destination) {
+    let detourDistance2Calc = this.distance2(currentLocation, stop1)
+    detourDistance2Calc += this.distance2(stop1, stop2) * 0.5
+    detourDistance2Calc += this.distance2(stop2, destination)
+    return detourDistance2Calc
+  }
+
+  isDetourSlower(currentLocation, stop1, stop2, destination) {
+    return this.distance2(currentLocation, destination) <= this.detourDistance2(currentLocation, stop1, stop2, destination)
   }
 
   // draw() {
@@ -204,7 +143,7 @@ class Person {
     return Math.sqrt(this.length2(loc))
   }
   distance2(loc1, loc2) {
-    return this.length2(this.aToB(loc2, loc1))
+    return this.length2(this.aToB(loc1, loc2))
   }
   distance(loc1, loc2) {
     return Math.sqrt(this.distance2(loc1, loc2))

@@ -96,8 +96,8 @@ function drawPeople() {
 
   setTimeout(drawPeople, 50)
 }
-// setInterval(drawPeople, 50)
-drawPeople()
+setTimeout(drawPeople, 50)
+// drawPeople()
 
 // function Square(width, height, color, x, y) {
 //     this.Person = world.generatePerson()
