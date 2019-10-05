@@ -32,8 +32,16 @@ function create() {
   console.log(world.people);
 }
 
+// function drawBalance() {
+//
+//
+// context.font = "30px Arial";
+//
+// }
+
 function drawPeople() {
   context.clearRect(0, 0, canvas.width, canvas.height);
+  context.fillText(world.balance,10,50);
   world.tick();
   // Remove people
   // Redraw all people
@@ -85,6 +93,9 @@ function drawPeople() {
   });
   setTimeout(drawPeople, 50)
 }
+
+
+
 // setInterval(drawPeople, 50)
 
 // function Square(width, height, color, x, y) {
