@@ -41,7 +41,8 @@ function create() {
 
 function drawPeople() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillText(world.balance,10,50);
+  context.font = '28px serif';
+  context.fillText(`£ ${world.balance}`,600,50);
   world.tick();
   // Remove people
   // Redraw all people
