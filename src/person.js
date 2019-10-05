@@ -149,7 +149,6 @@ class Person {
     return Math.sqrt(this.distance2(loc1, loc2))
   }
 
-
   sameLoc(loc1, loc2) {
     if ((loc1[0] === loc2[0]) && (loc1[1] === loc2[1])) {
       return true

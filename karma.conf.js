@@ -15,6 +15,8 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'lib/graph.js',
+      'lib/astar.js',
       'src/**/*.js',
       'spec/**/*.js'
     ],
