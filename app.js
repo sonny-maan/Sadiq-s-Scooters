@@ -5,8 +5,8 @@
 
 var body = document.getElementsByTagName("body")[0];
 var canvas = document.createElement("canvas");
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+canvas.height = 600;
+canvas.width = 600;
 var context = canvas.getContext("2d");
 body.appendChild(canvas);
 
@@ -53,7 +53,26 @@ function drawPeople() {
   // Redraw all people
   var width = 20;
   var height = 20;
+
+  let mapHeight = world.map.length
+  let mapWidth = world.map[0].length
+  //draw map
+
+  for (let y = 0; y < mapHeight; y++) {
+    for (let x = 0; x < mapWidth; x++) {
+      context.fillStyle = 'green'
+      if (world.map[y][x] === 1) {
+        context.fillStyle = 'blue'
+      }
+
+      context.fillRect(x * (canvas.width / mapWidth), y * (canvas.height / mapHeight), canvas.width / mapWidth, canvas.height / mapHeight);
+    }
+  }
+
+
   // redraw
+  context.fillStyle = 'orange'
+
   world.people.forEach(person1 => {
     if (person1.onVehicle) {
       context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width + 20, height);
@@ -93,6 +112,20 @@ function drawPeople() {
     context.fillRect(eh1 * canvas.width, eh2 * canvas.height, 5, 15);
   });
 
+
+
+  for (let i = 0; i < 10; i++) {
+    60 * i
+    context.strokeStyle = 'black'
+    context.beginPath();
+    context.moveTo(i * 60, 0);
+    context.lineTo(i * 60, canvas.height);
+    context.stroke();
+    context.beginPath();
+    context.moveTo(0, i * 60);
+    context.lineTo(canvas.width, i * 60);
+    context.stroke();
+  }
 
   setTimeout(drawPeople, 50)
 }

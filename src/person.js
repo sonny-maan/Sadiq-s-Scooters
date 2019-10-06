@@ -1,16 +1,19 @@
 class Person {
   constructor(options, imgSrc) {
-    this.location = [-0.01, 0.5]
-    this.destination = [1.01, 0.5]
+    this.location = [0, 0.5]
+    this.destination = [0.9999, 0.5]
     this.path = []
     this.questCompleted = false
     this.speed = 0.02
     this.imgSrc = imgSrc
-    this.vehicle
+    this.vehicle = undefined
     this.endDestinationVar = (this.path[0] || this.destination)
     this.world = undefined
+    this.map = undefined
     this.setOptions(options)
-
+    if (this.world) {
+      this.map = this.world.map
+    }
   }
 
   get onVehicle() {
@@ -25,8 +28,8 @@ class Person {
     return this.sameLoc(this.location, this.destination);
   }
 
-  nearDestination() {
-    return (this.distance2(this.location, this.destination) <= (this.currentSpeed() * this.currentSpeed()))
+  nearDestination(loc, destination, speed) {
+    return (this.distance2(loc, destination) <= (speed * speed))
   }
 
   moveFromAToB(locA, locB, speed) {
@@ -37,11 +40,95 @@ class Person {
     return [newX, newY]
   }
 
-  newLocation() {
-    if (this.nearDestination()) {
-      return this.destination
+  offRoad(loc, map) {
+    let mapCoOrd = locToMap(loc, map)
+    if (map[mapCoOrd[1]][mapCoOrd[0]] === 1) {
+      return true
+    } else {
+      return false
     }
-    return this.moveFromAToB(this.location, this.destination, this.currentSpeed())
+  }
+
+  onRoad(loc, map) {
+    return !this.offRoad(loc, map)
+  }
+
+  onRoadLoc(loc, map) {
+    loc = this.onCanvasLoc(loc)
+    if (this.onRoad(loc, map)) {
+      return loc
+    }
+    let mapCoord = locToMap(loc, map)
+    for (let range = 0; range <= Math.max(map[0].length, map.length); range++) {
+      for (let dx = -range; dx <= range; dx++) {
+        for (let dy = -range; dy <= range; dy++) {
+          let checkCoord = [mapCoord[0] + dx, mapCoord[1] + dy]
+          if (this.onMap(checkCoord, map)) {
+            if (map[checkCoord[0]][checkCoord[1]] === 0) {
+              return mapToLoc(checkCoord, map)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  onMap(coord, map) {
+    let mapWidth = map[0].length
+    let mapHeight = map.length
+    if (coord[0] >= 0 && coord[0] < mapWidth && coord[1] >= 0 && coord[1] < mapHeight) {
+      return true
+    }
+    return false
+  }
+
+  offCanvas(loc) {
+    return (loc[0] < 0 || loc[0] > 1 || loc[1] < 0 || loc[1] > 1)
+  }
+  onCanvasLoc(loc) {
+    let x = loc[0]
+    let y = loc[1]
+    if (loc[0] < 0) {
+      x = 0
+    }
+    if (loc[0] > 1) {
+      x = 0.9999
+    }
+    if (loc[1] < 0) {
+      y = 0
+    }
+    if (loc[1] > 1) {
+      y = 0.9999
+    }
+    return [x, y]
+  }
+
+
+
+  newLocation(loc, destination, speed, map) {
+
+    loc = this.onCanvasLoc(loc)
+    let newLoc = loc
+    if (map) {
+      newLoc = this.onRoadLoc(loc, map)
+    }
+
+    newLoc = this.moveFromAToB(loc, destination, speed)
+    if (this.nearDestination(loc, destination, speed)) {
+      newLoc = destination
+    }
+
+    if (map) {
+      if (this.onRoad(newLoc, map)) {
+        return newLoc
+      } else {
+        return loc
+
+      }
+    }
+    return newLoc
+
+
   }
 
   newDestination() {
@@ -65,7 +152,9 @@ class Person {
 
   walk() {
     this.questCompleted = this.isQuestCompleted()
-    this.location = this.newLocation()
+
+    this.location = this.newLocation(this.location, this.destination, this.currentSpeed(), this.map)
+
     this.destination = this.newDestination()
 
     if (this.world) {
@@ -78,6 +167,7 @@ class Person {
   }
 
   getDirections() {
+
     let numDockingStations = this.world.dockingStations.length
     let closestToDestination = this.closestTo(this.endDestination(), this.world.dockingStations)
     let closestToPerson = this.closestTo(this.location, this.world.dockingStations)
@@ -127,9 +217,6 @@ class Person {
   //     ctx.drawImage(img, 0, 0);
   //   };
   // }
-
-
-
 
 
   // Location Helper Functions

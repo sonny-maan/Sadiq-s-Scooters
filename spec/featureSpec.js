@@ -3,7 +3,9 @@ describe('world', () => {
   let world;
 
   beforeEach(() => {
-    world = new World();
+    world = new World({
+      map: undefined
+    });
   });
 
   it('world to generate person who moves towards destination', () => {
@@ -44,7 +46,9 @@ describe('world', () => {
 
 
   it('person on vehicle goes to docking station closest to destination and walks', () => {
-    world = new World();
+    world = new World({
+      map: undefined
+    });
 
     personOptions = {
       location: [0, 0.5],

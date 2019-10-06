@@ -3,7 +3,9 @@ describe('world', () => {
   let world;
 
   beforeEach(() => {
-    world = new World;
+    world = new World({
+      map: undefined
+    });
   });
 
   it('world will generate a new docking station', () => {

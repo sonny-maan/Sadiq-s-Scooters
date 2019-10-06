@@ -1,5 +1,5 @@
 class World {
-  constructor() {
+  constructor(options) {
     this._people = []
     this._dockingStations = []
     this.balance = 100
@@ -16,6 +16,7 @@ class World {
       [0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
     ]
     this.graph = new Graph(this.map)
+    this.setOptions(options)
   }
 
   get people() {
@@ -76,6 +77,21 @@ class World {
       person.walk(this);
     })
 
+  }
+
+
+
+  setOptions(options) {
+    if (options) {
+      let optionKeys = Object.keys(options)
+      let dockingStationKeys = Object.keys(this)
+
+      optionKeys.forEach(optionKey => {
+        if (dockingStationKeys.includes(optionKey)) {
+          this[optionKey] = options[optionKey]
+        }
+      })
+    }
   }
 
 }

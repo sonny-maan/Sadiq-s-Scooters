@@ -7,17 +7,21 @@ describe('person', () => {
   })
 
   it('person moves when commanded to walk', () => {
+    console.log('person moves')
+    console.log(person)
     let location = person.location.slice();
     person.walk();
+
+    console.log(person)
+
     expect(person.location).not.toEqual(location);
   });
 
   it('returns true if person is at destination', () => {
-    for (var i = 0; i < 51; i++) {
+    for (var i = 0; i < 50; i++) {
       person.walk();
     }
-
-    expect(person.nearDestination()).toEqual(true);
+    expect(person.nearDestination(person.location, person.destination, person.speed)).toEqual(true);
   });
 
   it('by default person is not on a vehicle', () => {
@@ -36,12 +40,12 @@ describe('custom person', () => {
     })
 
     expect(person.atDestination()).toEqual(false);
-    expect(person.nearDestination()).toEqual(true);
+    expect(person.nearDestination(person.location, person.destination, person.speed)).toEqual(true);
 
     person.walk()
 
     expect(person.atDestination()).toEqual(true);
-    expect(person.nearDestination()).toEqual(true);
+    expect(person.nearDestination(person.location, person.destination, person.speed)).toEqual(true);
 
     expect(person.location).toEqual([0.8, 0.8])
 
@@ -115,6 +119,7 @@ describe('custom person', () => {
       person.walk();
       person.walk();
     }
+    person.walk();
     expect(person.questCompleted).toEqual(true)
   })
 
