@@ -4,7 +4,7 @@ class Person {
     this.destination = new Location(0.9999, 0.5)
     this.path = []
     this.questCompleted = false
-    this.speed = 0.002
+    this.speed = 0.02
     this.imgSrc = imgSrc
     this.vehicle = undefined
     this.endDestinationVar = (this.path[0] || this.destination)

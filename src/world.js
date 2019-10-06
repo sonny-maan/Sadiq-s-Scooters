@@ -3,6 +3,7 @@ class World {
     this._people = []
     this._dockingStations = []
     this.balance = 100
+    this.hasUpdated = true
     this.map = new WorldMap({
       grid: [
         [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -77,7 +78,7 @@ class World {
     this._people.forEach((person) => {
       person.walk(this);
     })
-
+    this.hasUpdated = false
   }
 
 
