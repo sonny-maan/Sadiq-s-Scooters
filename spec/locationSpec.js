@@ -61,5 +61,18 @@ describe('location', () => {
 
   })
 
+  describe('loc1.moveToward(loc2,distance)', () => {
+    it('returns new location', () => {
+      let loc1 = new Location(1, 1)
+      let loc2 = new Location(1, -8)
+      let distance = 3
+      let newLoc = loc1.moveToward(loc2, distance)
+      expect(newLoc.near(new Location(1, -2), 0.002)).toEqual(true)
+      // expect(newLoc.x).toEqual(1)
+      // expect(newLoc.y).toEqual(-2)
+    })
+
+  })
+
 
 })

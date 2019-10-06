@@ -16,6 +16,7 @@ class Location {
   length2() {
     return (this.x * this.x) + (this.y * this.y)
   }
+
   length() {
     return Math.sqrt(this.length2())
   }
@@ -23,8 +24,17 @@ class Location {
   distance2(locB) {
     return this.to(locB).length2()
   }
+
   distance(locB) {
     return Math.sqrt(this.distance2(locB))
+  }
+
+  moveToward(locB, distance) {
+    let direction = this.to(locB)
+    let angle = Math.atan2(direction.y, direction.x);
+    let newX = (this.x + (distance * Math.cos(angle)));
+    let newY = (this.y + (distance * Math.sin(angle)));
+    return new Location(newX, newY)
   }
 
 }

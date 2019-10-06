@@ -1,6 +1,6 @@
 class DockingStation {
   constructor(options) {
-    this._location = [0.5, 0.5]
+    this._location = new Location(0.5, 0.5)
     this._cost = 50
     this._pricePerRide = 5
     this._vehicleClass = Scooter
