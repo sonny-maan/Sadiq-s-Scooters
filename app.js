@@ -86,18 +86,17 @@ function resetBtn(e) {
   mouseY = e.pageY - canvasOffset.top;
   // console.log(mouseX, mouseY)
   if (resetButton.isPointInside(mouseX, mouseY)) {
-    console.log("reset works")
+    location.reload()
     // need to work on this part later
     // startGame();
   }
 }
 
 function startGame() {
-  document.addEventListener('click', playBtn, false);  
+  document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
   new Game(canvas);
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG('map.png', createGrid);
   toolBar();
 }
-
