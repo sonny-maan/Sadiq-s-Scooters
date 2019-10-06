@@ -37,4 +37,29 @@ class Location {
     return new Location(newX, newY)
   }
 
+  onMap() {
+    return (this.x >= 0 && this.x <= 1 && this.y >= 0 && this.y <= 1)
+  }
+  offMap() {
+    return !this.onMap()
+  }
+
+  moveToOnMap() {
+    let newX = this.x
+    let newY = this.y
+    if (this.x < 0) {
+      newX = 0
+    }
+    if (this.x > 1) {
+      newX = 1
+    }
+    if (this.y < 0) {
+      newY = 0
+    }
+    if (this.y > 1) {
+      newY = 1
+    }
+    return new Location(newX, newY)
+  }
+
 }

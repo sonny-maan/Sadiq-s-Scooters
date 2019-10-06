@@ -74,5 +74,46 @@ describe('location', () => {
 
   })
 
+  describe('loc1.onMap() and offMap', () => {
+    it('handles edges -1 ', () => {
+      let loc = new Location(0, 0)
+      expect(loc.onMap()).toEqual(true)
+      expect(loc.offMap()).toEqual(false)
+    });
+    it('handles edges -2 ', () => {
+      let loc = new Location(1, 0)
+      expect(loc.onMap()).toEqual(true)
+    });
+    it('handles edges -3 ', () => {
+      let loc = new Location(0, 1)
+      expect(loc.onMap()).toEqual(true)
+    });
+    it('handles edges -4 ', () => {
+      let loc = new Location(1, 1)
+      expect(loc.onMap()).toEqual(true)
+    });
+    it('random is on map', () => {
+      let loc = new Location(Math.random(), Math.random())
+      expect(loc.onMap()).toEqual(true)
+    })
+    it('random off map', () => {
+      let loc = new Location(Math.random() + 1, Math.random() - 1)
+      expect(loc.onMap()).toEqual(false)
+      expect(loc.offMap()).toEqual(true)
+    })
+  })
+
+  describe('loc.moveToOnMap()', () => {
+    it('moves in x', () => {
+      let loc = new Location(-0.5, 0.5)
+      loc = loc.moveToOnMap()
+      expect(loc.x).toEqual(0, 0.5)
+    })
+    it('moves in y', () => {
+      let loc = new Location(0.5, -0.5)
+      loc = loc.moveToOnMap()
+      expect(loc.x).toEqual(0.5, -0.5)
+    })
+  })
 
 })
