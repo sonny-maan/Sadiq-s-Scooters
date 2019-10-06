@@ -1,6 +1,6 @@
 class Scooter {
   constructor() {
-    this._speed = 0.04
+    this._speed = 0.004
   }
 
   get speed() {

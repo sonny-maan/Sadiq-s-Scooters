@@ -4,7 +4,7 @@ class Person {
     this.destination = new Location(0.9999, 0.5)
     this.path = []
     this.questCompleted = false
-    this.speed = 0.02
+    this.speed = 0.002
     this.imgSrc = imgSrc
     this.vehicle = undefined
     this.endDestinationVar = (this.path[0] || this.destination)
@@ -108,8 +108,8 @@ class Person {
   getDirections() {
 
     let numDockingStations = this.world.dockingStations.length
-    let closestToDestination = this.closestTo(this.endDestination(), this.world.dockingStations)
     let closestToPerson = this.closestTo(this.location, this.world.dockingStations)
+    let closestToDestination = this.closestTo(this.endDestination(), this.world.dockingStations)
 
     if (numDockingStations >= 1 && this.onVehicle) {
       if (this.location.at(closestToDestination.location)) {
@@ -180,8 +180,8 @@ class Person {
 
   getOtherDirections() {
 
-    let closestToDestination = this.shortestPathTo(this.endDestination(), this.world.dockingStations)
     let closestToPerson = this.shortestPathTo(this.location, this.world.dockingStations)
+    let closestToDestination = this.shortestPathTo(this.endDestination(), this.world.dockingStations)
 
     if (closestToDestination != undefined && this.onVehicle) {
       if (this.location.at(closestToDestination.location)) {
@@ -194,6 +194,7 @@ class Person {
     if (closestToPerson != undefined && closestToDestination != undefined && !this.onVehicle) {
 
       if (this.isDetourPathSlower(this.location, closestToPerson.location, closestToDestination.location, this.endDestination())) {
+
         let gridPath = this.locPathBetween(this.location, this.endDestination())
         return [this.endDestination(), ...gridPath]
       }
@@ -215,11 +216,16 @@ class Person {
 
   shortestPathTo(loc, array) {
     //Check for elements in the same grid first
+    let closest
     array.forEach((element) => {
-      if (this.sameGridLoc(loc, element)) {
-        return element
+      if (this.sameGridLoc(loc, element.location)) {
+
+        closest = element
       }
     })
+    if (closest) {
+      return closest
+    }
     // Then filter to only walkable ones
     array = array.filter((element) => {
       return this.isWalkable(element.location)
@@ -229,7 +235,6 @@ class Person {
       return undefined
     }
 
-    let closest
     let currentPathLength
     array.forEach(element => {
       let newPathLength = this.locPathBetween(loc, element.location).length
@@ -257,6 +262,7 @@ class Person {
     let detourDistance2Calc = this.locPathBetween(currentLocation, stop1).length
     detourDistance2Calc += this.locPathBetween(stop1, stop2).length * 0.5
     detourDistance2Calc += this.locPathBetween(stop2, destination).length
+
     return detourDistance2Calc
   }
 
@@ -270,6 +276,7 @@ class Person {
   sameGridLoc(loc1, loc2) {
     let gridLoc1 = this.worldMap.gridLocFromLoc(loc1)
     let gridLoc2 = this.worldMap.gridLocFromLoc(loc2)
+
     return (gridLoc1.x === gridLoc2.x && gridLoc1.y == gridLoc2.y)
   }
 
