@@ -34,19 +34,8 @@ function startMenu(){
 function playBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
-  // console.log(mouseX, mouseY)
   if (playButton.isPointInside(mouseX, mouseY)) {
-    let game = new Game (canvas)
-  startGame(game);
-  }
-}
-
-function dockingStationBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  // console.log(mouseX, mouseY)
-  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-  game.createDockingStation();
+    startGame();
   }
 }
 
@@ -76,7 +65,7 @@ function setBG(imgName, callback) {
   }
 }
 
-function toolBar(game){
+function toolBar(){
   toolBarRect.draw();
   //Reset Button
   resetButton.draw();
@@ -94,25 +83,28 @@ function toolBar(game){
 function resetBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
-  // console.log(mouseX, mouseY)
   if (resetButton.isPointInside(mouseX, mouseY)) {
     location.reload()
-    // need to work on this part later
-    // startGame();
   }
 }
 
-
+function dockingStationBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
+    let game = new Game(canvas)
+    game.createDockingStation();
+  }
+}
 
 function startGame() {
   document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
-  // document.addEventListener('click', dockingStationBtn, false);
   let game = new Game(canvas)
   console.log(game)
   document.addEventListener('click', dockingStationBtn, false);
-  dockingStationBtn(canvas, game)
   context.clearRect(0, 0, canvas.width, canvas.height);
+  dockingStationBtn(canvas, game)
   setBG('map.png', createGrid);
   toolBar();
 }

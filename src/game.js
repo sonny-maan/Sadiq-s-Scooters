@@ -4,9 +4,10 @@ class Game {
 		this.context = this.canvas.getContext("2d");
     this.world = new World
     this.person = new Person
+    this.dockingStation = [];
     this.createPerson();
     this.walkPerson();
-		this.showDockingStation()
+    this.showDockingStation();
 	}
 
 createPerson() {
@@ -28,17 +29,14 @@ createPerson() {
 
 createDockingStation(cursorX, cursorY) {
 	context.globalAlpha = 0.7;
-
    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
-this.world.generateDockingStation()
+  this.world.generateDockingStation()
   console.log(this.world.dockingStations);
-
 }
 
 showDockingStation() {
 	let width = 30;
 	let height = 20;
-
 	this.world.dockingStations.forEach(dockingStation => {
 			this.context.fillRect(dockingStation.location[0] * this.canvas.width, dockingStation.location[1] * this.canvas.height, width, height);
 		})
@@ -52,25 +50,20 @@ showDockingStation() {
 walkPerson(){
   // clears the canvas on each run time
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
   // sets the font for balance
   this.context.fillStyle = "black";
   this.context.font = '28px serif';
   this.context.fillText(`£ ${this.world.balance}`,600,50);
   // on each tick person takes a step
   this.world.tick();
-
   let width = 20;
   let height = 20;
-
-
   this.world.people.forEach(person1 => {
     if (person1.onVehicle) {
       this.context.fillRect(person1.location[0] * this.canvas.width, person1.location[1] * this.canvas.height, width + 20, height);
     } else {
       this.context.fillRect(person1.location[0] * this.canvas.width, person1.location[1] * this.canvas.height, width, height);
     }
-
     // TO BE TAKEN OUT LATER
     // draw lines to see where people are going.
     // does not affect the people or world at all
@@ -96,7 +89,6 @@ walkPerson(){
     }
 
   });
-  // repeats this function every 50 mls
 	setTimeout(() => {
     this.walkPerson();
   }, 50);
