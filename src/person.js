@@ -9,11 +9,14 @@ class Person {
     this.vehicle = undefined
     this.endDestinationVar = (this.path[0] || this.destination)
     this.world = undefined
-    this.map = undefined
+    this.worldMap = undefined
     this.setOptions(options)
     if (this.world) {
-      this.map = this.world.map
+      this.worldMap = this.world.map
     }
+    this.location = this.location.moveToOnMap()
+    this.destination = this.destination.moveToOnMap()
+
   }
 
   get onVehicle() {
@@ -28,77 +31,15 @@ class Person {
     return this.location.at(this.destination);
   }
 
-  offRoad(loc, map) {
-    let mapCoOrd = locToMap(loc, map)
-    if (map[mapCoOrd[1]][mapCoOrd[0]] === 1) {
-      return true
-    } else {
-      return false
-    }
-  }
 
-  onRoad(loc, map) {
-    return !this.offRoad(loc, map)
-  }
-
-  onRoadLoc(loc, map) {
-    loc = this.onCanvasLoc(loc)
-    if (this.onRoad(loc, map)) {
-      return loc
-    }
-    let mapCoord = locToMap(loc, map)
-    for (let range = 0; range <= Math.max(map[0].length, map.length); range++) {
-      for (let dx = -range; dx <= range; dx++) {
-        for (let dy = -range; dy <= range; dy++) {
-          let checkCoord = [mapCoord[0] + dx, mapCoord[1] + dy]
-          if (this.onMap(checkCoord, map)) {
-            if (map[checkCoord[0]][checkCoord[1]] === 0) {
-              return mapToLoc(checkCoord, map)
-            }
-          }
-        }
-      }
-    }
-  }
-
-  onMap(coord, map) {
-    let mapWidth = map[0].length
-    let mapHeight = map.length
-    if (coord[0] >= 0 && coord[0] < mapWidth && coord[1] >= 0 && coord[1] < mapHeight) {
-      return true
-    }
-    return false
-  }
-
-  offCanvas(loc) {
-    return (loc.x < 0 || loc.x > 1 || loc.y < 0 || loc.y > 1)
-  }
-  onCanvasLoc(loc) {
-    let x = loc.x
-    let y = loc.y
-    if (loc.x < 0) {
-      x = 0
-    }
-    if (loc.x > 1) {
-      x = 0.9999
-    }
-    if (loc.y < 0) {
-      y = 0
-    }
-    if (loc.y > 1) {
-      y = 0.9999
-    }
-    return new Location(x, y)
-  }
-
-
-
-  newLocation(loc, destination, speed, map) {
-
-    loc = this.onCanvasLoc(loc)
+  newLocation(loc, destination, speed, worldMap) {
+    loc = loc.moveToOnMap()
     let newLoc = loc
-    if (map) {
-      newLoc = this.onRoadLoc(loc, map)
+    if (worldMap) {
+      let gridLoc = worldMap.gridLocFromLoc(loc)
+      if (worldMap.isNotWalkable(gridLoc)) {
+        newLoc = worldMap.centerOfGrid(worldMap.closestWalkable(gridLoc))
+      }
     }
 
     newLoc = loc.moveToward(destination, speed)
@@ -106,17 +47,15 @@ class Person {
       newLoc = destination
     }
 
-    if (map) {
-      if (this.onRoad(newLoc, map)) {
+    if (worldMap) {
+      let gridLoc = worldMap.gridLocFromLoc(newLoc)
+      if (worldMap.isWalkable(gridLoc)) {
         return newLoc
       } else {
         return loc
-
       }
     }
     return newLoc
-
-
   }
 
   newDestination() {
@@ -141,7 +80,7 @@ class Person {
   walk() {
     this.questCompleted = this.isQuestCompleted()
 
-    this.location = this.newLocation(this.location, this.destination, this.currentSpeed(), this.map)
+    this.location = this.newLocation(this.location, this.destination, this.currentSpeed(), this.worldMap)
 
     this.destination = this.newDestination()
 
@@ -149,6 +88,18 @@ class Person {
       let directions = this.getDirections()
       this.destination = directions.pop()
       this.path = directions
+
+      if (this.worldMap) {
+        let otherDirections = this.getOtherDirections()
+        otherDirections = otherDirections.filter(e => {
+          return e != undefined
+        })
+        otherDirections = otherDirections.map((element) => {
+          return new Location(element.x, element.y)
+        })
+        this.destination = otherDirections.pop()
+        this.path = otherDirections
+      }
     }
 
     return this.location
@@ -227,5 +178,103 @@ class Person {
 
 
 
+  getOtherDirections() {
+
+    let closestToDestination = this.shortestPathTo(this.endDestination(), this.world.dockingStations)
+    let closestToPerson = this.shortestPathTo(this.location, this.world.dockingStations)
+
+    if (closestToDestination != undefined && this.onVehicle) {
+      if (this.location.at(closestToDestination.location)) {
+        closestToDestination.dock(this.world)
+        this.vehicle = undefined
+      }
+      let gridPath = this.locPathBetween(this.location, closestToDestination.location)
+      return [this.endDestination(), closestToDestination.location, ...gridPath]
+    }
+    if (closestToPerson != undefined && closestToDestination != undefined && !this.onVehicle) {
+
+      if (this.isDetourPathSlower(this.location, closestToPerson.location, closestToDestination.location, this.endDestination())) {
+        let gridPath = this.locPathBetween(this.location, this.endDestination())
+        return [this.endDestination(), ...gridPath]
+      }
+      if (!closestToDestination.location.at(closestToPerson.location)) {
+        if (this.location.at(closestToPerson.location)) {
+          this.vehicle = closestToPerson.release();
+          let gridPath = this.locPathBetween(this.location, closestToDestination.location)
+          return [this.endDestination(), closestToDestination.location, ...gridPath]
+        } else { // go to closest
+
+          let gridPath = this.locPathBetween(this.location, closestToPerson.location)
+          return [this.endDestination(), closestToDestination.location, closestToPerson.location, ...gridPath]
+        }
+      }
+    }
+
+    return [this.endDestination(), ...this.locPathBetween(this.location, this.endDestination())]
+  }
+
+  shortestPathTo(loc, array) {
+    //Check for elements in the same grid first
+    array.forEach((element) => {
+      if (this.sameGridLoc(loc, element)) {
+        return element
+      }
+    })
+    // Then filter to only walkable ones
+    array = array.filter((element) => {
+      return this.isWalkable(element.location)
+    })
+    // break if nothing to check
+    if (array.length === 0) {
+      return undefined
+    }
+
+    let closest
+    let currentPathLength
+    array.forEach(element => {
+      let newPathLength = this.locPathBetween(loc, element.location).length
+      if ((newPathLength < currentPathLength || currentPathLength === undefined) && newPathLength > 0) {
+        closest = element
+        currentPathLength = newPathLength
+      }
+    })
+    return closest
+  }
+
+  isDetourPathSlower(currentLocation, stop1, stop2, destination) {
+    if (this.sameGridLoc(currentLocation, destination)) {
+      return true
+    }
+    if (this.sameGridLoc(currentLocation, stop1)) {
+      return false
+    }
+
+    return this.locPathBetween(currentLocation, destination).length <= this.detourPathLength(currentLocation, stop1, stop2, destination)
+  }
+
+
+  detourPathLength(currentLocation, stop1, stop2, destination) {
+    let detourDistance2Calc = this.locPathBetween(currentLocation, stop1).length
+    detourDistance2Calc += this.locPathBetween(stop1, stop2).length * 0.5
+    detourDistance2Calc += this.locPathBetween(stop2, destination).length
+    return detourDistance2Calc
+  }
+
+  locPathBetween(loc1, loc2) {
+    let gridLoc1 = this.worldMap.gridLocFromLoc(loc1)
+    let gridLoc2 = this.worldMap.gridLocFromLoc(loc2)
+    return this.worldMap.pathBetween(gridLoc1, gridLoc2).map(element => {
+      return this.worldMap.centerOfGrid(element)
+    })
+  }
+  sameGridLoc(loc1, loc2) {
+    let gridLoc1 = this.worldMap.gridLocFromLoc(loc1)
+    let gridLoc2 = this.worldMap.gridLocFromLoc(loc2)
+    return (gridLoc1.x === gridLoc2.x && gridLoc1.y == gridLoc2.y)
+  }
+
+  isWalkable(loc) {
+    return this.worldMap.isWalkable(this.worldMap.gridLocFromLoc(loc))
+  }
 
 }

@@ -1,6 +1,8 @@
-class Map {
+class WorldMap {
   constructor(options) {
-    this.grid = []
+    this.grid = [
+      [0]
+    ]
     this.setOptions(options)
     this.width
     this.height
@@ -10,6 +12,54 @@ class Map {
     this.setDimensions()
     this.graph = new Graph(this.grid)
   }
+
+  isWalkable(gridLoc) {
+    return this.grid[gridLoc.y][gridLoc.x] === 0
+  }
+  isNotWalkable(gridLoc) {
+    return !this.isWalkable(gridLoc)
+  }
+  isInsideGrid(gridLoc) {
+    return (gridLoc.x >= 0 && gridLoc.x < this.width && gridLoc.y >= 0 && gridLoc.y < this.height)
+  }
+  isOutsideGrid(gridLoc) {
+    return !this.isInsideGrid(gridLoc)
+  }
+
+  closestWalkable(gridLoc) {
+    if (this.isWalkable(gridLoc)) {
+      return gridLoc
+    }
+    for (let range = 0; range <= Math.max(this.height, this.width); range++) {
+      for (let dx = -range; dx <= range; dx++) {
+        for (let dy = -range; dy <= range; dy++) {
+          let checkGridLoc = {
+            x: gridLoc.x + dx,
+            y: gridLoc.y + dy
+          }
+          if (this.isInsideGrid(checkGridLoc)) {
+            if (this.isWalkable(checkGridLoc)) {
+              return checkGridLoc
+            }
+          }
+        }
+      }
+    }
+    return undefined
+  }
+
+  pathBetween(gridLocA, gridLocB) {
+    let start = this.graph.nodes[gridLocA.y][gridLocA.x];
+    let end = this.graph.nodes[gridLocB.y][gridLocB.x];
+    let result = astar.search(this.graph.nodes, start, end);
+    return result.map(pathMember => {
+      return {
+        x: pathMember.y,
+        y: pathMember.x
+      }
+    }).reverse()
+  }
+
 
 
 
@@ -21,6 +71,7 @@ class Map {
     let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
     return new Location(locX, locY)
   }
+
 
   setDimensions() {
     if (this.grid.length === 0) {
@@ -61,9 +112,6 @@ class Map {
     }
   }
 
-  isOutsideGrid(gridLoc) {
-    return (gridLoc.x < 0 || gridLoc.x >= this.width || gridLoc.y < 0 || gridLoc.y >= this.height)
-  }
 
   setOptions(options) {
     if (options) {

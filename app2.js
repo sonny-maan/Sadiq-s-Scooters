@@ -54,14 +54,17 @@ function drawPeople() {
   var width = 20;
   var height = 20;
 
-  let mapHeight = world.map.length
-  let mapWidth = world.map[0].length
+  let mapHeight = world.map.height
+  let mapWidth = world.map.width
   //draw map
 
   for (let y = 0; y < mapHeight; y++) {
     for (let x = 0; x < mapWidth; x++) {
       context.fillStyle = 'green'
-      if (world.map[y][x] === 1) {
+      if (world.map.isNotWalkable({
+          x: x,
+          y: y
+        })) {
         context.fillStyle = 'blue'
       }
 

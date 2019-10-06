@@ -8,7 +8,9 @@ describe('person', () => {
 
   it('person moves when commanded to walk', () => {
     let originalLocation = person.location
+    console.log(person)
     person.walk();
+    console.log(person)
 
     expect(person.location.at(originalLocation)).toEqual(false);
   });
