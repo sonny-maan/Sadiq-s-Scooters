@@ -40,6 +40,15 @@ function playBtn(e) {
   }
 }
 
+function dockingStationBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  // console.log(mouseX, mouseY)
+  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
+  console.log(game);
+  }
+}
+
 // creates Grids on the background canvas
 function createGrid() {
   for(i = 0; i <= 700; i += 28) {
@@ -95,7 +104,9 @@ function resetBtn(e) {
 function startGame() {
   document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
-  new Game(canvas);
+  // document.addEventListener('click', dockingStationBtn, false);
+  let game = new Game(canvas);
+  document.addEventListener('click', dockingStationBtn, false);
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG('map.png', createGrid);
   toolBar();

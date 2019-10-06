@@ -6,6 +6,7 @@ class Game {
     this.person = new Person
     this.createPerson();
     this.walkPerson();
+		this.showDockingStation()
 	}
 
 createPerson() {
@@ -25,10 +26,33 @@ createPerson() {
   console.log(this.world.people);
 }
 
+createDockingStation() {
+	context.globalAlpha = 0.7;
+
+   this.world.generateDockingStation()
+
+  console.log(this.world.dockingStations);
+
+}
+
+showDockingStation() {
+	let width = 30;
+	let height = 20;
+
+	this.world.dockingStations.forEach(dockingStation => {
+			this.context.fillRect(dockingStation.location[0] * this.canvas.width, dockingStation.location[1] * this.canvas.height, width, height);
+		})
+		setTimeout(() => {
+			this.showDockingStation();
+		}, 50);
+}
+
+
+
 walkPerson(){
   // clears the canvas on each run time
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  
+
   // sets the font for balance
   this.context.fillStyle = "black";
   this.context.font = '28px serif';
@@ -38,6 +62,7 @@ walkPerson(){
 
   let width = 20;
   let height = 20;
+
 
   this.world.people.forEach(person1 => {
     if (person1.onVehicle) {
@@ -76,6 +101,8 @@ walkPerson(){
     this.walkPerson();
   }, 50);
 }
+
+
 
 
 }
