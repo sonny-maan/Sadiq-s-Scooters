@@ -26,11 +26,11 @@ createPerson() {
   console.log(this.world.people);
 }
 
-createDockingStation() {
+createDockingStation(cursorX, cursorY) {
 	context.globalAlpha = 0.7;
 
-   this.world.generateDockingStation()
-
+   // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
+this.world.generateDockingStation()
   console.log(this.world.dockingStations);
 
 }
