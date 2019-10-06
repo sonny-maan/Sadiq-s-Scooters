@@ -5,27 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
   <title>Sadiq's Scooters</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <script src="./src/scooter.js"></script>
   <script src="./src/dockingStation.js"></script>
   <script src="./src/person.js"></script>
   <script src="./src/world.js"></script>
+  <script src="./src/game.js"></script>
+  <script src="./src/rect.js"></script>
 </head>
 
 <body>
-
-  <div id="start-btn">
-    <button onclick="startGame()">Start Game</button>
- </div>
+  <canvas id="canvas-bg"></canvas>
+  <canvas id="canvas"></canvas>
   <script src="app.js"></script>
- <script>
-  let canvas = document.createElement("canvas");
-  let context = canvas.getContext("2d");
- </script>
-
-
 </body>
 
 </html>
