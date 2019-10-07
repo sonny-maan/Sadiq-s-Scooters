@@ -6,7 +6,12 @@ class World {
     this.balance = 100
     this.hasUpdated = true
     this.map = new WorldMap({
-      grid: [[0]]
+      grid: [
+        [0, 0, 1, 0],
+        [0, 0, 1, 0],
+        [0, 0, 1, 0],
+        [0, 0, 1, 0]
+          ]
     })
     this.setOptions(options)
   }
