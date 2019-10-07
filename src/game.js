@@ -42,6 +42,14 @@ showDockingStation(dockingStation) {
 }
 
 walkPerson(){
+	if(this.world.balance< 50) {this.contextBG.clearRect(90,650,70,30)}
+	if(this.world.balance >= 50 ) {
+		this.contextBG.fillRect(90,650,70,30)
+		this.contextBG.fillStyle = "Blue"
+
+}
+	 // else {this.context.clearRect(90,650,70,30)}
+
   // clears the canvas on each run time
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   // sets the font for balance
