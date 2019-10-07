@@ -35,7 +35,6 @@ class PersonGenerator {
     let destination = this.locationInGrid(this.walkableEdges[Math.floor(Math.random() * this.walkableEdges.length)]);
     let startLoc = new Location(location.x, location.y)
     let endLoc = new Location(destination.x, destination.y)
-    console.log('generate', location, destination, startLoc, endLoc)
     return this.world.generatePerson({
       location: startLoc,
       destination: endLoc,
@@ -45,15 +44,13 @@ class PersonGenerator {
   }
 
 
-  generations(self) {
-    console.log('generations')
-    //Get a location and destination.
+  generations() {
     this.generate()
 
     // Prepare next Run
-    console.log(this.randomParity())
+
     let time = this.avgWaitTime + (this.randomParity() * Math.random() * this.avgWaitTime * this.randomness)
-    console.log(time)
+
     if (this.generating) {
       return setTimeout(() => {
         this.generations()

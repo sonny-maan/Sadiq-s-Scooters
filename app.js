@@ -97,13 +97,13 @@ function resetBtn(e) {
   }
 }
 
-function dockingStationBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-    game.createDockingStation();
-  }
-}
+// function dockingStationBtn(e) {
+//   mouseX = e.pageX - canvasOffset.left;
+//   mouseY = e.pageY - canvasOffset.top;
+//   if (dockingStationButton.isPointInside(mouseX, mouseY)) {
+//     game.createDockingStation();
+//   }
+// }
 
 function startGame(self) {
   document.addEventListener('click', playBtn, false);
