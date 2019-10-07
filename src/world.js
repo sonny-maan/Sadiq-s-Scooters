@@ -1,3 +1,4 @@
+
 class World {
   constructor(options) {
     this._people = []
@@ -5,18 +6,7 @@ class World {
     this.balance = 100
     this.hasUpdated = true
     this.map = new WorldMap({
-      grid: [
-        [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
-        [1, 1, 0, 0, 0, 1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 0, 1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 0, 0, 0, 0, 1, 1],
-        [0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
-        [0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
-      ]
+      grid: [[0]]
     })
     this.setOptions(options)
   }
@@ -68,12 +58,10 @@ class World {
 
 
   tick() {
-
     // Remove People who have arrived
     this._people = this._people.filter((person) => {
       return !person.questCompleted
     })
-
     // Make each person walk
     this._people.forEach((person) => {
       person.walk(this);

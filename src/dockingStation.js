@@ -2,8 +2,11 @@ class DockingStation {
   constructor(options) {
     this._location = new Location(0.5, 0.5)
     this._cost = 50
+    this._capacity = 10
+    this._dockedVehicles = 5
     this._pricePerRide = 5
     this._vehicleClass = Scooter
+    this._increaseCapacityCost = 20
     this.setOptions(options)
   }
 
@@ -18,17 +21,34 @@ class DockingStation {
     return this._pricePerRide
   }
 
+  get capacity() {
+    return this._capacity
+  }
+
+  get dockedVehicles() {
+    return this._dockedVehicles
+  }
+
   release() {
+    if (this._dockedVehicles < 1) return
+    this._dockedVehicles -= 1
     return new this._vehicleClass();
   }
 
   dock(the_world) {
 
+    if (this._dockedVehicles >= this._capacity) {return}
+
     if (the_world != undefined)
 
     {
       the_world.payToBalance(this._pricePerRide)
+
     }
+     this._dockedVehicles +=1
+
+
+
     return true;
   }
 
@@ -44,6 +64,20 @@ class DockingStation {
         }
       })
     }
+  }
+
+
+  increaseCapacity(the_world) {
+    this._capacity += 2
+    this._dockedVehicles +=1
+
+    if (the_world != undefined)
+
+    {
+      the_world.payToBalance(-this._increaseCapacityCost)
+
+    }
+
   }
 
 }

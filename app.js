@@ -1,141 +1,119 @@
-// const Person = require('../lib/person');
-// const World = require('../lib/world');
+let canvas = document.getElementById("canvas");
+let canvasBG = document.getElementById("canvas-bg");
+let context = canvasBG.getContext("2d");
+canvas.width = 700;
+canvas.height = 700;
+canvasBG.width = 700;
+canvasBG.height = 700;
+let canvasOffset = canvas.getBoundingClientRect();
+//buttons
+let playButton = new Rect("play-btn",300,200,100,50,"blue");
+let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
+let resetButton = new Rect("reset-btn",10, 650, 70, 30,"red");
+let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
 
+window.onload = () => {
+  console.log("page refreshed")
+  startMenu();
+  document.addEventListener('click', playBtn, false);
+};
 
-
-var body = document.getElementsByTagName("body")[0];
-var canvas = document.createElement("canvas");
-canvas.height = 600;
-canvas.width = 600;
-var context = canvas.getContext("2d");
-body.appendChild(canvas);
-
-world = new World
-
-console.log('new world!')
-console.log(world)
-
-console.log(getCursorPosition())
-
-
-
-function create() {
-  //  Opacity
-  // world.generatePerson()
-  context.globalAlpha = 0.7;
-  // var color = '#' + Math.round(0xffffff * Math.random()).toString(16);
-  // context.fillStyle = color;
-  // Each rectangle's size is (20 ~ 100, 20 ~ 100)
-  let path = []
-  let steps = Math.floor(Math.random() * 100)
-  for (let i = 0; i < steps; i++) {
-    path.push([Math.random(), Math.random()])
-  }
-  let options = {
-    location: [Math.random(), Math.random()],
-    destination: [Math.random(), Math.random()],
-    path: [],
-    // path: path,
-    speed: Math.random() / 10
-  }
-  world.generatePerson(options)
-
-
-  console.log(world.people);
-
+// menu to show at start of the game
+function startMenu(){
+    let img = new Image();
+    img.src = ("./assets/bg.png");
+    img.onload = () => {
+      context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
+      context.fillStyle = "black";
+      context.font = "30px Comic Sans MS";
+      context.fillText("Play", 358, 210);
+    }
 }
 
-function drawPeople() {
-  const context = canvas.getContext('2d');
+// button to play the game
+function playBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  if (playButton.isPointInside(mouseX, mouseY)) {
+  startGame(this);
+  }
+}
+
+
+function dockingStationBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
+  game.createDockingStation();
+  }
+}
+
+// creates Grids on the background canvas
+function createGrid() {
+  for(i = 0; i <= 700; i += 28) {
+    context.moveTo(i, 0);
+    context.lineTo(i, 700);
+    context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
+    context.stroke();
+  }
+
+  for(i = 0; i <= 700; i += 28) {
+    context.moveTo(0, i);
+    context.lineTo(700, i);
+    context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
+    context.stroke();
+  }
+};
+
+function setBG(imgName, callback) {
+  let bg = new Image();
+  bg.src = `./assets/${imgName}`
+  bg.onload = function() {
+    context.drawImage(bg, 0, 0, 700, 700);
+    callback.call();
+  }
+}
+
+function toolBar(){
+  toolBarRect.draw();
+  //Reset Button
+  resetButton.draw();
+  context.fillStyle = "black";
+  context.font = "20px Comic Sans MS";
+  context.fillText("Reset", 20, 670);
+  //Docking Station Button
+  dockingStationButton.draw();
+  context.fillStyle = "black";
+  context.font = "20px Comic Sans MS";
+  context.fillText("DS", 100, 670);
+}
+
+// button to reset the game
+function resetBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  if (resetButton.isPointInside(mouseX, mouseY)) {
+    location.reload()
+  }
+}
+
+function dockingStationBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
+    game.createDockingStation();
+  }
+}
+
+function startGame(self) {
+  document.addEventListener('click', playBtn, false);
+  document.addEventListener('click', resetBtn, false);
+  window.game = new Game(canvas)
+  document.addEventListener('click', dockingStationBtn, false);
+  dockingStationBtn(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
-  world.tick();
-  // Remove people
-  // Redraw all people
-  var width = 20;
-  var height = 20;
-
-  let mapHeight = world.map.length
-  let mapWidth = world.map[0].length
-  //draw map
-
-  for (let y = 0; y < mapHeight; y++) {
-    for (let x = 0; x < mapWidth; x++) {
-      context.fillStyle = 'green'
-      if (world.map[y][x] === 1) {
-        context.fillStyle = 'blue'
-      }
-
-      context.fillRect(x * (canvas.width / mapWidth), y * (canvas.height / mapHeight), canvas.width / mapWidth, canvas.height / mapHeight);
-    }
-  }
-
-
-  // redraw
-  context.fillStyle = 'orange'
-
-  world.people.forEach(person1 => {
-    if (person1.onVehicle) {
-      context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width + 20, height);
-    } else {
-      context.fillRect(person1.location[0] * canvas.width, person1.location[1] * canvas.height, width, height);
-    }
-
-
-    // draw lines to see where people are going.
-    // does not affect the people or world at all
-    context.lineWidth = 1
-    context.strokeStyle = 'red'
-    context.beginPath();
-    context.moveTo(person1.location[0] * canvas.width, person1.location[1] * canvas.height);
-    context.lineTo(person1.destination[0] * canvas.width, person1.destination[1] * canvas.height);
-    context.stroke();
-
-    if (person1.path[0]) {
-      context.strokeStyle = 'green'
-      context.beginPath();
-
-      context.moveTo(person1.location[0] * canvas.width, person1.location[1] * canvas.height);
-      context.lineTo(person1.path[0][0] * canvas.width, person1.path[0][1] * canvas.height);
-      context.stroke();
-      context.strokeStyle = 'blue'
-      context.beginPath();
-      context.moveTo(person1.destination[0] * canvas.width, person1.destination[1] * canvas.height);
-      context.lineTo(person1.path[0][0] * canvas.width, person1.path[0][1] * canvas.height);
-      context.stroke();
-    }
-
-  });
-
-  world.dockingStations.forEach(dockingStation => {
-    let eh1 = dockingStation._location[0]
-    let eh2 = dockingStation._location[1]
-    context.fillRect(eh1 * canvas.width, eh2 * canvas.height, 5, 15);
-  });
-
-
-
-  for (let i = 0; i < 10; i++) {
-    60 * i
-    context.strokeStyle = 'black'
-    context.beginPath();
-    context.moveTo(i * 60, 0);
-    context.lineTo(i * 60, canvas.height);
-    context.stroke();
-    context.beginPath();
-    context.moveTo(0, i * 60);
-    context.lineTo(canvas.width, i * 60);
-    context.stroke();
-  }
-
-  setTimeout(drawPeople, 50)
+  dockingStationBtn(canvas, game)
+  setBG('map.png', createGrid);
+  toolBar();
 }
-setTimeout(drawPeople, 50)
-// drawPeople()
 
-// function Square(width, height, color, x, y) {
-//     this.Person = world.generatePerson()
-
-//     context.fillRect(person._location[0], person._location[1], width, height);
-//   }
-
-document.addEventListener('click', create);

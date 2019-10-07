@@ -155,6 +155,129 @@ describe('world', () => {
     expect(world.balance).toEqual(55)
   })
 
+  it('a person cant pick up a scooter from an empty docking station, so they wait by it', () => {
+    let dockingStation1 = world.generateDockingStation({
+      location: [0, 0.6]
+    })
+    let dockingStation2 = world.generateDockingStation({
+      location: [0, 0.8]
+    })
+
+
+    let i
+    for (i=0; i< 6; i++){
+    world.generatePerson({
+      location: [0, 0],
+      destination: [0, 1]
+    });
+      }
+
+      let j
+      for (j=0; j< 1000; j++){
+      world.tick();
+        }
+
+      expect(world.people.length).toEqual(1)
+      expect(world.balance).toEqual(25)
+
+  })
+
+
+  it('a person cannot dock a scooter at a full docking station, so they wait by it', () => {
+    let dockingStation1 = world.generateDockingStation({
+      location: [0, 0.6]
+    })
+    let dockingStation2 = world.generateDockingStation({
+      location: [0, 0.8],
+      capacity: 4,
+      dockedVehicles: 0
+    })
+
+
+    let i
+    for (i=0; i< 6; i++){
+    world.generatePerson({
+      location: [0, 0],
+      destination: [0, 1]
+    });
+      }
+
+      let j
+      for (j=0; j< 1000; j++){
+      world.tick();
+        }
+
+      expect(world.people.length).toEqual(2)
+      expect(world.balance).toEqual(20)
+
+  })
+
+  it('docking station capacity can be increased - 2 spaces at a time, one full and one empty, balance goes down', () => {
+    let dockingStation1 = world.generateDockingStation({
+      location: [0, 0.6]
+    })
+    let dockingStation2 = world.generateDockingStation({
+      location: [0, 0.8],
+      capacity: 4,
+      dockedVehicles: 0
+    })
+
+    console.log(dockingStation2.capacity + "OLD old CAPACITY")
+    console.log(dockingStation2.dockedVehicles + " old OLD DV")
+    console.log(world.balance + "old old balance ")
+
+
+    let i
+    for (i=0; i< 6; i++){
+    world.generatePerson({
+      location: [0, 0],
+      destination: [0, 1.1]
+    });
+      }
+
+      let j
+      for (j=0; j< 1000; j++){
+      world.tick();
+        }
+
+
+
+      expect(world.people.length).toEqual(2)
+      expect(world.balance).toEqual(20)
+
+      console.log(dockingStation2.capacity + "OLD CAPACITY")
+      console.log(dockingStation2.dockedVehicles + "OLD DV")
+      console.log(world.balance + "old balance ")
+
+      dockingStation2.increaseCapacity(world)
+      console.log(dockingStation2.capacity + "NEW CAPACITY")
+      console.log(dockingStation2.dockedVehicles + "NEW DV")
+      console.log(world.balance + "new balance ")
+
+
+      expect(world.balance).toEqual(0)
+
+      let h
+      for (h=0; h< 1000; h++){
+      world.tick();
+        }
+
+
+
+        expect(dockingStation2.capacity).toEqual(6)
+        expect(dockingStation2.dockedVehicles).toEqual(6)
+      expect(world.people.length).toEqual(1)
+      expect(world.balance).toEqual(5)
+
+
+
+  })
+
+  //decrease capacity
+
+
+
+
   it('balance cannot be negative, a user cannot buy a docking station they cannot afford', () => {
     world.generateDockingStation()
     world.generateDockingStation()

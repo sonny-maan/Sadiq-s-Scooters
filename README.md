@@ -36,6 +36,12 @@ As a User
 So that people can drop off scooters
 I want a person to be able to put a scooter back in a station
 ```
+
+```
+As a User
+So that docking stations don't create infinite vehicles
+I want each docking station to have a capacity, a person can't get a scooter from an empty docking station
+```
 **Money**
 ```
 As a User
