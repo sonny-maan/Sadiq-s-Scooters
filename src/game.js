@@ -6,6 +6,7 @@ class Game {
 		this.context = this.canvas.getContext("2d");
     this.world = new World
     this.person = new Person
+    this.dragDrop = new DragDrop(this);
     this.createPerson();
     this.walkPerson();
 	}
@@ -32,13 +33,12 @@ createDockingStation() {
    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
    let dockingStation = this.world.generateDockingStation();
    this.showDockingStation(dockingStation);
-   console.log(dockingStation);
 }
 
 showDockingStation(dockingStation) {
 	let width = 30;
 	let height = 20;
-  this.contextBG.fillRect(dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, width, height);
+  console.log(this.contextBG.fillRect(dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, width, height));
 }
 
 walkPerson(){

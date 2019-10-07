@@ -39,15 +39,6 @@ function playBtn(e) {
   }
 }
 
-
-function dockingStationBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-  game.createDockingStation();
-  }
-}
-
 // creates Grids on the background canvas
 function createGrid() {
   let gridBoxWidth = canvas.width / window.game.world.map.width
@@ -102,8 +93,9 @@ function resetBtn(e) {
 function dockingStationBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
+  console.log(mouseX, mouseY)
   if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-    game.createDockingStation();
+    dockingStationButton.draw();
   }
 }
 
@@ -111,7 +103,7 @@ function startGame(self) {
   document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
   window.game = new Game(canvas)
-  document.addEventListener('click', dockingStationBtn, false);
+  //document.addEventListener('click', dockingStationBtn, false);
   dockingStationBtn(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
   dockingStationBtn(canvas, game)
