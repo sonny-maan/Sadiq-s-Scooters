@@ -101,7 +101,7 @@ function dockingStationBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
   if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-    let game = new Game(canvas)
+    // let game = new Game(canvas)
     game.createDockingStation();
   }
 }
