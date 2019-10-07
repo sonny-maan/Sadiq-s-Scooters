@@ -1,12 +1,13 @@
 class Game {
 	constructor(canvas) {
     this.canvas = canvas;
+    this.canvasBG = canvasBG;
+    this.contextBG = this.canvasBG.getContext("2d");
 		this.context = this.canvas.getContext("2d");
     this.world = new World
     this.person = new Person
     this.createPerson();
     this.walkPerson();
-		this.showDockingStation()
 	}
 
 createPerson() {
@@ -28,25 +29,17 @@ createPerson() {
 
 createDockingStation() {
 	context.globalAlpha = 0.7;
-
    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
-  this.world.generateDockingStation()
-
-  console.log(this.world.dockingStations);
+   let dockingStation = this.world.generateDockingStation();
+   this.showDockingStation(dockingStation);
+   console.log(dockingStation);
 }
 
-showDockingStation() {
+showDockingStation(dockingStation) {
 	let width = 30;
 	let height = 20;
-	this.world.dockingStations.forEach(dockingStation => {
-			this.context.fillRect(dockingStation.location[0] * this.canvas.width, dockingStation.location[1] * this.canvas.height, width, height);
-		})
-		setTimeout(() => {
-			this.showDockingStation();
-		}, 50);
+  this.contextBG.fillRect(dockingStation.location[0] * this.canvasBG.width, dockingStation.location[1] * this.canvasBG.height, width, height);
 }
-
-
 
 walkPerson(){
   // clears the canvas on each run time
