@@ -39,6 +39,7 @@ class World {
       ]
     })
     this.setOptions(options)
+    this.personGenerator = new PersonGenerator(this)
   }
 
   get people() {

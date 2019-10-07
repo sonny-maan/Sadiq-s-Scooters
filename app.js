@@ -50,19 +50,19 @@ function dockingStationBtn(e) {
 
 // creates Grids on the background canvas
 function createGrid() {
-  for (i = 0; i <= 700; i += 23.3) {
-    context.moveTo(i, 0);
-    context.lineTo(i, 700);
-    context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
-    context.stroke();
-  }
+  // for (i = 0; i <= 700; i += 23.3) {
+  //   context.moveTo(i, 0);
+  //   context.lineTo(i, 700);
+  //   context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
+  //   context.stroke();
+  // }
 
-  for (i = 0; i <= 700; i += 23.3) {
-    context.moveTo(0, i);
-    context.lineTo(700, i);
-    context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
-    context.stroke();
-  }
+  // for (i = 0; i <= 700; i += 23.3) {
+  //   context.moveTo(0, i);
+  //   context.lineTo(700, i);
+  //   context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
+  //   context.stroke();
+  // }
 };
 
 function setBG(imgName, callback) {
