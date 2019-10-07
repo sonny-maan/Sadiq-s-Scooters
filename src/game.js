@@ -4,7 +4,6 @@ class Game {
 		this.context = this.canvas.getContext("2d");
     this.world = new World
     this.person = new Person
-    this.dockingStation = [];
     this.createPerson();
     this.walkPerson();
 		this.showDockingStation()
@@ -89,7 +88,6 @@ walkPerson(){
       this.context.lineTo(person1.path[0][0] *  this.canvas.width, person1.path[0][1] *  this.canvas.height);
       this.context.stroke();
     }
-		// this.showDockingStation()
 
   });
 	setTimeout(() => {
