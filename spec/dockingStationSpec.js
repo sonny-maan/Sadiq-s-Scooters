@@ -9,7 +9,8 @@ describe('docking station', () => {
 
 
   it('docking station default location is map center', () => {
-    expect(dockingStation.location).toEqual([0.5, 0.5])
+    expect(dockingStation.location.x).toEqual(0.5)
+    expect(dockingStation.location.y).toEqual(0.5)
   });
 
   it('docking station default cost', () => {
@@ -73,9 +74,10 @@ describe('docking station', () => {
 describe('unique docking station', () => {
   it('docking station accepts a unique location', () => {
     dockingStation = new DockingStation({
-      location: [0, 0]
+      location: new Location(0, 0)
     })
-    expect(dockingStation.location).toEqual([0, 0])
+    expect(dockingStation.location.x).toEqual(0)
+    expect(dockingStation.location.y).toEqual(0)
   });
   it('docking station accepts a unique cost', () => {
     dockingStation = new DockingStation({

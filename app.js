@@ -39,6 +39,7 @@ function playBtn(e) {
   }
 }
 
+
 function dockingStationBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
@@ -115,3 +116,4 @@ function startGame(self) {
   setBG('map.png', createGrid);
   toolBar();
 }
+

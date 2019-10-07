@@ -3,7 +3,9 @@ describe('world', () => {
   let world;
 
   beforeEach(() => {
-    world = new World();
+    world = new World({
+      map: undefined
+    });
   });
 
   it('world to generate person who moves towards destination', () => {
@@ -11,7 +13,7 @@ describe('world', () => {
     expect(world.people.length).toEqual(1);
     let originalLocation = world.people[0].location
     world.tick()
-    expect(world.people.location).not.toEqual(originalLocation);
+    expect(world.people[0].location.at(originalLocation)).toEqual(false);
     for (var i = 0; i < 110; i++) {
       world.tick();
     }
@@ -20,8 +22,8 @@ describe('world', () => {
 
   it('person arrives at destination before disappearing', () => {
     options = {
-      location: [0, 0],
-      destination: [0.5, 0],
+      location: new Location(0, 0),
+      destination: new Location(0.5, 0),
       speed: 0.2,
     }
     world.generatePerson(options);
@@ -44,32 +46,36 @@ describe('world', () => {
 
 
   it('person on vehicle goes to docking station closest to destination and walks', () => {
-    world = new World();
+    world = new World({
+      map: undefined
+    });
 
     personOptions = {
-      location: [0, 0.5],
-      path: [0, 1],
-      destination: [0, 1],
+      location: new Location(0, 0.5),
+      path: [new Location(0, 1)],
+      destination: new Location(0, 1),
     }
     let person = world.generatePerson(personOptions)
     person.vehicle = new Scooter
 
     dockingStationOptions = {
-      location: [0.01, 0.7]
+      location: new Location(0.01, 0.7)
     }
     let dockingStation = world.generateDockingStation(dockingStationOptions)
     let scootCounter = 0
-    expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
+    expect(world.dockingStations[0].location.x).toEqual(0.01)
+    expect(world.dockingStations[0].location.y).toEqual(0.7)
 
     while (scootCounter < 2000) {
       world.tick();
       scootCounter++
-      if ((person.location[0] == dockingStation.location[0]) && (person.location[1] == dockingStation.location[1])) {
+      if (person.location.at(dockingStation.location)) {
         break;
       }
     }
     expect(scootCounter).toBeLessThan(8)
-    expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
+    expect(world.dockingStations[0].location.x).toEqual(0.01)
+    expect(world.dockingStations[0].location.y).toEqual(0.7)
 
     let walkCounter = 0
     while (walkCounter < 2000) {
@@ -79,67 +85,59 @@ describe('world', () => {
 
       // expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
 
-      if ((person.location[0] === 0) && (person.location[1] === 1)) {
+      if (person.location.at(new Location(0, 1))) {
         break;
       }
     }
     expect(walkCounter).toBeGreaterThan(10)
-    expect(world.dockingStations[0].location).toEqual([0.01, 0.7])
-
+    expect(world.dockingStations[0].location.at(new Location(0.01, 0.7))).toEqual(true)
 
   });
 
 
   it('person will use a scooter when it goes past a docking station, and will put it back at the end', () => {
     let dockingStation1 = world.generateDockingStation({
-      location: [0, 0.6]
+      location: new Location(0, 0.6)
     })
     let dockingStation2 = world.generateDockingStation({
-      location: [0, 0.8]
+      location: new Location(0, 0.8)
     })
 
     expect(world.dockingStations.length).toEqual(2);
 
     let person = world.generatePerson({
-      location: [0, 0],
-      destination: [0, 1]
+      location: new Location(0, 0),
+      destination: new Location(0, 1)
     });
 
     world.tick();
-    console.log(person);
     world.tick();
-    console.log(person);
 
     let stepCounter = 0
 
     while (stepCounter < 2000) {
       world.tick();
       stepCounter++
-      if ((person.location[0] == dockingStation1.location[0]) && (person.location[1] == dockingStation1.location[1])) {
-        console.log(person);
+      if (person.location.at(dockingStation1.location)) {
         break;
       }
     }
+
     world.tick();
-    console.log(person);
     world.tick();
-    console.log(person);
     expect(person.onVehicle).toEqual(true)
 
     let scootCounter = 0
     while (scootCounter < 2000) {
       world.tick();
       scootCounter++
-      if ((person.location[0] == dockingStation2.location[0]) && (person.location[1] == dockingStation2.location[1])) {
+      if (person.location.at(dockingStation2.location)) {
         break;
       }
     }
 
     expect(scootCounter).toBeLessThan(8)
-
     expect(person.onVehicle).toEqual(false)
-
-
   });
 
   it('the balance of the world goes down by docking station cost when a docking station is purchased', () => {

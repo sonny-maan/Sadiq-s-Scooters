@@ -3,7 +3,9 @@ describe('world', () => {
   let world;
 
   beforeEach(() => {
-    world = new World;
+    world = new World({
+      map: undefined
+    });
   });
 
   it('world will generate a new docking station', () => {
@@ -14,7 +16,6 @@ describe('world', () => {
 
   it('world will generate a new person', () => {
     expect(Object.keys(world.generatePerson())).toContain('location');
-    console.log(world.people)
     expect(world.people.length).toEqual(1)
     expect(Object.keys(world.people[0])).toContain('location');
   });

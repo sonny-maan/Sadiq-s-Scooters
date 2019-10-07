@@ -1,9 +1,14 @@
 
 class World {
-  constructor() {
+  constructor(options) {
     this._people = []
     this._dockingStations = []
     this.balance = 100
+    this.hasUpdated = true
+    this.map = new WorldMap({
+      grid: [[0]]
+    })
+    this.setOptions(options)
   }
 
   get people() {
@@ -11,10 +16,19 @@ class World {
   }
 
   generatePerson(options) {
+    if (options) {
+      options = {
+        world: this,
+        ...options
+      }
+    } else {
+      options = {
+        world: this
+      }
+    }
 
     let newPersonIndex = this._people.push(new Person(options, './assets/person_scooter.png')) - 1;
     return this._people[newPersonIndex]
-
   }
 
   get dockingStations() {
@@ -25,7 +39,9 @@ class World {
 
     let newDockingStation = new DockingStation(options)
 
-    if (newDockingStation.cost > this.balance) { return}
+    if (newDockingStation.cost > this.balance) {
+      return
+    }
     let newDockingStationIndex = this._dockingStations.push(newDockingStation) - 1;
     this.updateBalanceDSPurchase()
     return this._dockingStations[newDockingStationIndex]
@@ -42,19 +58,30 @@ class World {
 
 
   tick() {
-
     // Remove People who have arrived
     this._people = this._people.filter((person) => {
       return !person.questCompleted
     })
-
     // Make each person walk
     this._people.forEach((person) => {
       person.walk(this);
     })
-    
+    this.hasUpdated = false
+  }
 
 
+
+  setOptions(options) {
+    if (options) {
+      let optionKeys = Object.keys(options)
+      let dockingStationKeys = Object.keys(this)
+
+      optionKeys.forEach(optionKey => {
+        if (dockingStationKeys.includes(optionKey)) {
+          this[optionKey] = options[optionKey]
+        }
+      })
+    }
   }
 
 }
