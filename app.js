@@ -7,10 +7,10 @@ canvasBG.width = 700;
 canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
-let playButton = new Rect("play-btn",300,200,100,50,"blue");
-let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
-let resetButton = new Rect("reset-btn",10, 650, 70, 30,"red");
-let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
+let playButton = new Rect("play-btn", 300, 200, 100, 50, "blue");
+let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
+let resetButton = new Rect("reset-btn", 10, 650, 70, 30, "red");
+let dockingStationButton = new Rect("ds-btn", 90, 650, 70, 30, "blue");
 
 window.onload = () => {
   console.log("page refreshed")
@@ -19,15 +19,15 @@ window.onload = () => {
 };
 
 // menu to show at start of the game
-function startMenu(){
-    let img = new Image();
-    img.src = ("./assets/bg.png");
-    img.onload = () => {
-      context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
-      context.fillStyle = "black";
-      context.font = "30px Comic Sans MS";
-      context.fillText("Play", 358, 210);
-    }
+function startMenu() {
+  let img = new Image();
+  img.src = ("./assets/bg.png");
+  img.onload = () => {
+    context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
+    context.fillStyle = "black";
+    context.font = "30px Comic Sans MS";
+    context.fillText("Play", 358, 210);
+  }
 }
 
 // button to play the game
@@ -35,7 +35,7 @@ function playBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
   if (playButton.isPointInside(mouseX, mouseY)) {
-  startGame(this);
+    startGame(this);
   }
 }
 
@@ -44,20 +44,20 @@ function dockingStationBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
   if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-  game.createDockingStation();
+    game.createDockingStation();
   }
 }
 
 // creates Grids on the background canvas
 function createGrid() {
-  for(i = 0; i <= 700; i += 28) {
+  for (i = 0; i <= 700; i += 23.3) {
     context.moveTo(i, 0);
     context.lineTo(i, 700);
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
     context.stroke();
   }
 
-  for(i = 0; i <= 700; i += 28) {
+  for (i = 0; i <= 700; i += 23.3) {
     context.moveTo(0, i);
     context.lineTo(700, i);
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
@@ -68,13 +68,13 @@ function createGrid() {
 function setBG(imgName, callback) {
   let bg = new Image();
   bg.src = `./assets/${imgName}`
-  bg.onload = function() {
+  bg.onload = function () {
     context.drawImage(bg, 0, 0, 700, 700);
     callback.call();
   }
 }
 
-function toolBar(){
+function toolBar() {
   toolBarRect.draw();
   //Reset Button
   resetButton.draw();
@@ -113,7 +113,6 @@ function startGame(self) {
   dockingStationBtn(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
   dockingStationBtn(canvas, game)
-  setBG('map.png', createGrid);
+  setBG('maps/map1.png', createGrid);
   toolBar();
 }
-
