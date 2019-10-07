@@ -52,6 +52,8 @@ class World {
     this._people.forEach((person) => {
       person.walk(this);
     })
+    
+
 
   }
 
