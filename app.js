@@ -36,8 +36,9 @@ function playBtn(e) {
   mouseY = e.pageY - canvasOffset.top;
   // console.log(mouseX, mouseY)
   if (playButton.isPointInside(mouseX, mouseY)) {
-    let game = new Game (canvas)
-  startGame(game);
+    console.log(this)
+    // let game = new Game (canvas)
+  startGame(this);
   }
 }
 
@@ -104,14 +105,14 @@ function resetBtn(e) {
 
 
 
-function startGame() {
+function startGame(self) {
   document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
   // document.addEventListener('click', dockingStationBtn, false);
-  let game = new Game(canvas)
-  console.log(game)
+  window.game = new Game(canvas)
+  // console.log(game)
   document.addEventListener('click', dockingStationBtn, false);
-  dockingStationBtn(canvas, game)
+  dockingStationBtn(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG('map.png', createGrid);
   toolBar();

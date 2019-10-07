@@ -7,6 +7,7 @@ class Game {
     this.createPerson();
     this.walkPerson();
 		this.showDockingStation()
+
 	}
 
 createPerson() {
@@ -26,11 +27,15 @@ createPerson() {
   console.log(this.world.people);
 }
 
-createDockingStation(cursorX, cursorY) {
+createDockingStation() {
 	context.globalAlpha = 0.7;
+	let options = {
+    location: [0.5, 0.5]
+
+  }
 
    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
-this.world.generateDockingStation()
+this.world.generateDockingStation(options)
   console.log(this.world.dockingStations);
 
 }
@@ -94,6 +99,7 @@ walkPerson(){
       this.context.lineTo(person1.path[0][0] *  this.canvas.width, person1.path[0][1] *  this.canvas.height);
       this.context.stroke();
     }
+		// this.showDockingStation()
 
   });
   // repeats this function every 50 mls
