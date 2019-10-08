@@ -15,21 +15,22 @@ let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
 let bg = new Image();
 bg.src = `./assets/map.png`
 
+
 window.onload = () => {
   startMenu();
   document.addEventListener('click', playBtn, false);
 };
 
 // menu to show at start of the game
-function startMenu(){
-    let img = new Image();
-    img.src = ("./assets/bg.png");
-    img.onload = () => {
-      context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
-      context.fillStyle = "black";
-      context.font = "30px Comic Sans MS";
-      context.fillText("Play", 358, 210);
-    }
+function startMenu() {
+  let img = new Image();
+  img.src = ("./assets/bg.png");
+  img.onload = () => {
+    context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
+    context.fillStyle = "black";
+    context.font = "30px Comic Sans MS";
+    context.fillText("Play", 358, 210);
+  }
 }
 
 // button to play the game
@@ -37,9 +38,10 @@ function playBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
   if (playButton.isPointInside(mouseX, mouseY)) {
-  startGame(this);
+    startGame(this);
   }
 }
+
 
 // creates Grids on the background canvas
 function createGrid() {
@@ -68,7 +70,7 @@ function setBG(callback) {
   }
 }
 
-function toolBar(){
+function toolBar() {
   toolBarRect.draw();
   //Reset Button
   resetButton.draw();
@@ -90,6 +92,8 @@ function resetBtn(e) {
     location.reload()
   }
 }
+
+
 
 function startGame(self) {
   document.addEventListener('click', playBtn, false);
