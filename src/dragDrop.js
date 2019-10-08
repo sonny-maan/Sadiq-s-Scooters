@@ -15,39 +15,59 @@ class DragDrop{
       if (this.selection) {
         this.selection.x = this.mouse.x - this.dragOffsetX;
         this.selection.y = this.mouse.y - this.dragOffsetY;
-
+        console.log(this.selection.x)
+        console.log(this.selection.y)
+        console.log(this.findTile())
+        // context.clearRect(0, 0, canvas.width, canvas.height);
+          let dockingStationCopy = new Rect("ds-btn",this.selection.x, this.selection.y, 70, 30,"blue");
+          dockingStationCopy.draw()
+      
+          this.reDrawEverything()
       }
     }, true);
 
     this.game.canvas.addEventListener('mouseup', (event) => {
-      if (this.isOccupied(this.mouse, this.game.world._dockingStations)) return;
+      if (this.isOccupied(this.mouse, this.ds)) return;
       console.log(this.isOccupied(this.mouse, this.ds))
       if (this.mouse.y > 600) return;
 
       let tile = this.findTile();
       
       this.selection.y = tile.y;
-      this.selection.x = tile.x < 175 ? tile.x + 175 : tile.x;
+      this.selection.x = tile.x;
       this.selection.isActive = true;
+      let dsX = this.selection.x/canvas.width
+      let dsY = this.selection.y/canvas.height
+      let loc = new Location(dsX,dsY)
+      let gridLoc = this.game.world.map.gridLocFromLoc(loc)
+      let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
+
+      console.log(dsX,dsY)
+      let newDs = this.game.world.generateDockingStation({location: centerOfGridDS})
+      this.game.showDockingStation(newDs)
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      this.reDrawEverything()
       this.selection = null;
-      this.game.showDockingStation(new DockingStation())
     }, true);
 
     this.game.canvas.addEventListener('mousedown', (event) => {
       if(this.game.dragDrop.selection) return;
       if(!(this.mouse.y >= 650 && this.mouse.y <= 700)) return; // not in toolbar!
-
-      let dockingStation;
+      console.log(this.mouse.y)
+      let dockingStationButton;
 
       if (this.mouse.x >= 90 && this.mouse.x < 175) {
-        dockingStation = new Rect("ds-btn",90, 650, 70, 30,"red");
-        dockingStation.draw()
+        dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
+        dockingStationButton.draw()
+      }else {
+        return
       }
    
-      this.game.addDS(new DockingStation());
-      this.selection = dockingStation;
-      this.dragOffsetX = this.mouse.x - dockingStation.x;
-      this.dragOffsetY = this.mouse.y - dockingStation.y;
+      
+      // this.game.addDS(new DockingStation( {location: new Location(x,y) }));
+      this.selection = dockingStationButton;
+      this.dragOffsetX = this.mouse.x - dockingStationButton.x;
+      this.dragOffsetY = this.mouse.y - dockingStationButton.y;
     }, true);
   }
 
@@ -68,5 +88,14 @@ class DragDrop{
       x: Math.floor(this.mouse.x / gridBoxWidth) * gridBoxWidth,
       y: Math.floor(this.mouse.y / gridBoxHeight) * gridBoxHeight
     };
+  }
+
+  reDrawEverything(){
+    setBG('map.png', createGrid);
+    toolBar();
+    this.game.world._dockingStations.forEach((ds) =>{
+      this.game.showDockingStation(ds)
+    })
+
   }
 }

@@ -28,9 +28,9 @@ createPerson() {
   console.log(this.world.people);
 }
 
-addDS(ds) {
-  this.world._dockingStations.push(ds)
-};
+// addDS(ds) {
+//   this.world._dockingStations.push(ds)
+// };
 
 // createDockingStation() {
 // 	context.globalAlpha = 0.7;
@@ -40,20 +40,23 @@ addDS(ds) {
 // }
 
 showDockingStation(dockingStation) {
-	let width = 30;
-	let height = 20;
-  console.log(this.contextBG.fillRect(dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, width, height));
+
+  dockingStation = new Rect("ds", dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, 70, 30, "blue")
+  dockingStation.draw()
+
+  console.log(dockingStation)
+  // console.log(this.contextBG.fillRect(dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, width, height));
 }
 
 walkPerson(){
   // clears the canvas on each run time
+  this.world.tick();
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   // sets the font for balance
   this.context.fillStyle = "black";
   this.context.font = '28px serif';
   this.context.fillText(`£ ${this.world.balance}`,600,50);
   // on each tick person takes a step
-  this.world.tick();
   let width = 20;
   let height = 20;
   this.world.people.forEach(person1 => {

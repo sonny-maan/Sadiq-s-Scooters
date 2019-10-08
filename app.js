@@ -9,7 +9,7 @@ let canvasOffset = canvas.getBoundingClientRect();
 //buttons
 let playButton = new Rect("play-btn",300,200,100,50,"blue");
 let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
-let resetButton = new Rect("reset-btn",10, 650, 70, 30,"red");
+let resetButton = new Rect("reset-btn",620, 650, 70, 40,"red");
 let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
 
 window.onload = () => {
@@ -73,7 +73,7 @@ function toolBar(){
   resetButton.draw();
   context.fillStyle = "black";
   context.font = "20px Comic Sans MS";
-  context.fillText("Reset", 20, 670);
+  context.fillText("Quit", 630, 670);
   //Docking Station Button
   dockingStationButton.draw();
   context.fillStyle = "black";
@@ -84,9 +84,13 @@ function toolBar(){
 // button to reset the game
 function resetBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
+  console.log(e.pageX)
+  // console.log(canvasOffset.left)
   mouseY = e.pageY - canvasOffset.top;
+  // console.log(mouseX, mouseY)
   if (resetButton.isPointInside(mouseX, mouseY)) {
-    location.reload()
+    // location.reload()
+    console.log("hello")
   }
 }
 
@@ -104,7 +108,6 @@ function startGame(self) {
   document.addEventListener('click', resetBtn, false);
   window.game = new Game(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
-  // dockingStationBtn(canvas, game)
   setBG('map.png', createGrid);
   toolBar();
 }
