@@ -8,7 +8,11 @@ class World {
       grid: maps.map1.grid
     })
     this.setOptions(options)
-    this.personGenerator = new PersonGenerator(this)
+
+    if (this.map) {
+      this.personGenerator = new PersonGenerator(this)
+    }
+
   }
 
   get people() {

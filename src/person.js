@@ -1,19 +1,20 @@
 class Person {
-  constructor(options, imgSrc) {
+  constructor(options) {
+    // Can be supplied
     this.location = new Location(0, 0.5)
     this.destination = new Location(0.9999, 0.5)
+    this.speed = 0.02
+    // Used
     this.path = []
     this.questCompleted = false
-    this.speed = 0.02
-    this.imgSrc = imgSrc
     this.vehicle = undefined
-    this.endDestinationVar = (this.path[0] || this.destination)
     this.world = undefined
     this.worldMap = undefined
     this.setOptions(options)
     if (this.world) {
       this.worldMap = this.world.map
     }
+    console.log(this.location)
     this.location = this.location.moveToOnMap()
     this.destination = this.destination.moveToOnMap()
     this.personDirections = new PersonDirections(this.world, this)
@@ -102,8 +103,5 @@ class Person {
       })
     }
   }
-
-
-
 
 }

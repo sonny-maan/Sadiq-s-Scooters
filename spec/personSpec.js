@@ -55,21 +55,15 @@ describe('custom person', () => {
       destination: new Location(0.2, 0.38),
       speed: 0.02
     })
-
     expect(person.location.at(person.destination)).toEqual(false);
-
     steps = 0
     while (!person.location.at(person.destination) && steps < 1000) {
       person.walk()
       steps++
     }
-
     expect(person.location.at(person.destination)).toEqual(true);
-
     person.walk();
-
     expect(person.location.at(new Location(0.2, 0.38))).toEqual(true)
-
   });
 
   it('person heads to destination and completes quest', () => {
@@ -79,16 +73,12 @@ describe('custom person', () => {
       speed: 0.2,
     }
     person = new Person(options)
-
     person.walk() // to 0.2
     person.walk() // to 0.4
     person.walk() // to 0.5
     person.walk() // no movement, questCompleted == True
     expect(person.questCompleted).toEqual(true)
-
   })
-
-
 
   it('person follows path', () => {
     options = {
@@ -100,23 +90,9 @@ describe('custom person', () => {
       ]
     }
     person = new Person(options)
-
-    for (let i = 0; i < 5; i++) {
-      person.walk();
-    }
-
-    expect(person.questCompleted).toEqual(false)
-
-    for (let i = 0; i < 10; i++) {
-      person.walk();
-    }
-
-    expect(person.questCompleted).toEqual(false)
-    for (let i = 0; i < 15; i++) {
-      person.walk();
-      person.walk();
-    }
-    person.walk();
+    person.walk()
+    person.walk()
+    person.walk()
     expect(person.questCompleted).toEqual(true)
   })
 
@@ -129,11 +105,8 @@ describe('person on scooter', () => {
     person_fast = new Person();
     person_fast.vehicle = new Scooter();
     person = new Person();
-
     person_fast.walk();
     person.walk();
-
     expect(person_fast.location.x).toBeGreaterThan(person.location.x);
-
   })
 })

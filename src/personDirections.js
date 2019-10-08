@@ -36,8 +36,12 @@ class PersonDirections {
 
     if (numDockingStations >= 1 && this.person.onVehicle) {
       if (this.person.location.at(closestToDestination.location)) {
-        closestToDestination.dock(this.world)
-        this.person.vehicle = undefined
+        if (closestToDestination.dock(this.world)) {
+
+          this.person.vehicle = undefined
+        }
+        // closestToDestination.dock(this.world)
+
       }
       return [this.person.endDestination(), closestToDestination.location]
     }

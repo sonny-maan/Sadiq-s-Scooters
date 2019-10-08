@@ -2,10 +2,11 @@ class PersonGenerator {
   constructor(world, avgWaitTime = 2, randomness = 0) {
     this.world = world
     this.worldMap = this.world.map
+    this.walkableEdges = this.findEdges(this.worldMap) // in locations
+
     this.avgWaitTime = avgWaitTime * 1000
     this.randomness = randomness
     this.generating = false
-    this.walkableEdges = this.findEdges(this.worldMap) // in locations
   }
 
   randomParity() {
