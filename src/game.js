@@ -28,12 +28,16 @@ createPerson() {
   console.log(this.world.people);
 }
 
-createDockingStation() {
-	context.globalAlpha = 0.7;
-   // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
-   let dockingStation = this.world.generateDockingStation();
-   this.showDockingStation(dockingStation);
-}
+addDS(ds) {
+  this.world._dockingStations.push(ds)
+};
+
+// createDockingStation() {
+// 	context.globalAlpha = 0.7;
+//    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
+//    let dockingStation = this.world.generateDockingStation();
+//    this.showDockingStation(dockingStation);
+// }
 
 showDockingStation(dockingStation) {
 	let width = 30;

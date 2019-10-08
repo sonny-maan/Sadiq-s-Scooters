@@ -90,23 +90,21 @@ function resetBtn(e) {
   }
 }
 
-function dockingStationBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  console.log(mouseX, mouseY)
-  if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-    dockingStationButton.draw();
-  }
-}
+// function dockingStationBtn(e) {
+//   mouseX = e.pageX - canvasOffset.left;
+//   mouseY = e.pageY - canvasOffset.top;
+//   console.log(mouseX, mouseY)
+//   if (dockingStationButton.isPointInside(mouseX, mouseY)) {
+//     dockingStationButton.draw();
+//   }
+// }
 
 function startGame(self) {
   document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
   window.game = new Game(canvas)
-  //document.addEventListener('click', dockingStationBtn, false);
-  dockingStationBtn(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
-  dockingStationBtn(canvas, game)
+  // dockingStationBtn(canvas, game)
   setBG('map.png', createGrid);
   toolBar();
 }
