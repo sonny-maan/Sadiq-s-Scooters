@@ -10,6 +10,7 @@ class DockingStation {
     this.setOptions(options)
   }
 
+
   get location() {
     return this._location;
   }

@@ -1,8 +1,13 @@
 class WorldMap {
   constructor(options) {
     this.grid = [
-      [0]
-    ]
+     
+        [0, 0, 1, 0],
+        [0, 0, 1, 0],
+        [0, 0, 1, 0],
+        [0, 0, 1, 0]
+          ]
+    
     this.setOptions(options)
     this.width
     this.height
