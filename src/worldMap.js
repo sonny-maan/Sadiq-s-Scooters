@@ -26,6 +26,42 @@ class WorldMap {
     return !this.isInsideGrid(gridLoc)
   }
 
+  gridLocFromLoc(loc) {
+    let gridX = Math.floor(loc.x / this.gridWidth)
+    let gridY = Math.floor(loc.y / this.gridHeight)
+    if (loc.x === 1) {
+      gridX = 1
+    }
+    if (loc.y === 1) {
+      gridY = 1
+    }
+    return {
+      x: gridX,
+      y: gridY
+    }
+  }
+
+  centerOfGrid(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
+    let locX = (gridLoc.x * this.gridWidth) + (0.5 * this.gridWidth)
+    let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
+    return new Location(locX, locY)
+  }
+
+  pathBetween(gridLocA, gridLocB) {
+    let start = this.graph.nodes[gridLocA.y][gridLocA.x];
+    let end = this.graph.nodes[gridLocB.y][gridLocB.x];
+    let result = astar.search(this.graph.nodes, start, end);
+    return result.map(pathMember => {
+      return {
+        x: pathMember.y,
+        y: pathMember.x
+      }
+    }).reverse()
+  }
+
   closestWalkable(gridLoc) {
     if (this.isWalkable(gridLoc)) {
       return gridLoc
@@ -47,31 +83,6 @@ class WorldMap {
     }
     return undefined
   }
-
-  pathBetween(gridLocA, gridLocB) {
-    let start = this.graph.nodes[gridLocA.y][gridLocA.x];
-    let end = this.graph.nodes[gridLocB.y][gridLocB.x];
-    let result = astar.search(this.graph.nodes, start, end);
-    return result.map(pathMember => {
-      return {
-        x: pathMember.y,
-        y: pathMember.x
-      }
-    }).reverse()
-  }
-
-
-
-
-  centerOfGrid(gridLoc) {
-    if (this.isOutsideGrid(gridLoc)) {
-      return undefined
-    }
-    let locX = (gridLoc.x * this.gridWidth) + (0.5 * this.gridWidth)
-    let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
-    return new Location(locX, locY)
-  }
-
 
   setDimensions() {
     if (this.grid.length === 0) {
@@ -96,22 +107,6 @@ class WorldMap {
 
     return
   }
-
-  gridLocFromLoc(loc) {
-    let gridX = Math.floor(loc.x / this.gridWidth)
-    let gridY = Math.floor(loc.y / this.gridHeight)
-    if (loc.x === 1) {
-      gridX = 1
-    }
-    if (loc.y === 1) {
-      gridY = 1
-    }
-    return {
-      x: gridX,
-      y: gridY
-    }
-  }
-
 
   setOptions(options) {
     if (options) {

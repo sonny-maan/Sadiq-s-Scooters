@@ -165,20 +165,20 @@ describe('world', () => {
 
 
     let i
-    for (i=0; i< 6; i++){
-    world.generatePerson({
-      location: [0, 0],
-      destination: [0, 1]
-    });
-      }
+    for (i = 0; i < 6; i++) {
+      world.generatePerson({
+        location: [0, 0],
+        destination: [0, 1]
+      });
+    }
 
-      let j
-      for (j=0; j< 1000; j++){
+    let j
+    for (j = 0; j < 1000; j++) {
       world.tick();
-        }
+    }
 
-      expect(world.people.length).toEqual(1)
-      expect(world.balance).toEqual(25)
+    expect(world.people.length).toEqual(1)
+    expect(world.balance).toEqual(25)
 
   })
 
@@ -195,20 +195,20 @@ describe('world', () => {
 
 
     let i
-    for (i=0; i< 6; i++){
-    world.generatePerson({
-      location: [0, 0],
-      destination: [0, 1]
-    });
-      }
+    for (i = 0; i < 6; i++) {
+      world.generatePerson({
+        location: [0, 0],
+        destination: [0, 1]
+      });
+    }
 
-      let j
-      for (j=0; j< 1000; j++){
+    let j
+    for (j = 0; j < 1000; j++) {
       world.tick();
-        }
+    }
 
-      expect(world.people.length).toEqual(2)
-      expect(world.balance).toEqual(20)
+    expect(world.people.length).toEqual(2)
+    expect(world.balance).toEqual(20)
 
   })
 
@@ -228,46 +228,46 @@ describe('world', () => {
 
 
     let i
-    for (i=0; i< 6; i++){
-    world.generatePerson({
-      location: [0, 0],
-      destination: [0, 1.1]
-    });
-      }
+    for (i = 0; i < 6; i++) {
+      world.generatePerson({
+        location: [0, 0],
+        destination: [0, 1.1]
+      });
+    }
 
-      let j
-      for (j=0; j< 1000; j++){
+    let j
+    for (j = 0; j < 1000; j++) {
       world.tick();
-        }
+    }
 
 
 
-      expect(world.people.length).toEqual(2)
-      expect(world.balance).toEqual(20)
+    expect(world.people.length).toEqual(2)
+    expect(world.balance).toEqual(20)
 
-      console.log(dockingStation2.capacity + "OLD CAPACITY")
-      console.log(dockingStation2.dockedVehicles + "OLD DV")
-      console.log(world.balance + "old balance ")
+    console.log(dockingStation2.capacity + "OLD CAPACITY")
+    console.log(dockingStation2.dockedVehicles + "OLD DV")
+    console.log(world.balance + "old balance ")
 
-      dockingStation2.increaseCapacity(world)
-      console.log(dockingStation2.capacity + "NEW CAPACITY")
-      console.log(dockingStation2.dockedVehicles + "NEW DV")
-      console.log(world.balance + "new balance ")
+    dockingStation2.increaseCapacity(world)
+    console.log(dockingStation2.capacity + "NEW CAPACITY")
+    console.log(dockingStation2.dockedVehicles + "NEW DV")
+    console.log(world.balance + "new balance ")
 
 
-      expect(world.balance).toEqual(0)
+    expect(world.balance).toEqual(0)
 
-      let h
-      for (h=0; h< 1000; h++){
+    let h
+    for (h = 0; h < 1000; h++) {
       world.tick();
-        }
+    }
 
 
 
-        expect(dockingStation2.capacity).toEqual(6)
-        expect(dockingStation2.dockedVehicles).toEqual(6)
-      expect(world.people.length).toEqual(1)
-      expect(world.balance).toEqual(5)
+    expect(dockingStation2.capacity).toEqual(6)
+    expect(dockingStation2.dockedVehicles).toEqual(6)
+    expect(world.people.length).toEqual(1)
+    expect(world.balance).toEqual(5)
 
 
 
@@ -288,3 +288,19 @@ describe('world', () => {
   })
 
 });
+
+
+
+
+sortArrayByKey(array, key) {
+  return array.sort((a, b) => {
+    if (a[key] < b[key]) {
+      return -1;
+    }
+    if (a[key] > b[key]) {
+      return 1;
+    }
+    return 0
+
+  })
+}
