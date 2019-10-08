@@ -34,6 +34,11 @@ showDockingStation(dockingStation) {
 
 walkPerson(){
   // clears the canvas on each run time
+	let onScooterIMG = new Image()
+	onScooterIMG.src = ("./assets/person_scooter.png")
+	let walkingIMG = new Image()
+	walkingIMG.src = ("./assets/person.png")
+
   this.world.tick();
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   // sets the font for balance
@@ -41,13 +46,20 @@ walkPerson(){
   this.context.font = '28px serif';
   this.context.fillText(`£ ${this.world.balance}`,600,50);
   // on each tick person takes a step
-  let width = 20;
-  let height = 20;
+  let width = 40;
+  let height = 40;
   this.world.people.forEach(person1 => {
     if (person1.onVehicle) {
-      this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
-    } else {
-      this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);
+      // this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
+			this.context.drawImage(onScooterIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
+			this.context.fillStyle = "black";
+
+		} else {
+			onScooterIMG.onload = () => {
+	      this.context.drawImage(walkingIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
+	      this.context.fillStyle = "black";}
+			//this.context.drawImage
+      //this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);
     }
     // TO BE TAKEN OUT LATER
     // draw lines to see where people are going.
