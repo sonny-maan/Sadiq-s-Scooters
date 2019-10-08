@@ -12,7 +12,6 @@ class Game {
 	}
 
 createPerson() {
-  context.globalAlpha = 0.7;
   let path = []
   let steps = Math.floor(Math.random() * 100)
   for (let i = 0; i < steps; i++) {
