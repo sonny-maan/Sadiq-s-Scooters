@@ -10,16 +10,43 @@
 
 Clone from [here](https://github.com/JodiFoster/Sadiq-s-Scooters).
 
-```bash
-UPDATE THIS AFTER BUILDING
-```
-
 ## Usage
 
 Simply visit [here](https://jodifoster.github.io/Sadiq-s-Scooters/)
 
 
 ## User Stories/Features
+**Main Menu**
+```
+As a User
+So that people can jam out to some bike related musics
+I want Queen - Bike Race to play
+```
+```
+As a User
+So that cursed humans that dont like Queen can have fun too
+I want there to be a mute button on the game page 
+```
+```
+As a User
+So that people can play the game easily
+I want for them to click on the screen to be taken to the game
+```
+```
+As a User
+So that people can see our code
+I want a github button on the main menu
+```
+```
+As a User
+So that people think our game looks nice 
+I want cool animations for some of the text on the index
+```
+```
+As a User
+So that people think our game looks nice 
+I want a cool parallax effect on Boris himself
+```
 **Buy and place docking station**
 ```
 As a User
