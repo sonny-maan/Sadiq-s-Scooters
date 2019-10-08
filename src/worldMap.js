@@ -1,6 +1,5 @@
 class WorldMap {
   constructor(grid, locationClass = Location) {
-
     this.grid = (grid || [
       [0]
     ])
@@ -32,10 +31,10 @@ class WorldMap {
     let gridX = Math.floor(loc.x / this.gridWidth)
     let gridY = Math.floor(loc.y / this.gridHeight)
     if (loc.x === 1) {
-      gridX = 1
+      gridX = this.width - 1
     }
     if (loc.y === 1) {
-      gridY = 1
+      gridY = this.height - 1
     }
     return {
       x: gridX,
@@ -99,10 +98,8 @@ class WorldMap {
         throw 'Map grid is not correctly formatted'
       }
     });
-
     this.gridHeight = 1 / this.height
     this.gridWidth = 1 / this.width
-
     return
   }
 }

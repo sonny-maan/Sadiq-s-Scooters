@@ -34,16 +34,15 @@ class PersonDirections {
     let closestToPerson = this.closestTo(this.person.location, this.world.dockingStations)
     let closestToDestination = this.closestTo(this.person.endDestination(), this.world.dockingStations)
 
-    if (numDockingStations >= 1 && this.person.onVehicle) {
+    if (numDockingStations >= 1 && this.person.onVehicle()) {
       if (this.person.location.at(closestToDestination.location)) {
         if (closestToDestination.dock(this.world)) {
-
           this.person.vehicle = undefined
         }
       }
       return [this.person.endDestination(), closestToDestination.location]
     }
-    if (numDockingStations >= 2 && !this.person.onVehicle) {
+    if (numDockingStations >= 2 && !this.person.onVehicle()) {
       if (this.isDetourSlower(this.person.location, closestToPerson.location, closestToDestination.location, this.person.endDestination())) {
         return [this.person.endDestination()]
       }
@@ -94,15 +93,16 @@ class PersonDirections {
     let closestToPerson = this.shortestPathTo(this.person.location, this.world.dockingStations)
     let closestToDestination = this.shortestPathTo(this.person.endDestination(), this.world.dockingStations)
 
-    if (closestToDestination != undefined && this.person.onVehicle) {
+    if (closestToDestination != undefined && this.person.onVehicle()) {
       if (this.person.location.at(closestToDestination.location)) {
-        closestToDestination.dock(this.world)
-        this.person.vehicle = undefined
+        if (closestToDestination.dock(this.world)) {
+          this.person.vehicle = undefined
+        }
       }
       let gridPath = this.locPathBetween(this.person.location, closestToDestination.location)
       return [this.person.endDestination(), closestToDestination.location, ...gridPath]
     }
-    if (closestToPerson != undefined && closestToDestination != undefined && !this.person.onVehicle) {
+    if (closestToPerson != undefined && closestToDestination != undefined && !this.person.onVehicle()) {
 
       if (this.isDetourPathSlower(this.person.location, closestToPerson.location, closestToDestination.location, this.person.endDestination())) {
 

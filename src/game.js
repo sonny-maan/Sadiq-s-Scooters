@@ -53,7 +53,7 @@ class Game {
     let width = 20;
     let height = 20;
     this.world.people.forEach(person1 => {
-      if (person1.onVehicle) {
+      if (person1.onVehicle()) {
         this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
       } else {
         this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);

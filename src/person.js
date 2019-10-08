@@ -1,32 +1,30 @@
 class Person {
-  constructor(options) {
+  constructor(world, options) {
+    this.world = world
+    this.worldMap = this.world.map
     // Can be supplied
     this.location = new Location(0, 0.5)
     this.destination = new Location(0.9999, 0.5)
     this.speed = 0.02
+
     // Used
     this.path = []
     this.questCompleted = false
     this.vehicle = undefined
-    this.world = undefined
-    this.worldMap = undefined
-    this.setOptions(options)
-    if (this.world) {
-      this.worldMap = this.world.map
-    }
-
+    this.personDirections = new PersonDirections(this.world, this)
+    // Set Dem Options
+    util.setOptions(this, options)
+    // Clean Up
     this.location = this.location.moveToOnMap()
     this.destination = this.destination.moveToOnMap()
-    this.personDirections = new PersonDirections(this.world, this)
-
   }
 
-  get onVehicle() {
+  onVehicle() {
     return (!!this.vehicle)
   }
 
   currentSpeed() {
-    return this.onVehicle ? this.vehicle._speed : this.speed
+    return this.onVehicle() ? this.vehicle.speed : this.speed
   }
 
   atDestination() {
@@ -35,36 +33,18 @@ class Person {
 
 
   newLocation(loc, destination, speed, worldMap) {
-    loc = loc.moveToOnMap()
-    let newLoc = loc
-    if (worldMap) {
-      let gridLoc = worldMap.gridLocFromLoc(loc)
-      if (worldMap.isNotWalkable(gridLoc)) {
-        newLoc = worldMap.centerOfGrid(worldMap.closestWalkable(gridLoc))
-      }
+    let newLoc = loc.near(destination, speed) ? destination : loc.moveToward(destination, speed)
+    newLoc = newLoc.moveToOnMap()
+    let newGridLoc = worldMap.gridLocFromLoc(newLoc)
+    if (worldMap.isWalkable(newGridLoc)) {
+      return newLoc
+    } else {
+      return loc
     }
-
-    newLoc = loc.moveToward(destination, speed)
-    if (loc.near(destination, speed)) {
-      newLoc = destination
-    }
-
-    if (worldMap) {
-      let gridLoc = worldMap.gridLocFromLoc(newLoc)
-      if (worldMap.isWalkable(gridLoc)) {
-        return newLoc
-      } else {
-        return loc
-      }
-    }
-    return newLoc
   }
 
   newDestination() {
-    if (this.atDestination()) {
-      return this.nextDestination()
-    }
-    return this.destination
+    return this.atDestination() ? this.nextDestination() : this.destination
   }
 
   nextDestination() {
@@ -90,18 +70,4 @@ class Person {
 
     return this.location
   }
-
-  setOptions(options) {
-    if (options) {
-      let optionKeys = Object.keys(options)
-      let dockingStationKeys = Object.keys(this)
-
-      optionKeys.forEach(optionKey => {
-        if (dockingStationKeys.includes(optionKey)) {
-          this[optionKey] = options[optionKey]
-        }
-      })
-    }
-  }
-
 }

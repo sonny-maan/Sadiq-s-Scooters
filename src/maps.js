@@ -1,4 +1,10 @@
 let maps = {
+  map0: {
+    bgImg: "",
+    grid: [
+      [0]
+    ]
+  },
   map1: {
     bgImg: "./assets/map1.png",
     grid: [
