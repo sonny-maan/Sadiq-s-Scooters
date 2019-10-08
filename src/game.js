@@ -28,24 +28,9 @@ createPerson() {
   console.log(this.world.people);
 }
 
-// addDS(ds) {
-//   this.world._dockingStations.push(ds)
-// };
-
-// createDockingStation() {
-// 	context.globalAlpha = 0.7;
-//    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
-//    let dockingStation = this.world.generateDockingStation();
-//    this.showDockingStation(dockingStation);
-// }
-
 showDockingStation(dockingStation) {
-
-  dockingStation = new Rect("ds", dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, 70, 30, "blue")
+  dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 70, 30, "blue")
   dockingStation.draw()
-
-  console.log(dockingStation)
-  // console.log(this.contextBG.fillRect(dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, width, height));
 }
 
 walkPerson(){

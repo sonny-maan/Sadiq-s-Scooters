@@ -84,24 +84,11 @@ function toolBar(){
 // button to reset the game
 function resetBtn(e) {
   mouseX = e.pageX - canvasOffset.left;
-  console.log(e.pageX)
-  // console.log(canvasOffset.left)
   mouseY = e.pageY - canvasOffset.top;
-  // console.log(mouseX, mouseY)
   if (resetButton.isPointInside(mouseX, mouseY)) {
-    // location.reload()
-    console.log("hello")
+    location.reload()
   }
 }
-
-// function dockingStationBtn(e) {
-//   mouseX = e.pageX - canvasOffset.left;
-//   mouseY = e.pageY - canvasOffset.top;
-//   console.log(mouseX, mouseY)
-//   if (dockingStationButton.isPointInside(mouseX, mouseY)) {
-//     dockingStationButton.draw();
-//   }
-// }
 
 function startGame(self) {
   document.addEventListener('click', playBtn, false);

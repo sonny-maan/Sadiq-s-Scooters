@@ -1,7 +1,7 @@
 class DragDrop{
   constructor(game){
     this.game = game
-    this.canvasOffset = this.game.canvasBG.getBoundingClientRect();
+    this.canvasOffset = this.game.canvas.getBoundingClientRect();
     this.selection;
     this.dragOffsetX = 0;
     this.dragOffsetY = 0;
@@ -18,53 +18,50 @@ class DragDrop{
         console.log(this.selection.x)
         console.log(this.selection.y)
         console.log(this.findTile())
-        // context.clearRect(0, 0, canvas.width, canvas.height);
+        //context.clearRect(0, 0, canvas.width, canvas.height);
           let dockingStationCopy = new Rect("ds-btn",this.selection.x, this.selection.y, 70, 30,"blue");
           dockingStationCopy.draw()
-      
           this.reDrawEverything()
       }
     }, true);
 
     this.game.canvas.addEventListener('mouseup', (event) => {
       if (this.isOccupied(this.mouse, this.ds)) return;
-      console.log(this.isOccupied(this.mouse, this.ds))
-      if (this.mouse.y > 600) return;
+      if (this.mouse.y > 650) return;
 
       let tile = this.findTile();
       
       this.selection.y = tile.y;
       this.selection.x = tile.x;
-      this.selection.isActive = true;
+  
       let dsX = this.selection.x/canvas.width
       let dsY = this.selection.y/canvas.height
       let loc = new Location(dsX,dsY)
       let gridLoc = this.game.world.map.gridLocFromLoc(loc)
       let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
-
-      console.log(dsX,dsY)
       let newDs = this.game.world.generateDockingStation({location: centerOfGridDS})
       this.game.showDockingStation(newDs)
       context.clearRect(0, 0, canvas.width, canvas.height);
-      this.reDrawEverything()
+      this.reDrawEverything();
+      this.selection.isActive = true;
       this.selection = null;
     }, true);
 
     this.game.canvas.addEventListener('mousedown', (event) => {
       if(this.game.dragDrop.selection) return;
       if(!(this.mouse.y >= 650 && this.mouse.y <= 700)) return; // not in toolbar!
-      console.log(this.mouse.y)
+ 
       let dockingStationButton;
 
-      if (this.mouse.x >= 90 && this.mouse.x < 175) {
-        dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
+      if(this.game.world.balance === 0){
+        alert("Your Balance is Empty: you must earn more money")
+      } else if (this.mouse.x >= 90 && this.mouse.x < 175) {
+        dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"red");
         dockingStationButton.draw()
-      }else {
-        return
+      } else {
+        return;
       }
    
-      
-      // this.game.addDS(new DockingStation( {location: new Location(x,y) }));
       this.selection = dockingStationButton;
       this.dragOffsetX = this.mouse.x - dockingStationButton.x;
       this.dragOffsetY = this.mouse.y - dockingStationButton.y;
