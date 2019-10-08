@@ -3,7 +3,6 @@ class PersonGenerator {
     this.world = world
     this.worldMap = this.world.map
     this.walkableEdges = this.findEdges(this.worldMap) // in locations
-
     this.avgWaitTime = avgWaitTime * 1000
     this.randomness = randomness
     this.generating = false

@@ -4,9 +4,7 @@ class World {
     this._dockingStations = []
     this.balance = 100
     this.hasUpdated = true
-    this.map = new WorldMap({
-      grid: maps.map1.grid
-    })
+    this.map = new WorldMap(maps.map1.grid)
     this.setOptions(options)
 
     if (this.map) {

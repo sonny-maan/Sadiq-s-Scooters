@@ -40,8 +40,6 @@ class PersonDirections {
 
           this.person.vehicle = undefined
         }
-        // closestToDestination.dock(this.world)
-
       }
       return [this.person.endDestination(), closestToDestination.location]
     }

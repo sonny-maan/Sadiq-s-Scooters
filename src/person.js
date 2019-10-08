@@ -14,7 +14,7 @@ class Person {
     if (this.world) {
       this.worldMap = this.world.map
     }
-    console.log(this.location)
+
     this.location = this.location.moveToOnMap()
     this.destination = this.destination.moveToOnMap()
     this.personDirections = new PersonDirections(this.world, this)

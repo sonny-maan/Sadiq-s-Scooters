@@ -1,9 +1,11 @@
 class WorldMap {
-  constructor(options) {
-    this.grid = [
+  constructor(grid, locationClass = Location) {
+
+    this.grid = (grid || [
       [0]
-    ]
-    this.setOptions(options)
+    ])
+    this.locationClass = locationClass
+
     this.width
     this.height
     this.gridWidth
@@ -47,7 +49,7 @@ class WorldMap {
     }
     let locX = (gridLoc.x * this.gridWidth) + (0.5 * this.gridWidth)
     let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
-    return new Location(locX, locY)
+    return new this.locationClass(locX, locY)
   }
 
   pathBetween(gridLocA, gridLocB) {
@@ -86,13 +88,10 @@ class WorldMap {
 
   setDimensions() {
     if (this.grid.length === 0) {
-      this.width = 0
-      this.height = 0
-      this.gridWidth = 1
-      this.gridHeight = 1
-      return
+      this.grid = [
+        [0]
+      ]
     }
-
     this.height = this.grid.length
     this.width = this.grid[0].length
     this.grid.forEach(row => {
@@ -104,20 +103,6 @@ class WorldMap {
     this.gridHeight = 1 / this.height
     this.gridWidth = 1 / this.width
 
-
     return
-  }
-
-  setOptions(options) {
-    if (options) {
-      let optionKeys = Object.keys(options)
-      let dockingStationKeys = Object.keys(this)
-
-      optionKeys.forEach(optionKey => {
-        if (dockingStationKeys.includes(optionKey)) {
-          this[optionKey] = options[optionKey]
-        }
-      })
-    }
   }
 }
