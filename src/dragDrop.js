@@ -19,7 +19,7 @@ class DragDrop {
         this.selection.x = this.mouse.x - this.dragOffsetX;
         this.selection.y = this.mouse.y - this.dragOffsetY;
         this.reDrawEverything()
-        let dockingStationCopy = new Rect("ds-btn", this.selection.x, this.selection.y, 23.3, 23.3, "blue");
+        let dockingStationCopy = new Rect("Docking-Station", this.selection.x, this.selection.y, 23.3, 23.3, "blue");
         dockingStationCopy.draw()
       }
     }, true);
@@ -62,8 +62,8 @@ class DragDrop {
       if (this.mouse.x >= 90 && this.mouse.x < 160 && this.game.world.balance === 0) {
         alert("Your Balance is Empty: you must earn more money")
 
-      } else if (this.mouse.x >= 90 && this.mouse.x < 175) {
-        dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "red");
+      } else if (this.mouse.x >= 150 && this.mouse.x < 170) {
+        dockingStationButton = new Rect("Docking-Station", 150, 650, 23.3, 23.3, "red");
         dockingStationButton.draw()
  
       } else {
