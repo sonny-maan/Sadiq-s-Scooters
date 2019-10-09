@@ -7,9 +7,11 @@ class Game {
     this.world = new World({
       map: new WorldMap(maps.map1.grid)
     })
+    this.world.personGenerator.start()
     this.dragDrop = new DragDrop(this);
     this.createPerson();
     this.walkPerson();
+    this.drawWalkable = false
   }
 
   showDockingStation(dockingStation) {
@@ -37,6 +39,26 @@ class Game {
   }
 
 
+  walkable(canvas, worldMap) {
+    let ctx = canvas.getContext("2d")
+    for (let x = 0; x < worldMap.width; x++) {
+      for (let y = 0; y < worldMap.height; y++) {
+        let gridLoc = {
+          x: x,
+          y: y
+        }
+        if (worldMap.isWalkable(gridLoc)) {
+          ctx.fillStyle = 'rgb(255, 255, 255)'
+        } else if (worldMap.isPathAdjacent(gridLoc)) {
+          ctx.fillStyle = 'rgba(0, 255, 255, 1)'
+        } else if (worldMap.isNotWalkable(gridLoc)) {
+          ctx.fillStyle = 'rgba(255, 0, 255, 1)'
+        }
+        ctx.fillRect(x * canvas.width, y * canvas.height, worldMap.gridWidth, worldMap.gridHeight)
+      }
+    }
+  }
+
 
 
   walkPerson() {
@@ -48,6 +70,9 @@ class Game {
 
     this.world.tick();
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.drawWalkable) {
+      drawHelpers.walkable(this.canvas, this.world.map)
+    }
     // sets the font for balance
     this.context.fillStyle = "black";
     this.context.font = '28px serif';
