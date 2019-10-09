@@ -6,30 +6,30 @@ class Person {
     this.location = new Location(0, 0.5)
     this.destination = new Location(0.9999, 0.5)
     this.speed = 0.02
-
     // Used
     this.path = []
     this.questCompleted = false
     this.vehicle = undefined
     this.personDirections = new PersonDirections(this.world, this)
     // Set Dem Options
-    // util.setOptions(this, options)
-    this.setOptions(options)
+    util.setOptions(this, options)
     // Clean Up
     this.location = this.location.moveToOnMap()
     this.destination = this.destination.moveToOnMap()
   }
 
-  setOptions(options) {
-    if (options) {
-      let optionKeys = Object.keys(options)
-      let selfKeys = Object.keys(this)
-      optionKeys.forEach(optionKey => {
-        if (selfKeys.includes(optionKey)) {
-          this[optionKey] = options[optionKey]
-        }
-      })
-    }
+  walk() {
+    let directions = this.personDirections.getNewDirections()
+    this.destination = directions.pop()
+    this.path = directions
+
+
+    this.questCompleted = this.isQuestCompleted()
+    this.location = this.newLocation(this.location, this.destination, this.currentSpeed(), this.worldMap)
+    this.destination = this.newDestination()
+
+
+    return this.location
   }
 
   onVehicle() {
@@ -43,7 +43,6 @@ class Person {
   atDestination() {
     return this.location.at(this.destination);
   }
-
 
   newLocation(loc, destination, speed, worldMap) {
     let newLoc = loc.near(destination, speed) ? destination : loc.moveToward(destination, speed)
@@ -72,15 +71,4 @@ class Person {
     return (this.path[0] || this.destination)
   }
 
-  walk() {
-    this.questCompleted = this.isQuestCompleted()
-    this.location = this.newLocation(this.location, this.destination, this.currentSpeed(), this.worldMap)
-    this.destination = this.newDestination()
-
-    let directions = this.personDirections.getNewDirections()
-    this.destination = directions.pop()
-    this.path = directions
-
-    return this.location
-  }
 }

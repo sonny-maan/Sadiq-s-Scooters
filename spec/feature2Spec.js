@@ -4,7 +4,7 @@ describe('another world - weird bug', () => {
     worldF2 = new World();
   })
 
-  it('people wait by a ds if no', () => {
+  xit('people wait by a ds if no', () => {
 
     console.log(worldF2.tickCounter)
     console.log(worldF2.people)
