@@ -46,7 +46,7 @@ class Game {
   walkPerson() {
     // clears the canvas on each run time
     let onScooterIMG = new Image()
-    onScooterIMG.src = ("./assets/person_scooter.png")
+    onScooterIMG.src = ("./assets/bicycle_rider.png")
     let walkingIMG = new Image()
     walkingIMG.src = ("./assets/person.png")
 
