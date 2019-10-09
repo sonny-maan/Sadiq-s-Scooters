@@ -42,8 +42,11 @@ class DragDrop {
       let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
       let newDs = this.game.world.generateDockingStation({
         location: centerOfGridDS
-      })
-      this.game.showDockingStation(newDs)
+      }, true)
+      if (newDs) {
+
+        this.game.showDockingStation(newDs)
+      }
       this.reDrawEverything();
       this.selection.isActive = true;
       this.selection = null;
