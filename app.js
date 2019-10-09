@@ -28,7 +28,11 @@ function findTile() {
   };
 }
 
+
+
 function increaseCap(e) {
+
+
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
   let tile = findTile();
@@ -36,20 +40,15 @@ function increaseCap(e) {
   let gridBoxWidth = game.canvas.width / window.game.world.map.width
   let gridBoxHeight = game.canvas.height / window.game.world.map.height
 
+   let array = []
+    game.world.dockingStations.forEach(function(ds){
 
-  tile.x = Math.floor(tile.x / (game.canvas.width / window.game.world.map.width))
-  tile.y = Math.floor(tile.y / (game.canvas.width / window.game.world.map.width))
-
-  // WARNING!!!!!!! DONT TAKE OUT THESE CONSOLE LOGS!!!!!
-  console.log(game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y))))
-  console.log(game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y)))[0])
-
-  let DSs = game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y)))[0]
-
-  DSs.increaseCapacity()
-
-
-}
+      if (((Math.floor(tile.x/23.3)) == game.world.map.gridLocFromLoc(ds.location).x ) &&  ((Math.floor(tile.y/23.3)) == game.world.map.gridLocFromLoc(ds.location).y )){
+        array.push(ds)
+        array[0].increaseCapacity()
+      }
+    })
+  }
 
 
 
@@ -87,7 +86,7 @@ function toolBar() {
 
 function startGame(self) {
   window.game = new Game(canvas)
-  document.addEventListener('mouseup', increaseCap, false);
+  document.addEventListener('click', increaseCap, false);
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();

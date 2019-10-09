@@ -2,7 +2,7 @@ class World {
   constructor(options) {
     this.people = []
     this.dockingStations = []
-    this.balance = 100
+    this.balance = 200
     this.hasUpdated = true
     // this.map = new WorldMap(maps.map1.grid)
     this.map = new WorldMap(maps.map0.grid) // default of one massive walkable grid
