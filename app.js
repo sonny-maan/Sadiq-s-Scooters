@@ -87,6 +87,10 @@ function increaseCap(e) {
 
 
 
+window.onload = () => {
+  startGame(self);
+
+};
 
 // creates Grids on the background canvas
 function createGrid() {
