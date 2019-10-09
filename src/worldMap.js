@@ -9,15 +9,21 @@ class WorldMap {
     this.height
     this.gridWidth
     this.gridHeight
-
+    this.diagonal = false
     this.setDimensions()
     this.graph = new Graph(this.grid)
   }
 
   isWalkable(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
     return this.grid[gridLoc.y][gridLoc.x] === 0
   }
   isNotWalkable(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
     return !this.isWalkable(gridLoc)
   }
   isInsideGrid(gridLoc) {
@@ -25,6 +31,30 @@ class WorldMap {
   }
   isOutsideGrid(gridLoc) {
     return !this.isInsideGrid(gridLoc)
+  }
+
+  isPathAdjacent(gridLoc, diagonal = this.diagonal) {
+    if (this.isWalkable(gridLoc)) {
+      return true
+    }
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        let checkGridLoc = {
+          x: gridLoc.x + dx,
+          y: gridLoc.y + dy
+        }
+        let dist = Math.abs(dx) + Math.abs(dy)
+        if (this.isWalkable(checkGridLoc)) {
+          if (dist <= 1 || diagonal) {
+            return true
+          }
+        }
+      }
+    }
+
+    return false
+
   }
 
   gridLocFromLoc(loc) {

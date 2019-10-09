@@ -16,10 +16,13 @@ class World {
     return this.people[newPersonIndex]
   }
 
-  generateDockingStation(options, preventSameGrid = false) {
+  generateDockingStation(options, preventSameGrid = false, enforcePathAdjacent = false, snapToCentre = false) {
 
     let newDs = new DockingStation(this, options)
     let newDsGridLoc = this.map.gridLocFromLoc(newDs.location)
+    if (snapToCentre) {
+      newDs.location = this.map.centerOfGrid(newDsGridLoc)
+    }
 
     // Check all docking stations and if they're in the same grid as the new one
     let clash = false
@@ -32,8 +35,18 @@ class World {
       })
     }
     if (clash) {
-      return
+      return undefined
     }
+
+    if (enforcePathAdjacent) {
+      if (this.map.isWalkable(newDsGridLoc)) {
+        return undefined
+      }
+      if (!this.map.isPathAdjacent(newDsGridLoc)) {
+        return undefined
+      }
+    }
+
     // Prevent balance from going negative
     if (newDs.cost > this.balance) {
       return undefined

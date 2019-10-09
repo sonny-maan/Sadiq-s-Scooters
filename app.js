@@ -61,7 +61,7 @@ function createGrid() {
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
     context.stroke();
   }
-};
+}
 
 
 function setBG(callback) {
