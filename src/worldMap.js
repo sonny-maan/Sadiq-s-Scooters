@@ -1,14 +1,10 @@
 class WorldMap {
-  constructor(options) {
-    this.grid = [
-     
-        [0, 0, 1, 0],
-        [0, 0, 1, 0],
-        [0, 0, 1, 0],
-        [0, 0, 1, 0]
-          ]
-    
-    this.setOptions(options)
+  constructor(grid, locationClass = Location) {
+    this.grid = (grid || [
+      [0]
+    ])
+    this.locationClass = locationClass
+
     this.width
     this.height
     this.gridWidth
@@ -29,6 +25,42 @@ class WorldMap {
   }
   isOutsideGrid(gridLoc) {
     return !this.isInsideGrid(gridLoc)
+  }
+
+  gridLocFromLoc(loc) {
+    let gridX = Math.floor(loc.x / this.gridWidth)
+    let gridY = Math.floor(loc.y / this.gridHeight)
+    if (loc.x === 1) {
+      gridX = this.width - 1
+    }
+    if (loc.y === 1) {
+      gridY = this.height - 1
+    }
+    return {
+      x: gridX,
+      y: gridY
+    }
+  }
+
+  centerOfGrid(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
+    let locX = (gridLoc.x * this.gridWidth) + (0.5 * this.gridWidth)
+    let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
+    return new this.locationClass(locX, locY)
+  }
+
+  pathBetween(gridLocA, gridLocB) {
+    let start = this.graph.nodes[gridLocA.y][gridLocA.x];
+    let end = this.graph.nodes[gridLocB.y][gridLocB.x];
+    let result = astar.search(this.graph.nodes, start, end);
+    return result.map(pathMember => {
+      return {
+        x: pathMember.y,
+        y: pathMember.x
+      }
+    }).reverse()
   }
 
   closestWalkable(gridLoc) {
@@ -53,40 +85,12 @@ class WorldMap {
     return undefined
   }
 
-  pathBetween(gridLocA, gridLocB) {
-    let start = this.graph.nodes[gridLocA.y][gridLocA.x];
-    let end = this.graph.nodes[gridLocB.y][gridLocB.x];
-    let result = astar.search(this.graph.nodes, start, end);
-    return result.map(pathMember => {
-      return {
-        x: pathMember.y,
-        y: pathMember.x
-      }
-    }).reverse()
-  }
-
-
-
-
-  centerOfGrid(gridLoc) {
-    if (this.isOutsideGrid(gridLoc)) {
-      return undefined
-    }
-    let locX = (gridLoc.x * this.gridWidth) + (0.5 * this.gridWidth)
-    let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
-    return new Location(locX, locY)
-  }
-
-
   setDimensions() {
     if (this.grid.length === 0) {
-      this.width = 0
-      this.height = 0
-      this.gridWidth = 1
-      this.gridHeight = 1
-      return
+      this.grid = [
+        [0]
+      ]
     }
-
     this.height = this.grid.length
     this.width = this.grid[0].length
     this.grid.forEach(row => {
@@ -94,40 +98,8 @@ class WorldMap {
         throw 'Map grid is not correctly formatted'
       }
     });
-
     this.gridHeight = 1 / this.height
     this.gridWidth = 1 / this.width
-
-
     return
-  }
-
-  gridLocFromLoc(loc) {
-    let gridX = Math.floor(loc.x / this.gridWidth)
-    let gridY = Math.floor(loc.y / this.gridHeight)
-    if (loc.x === 1) {
-      gridX = 1
-    }
-    if (loc.y === 1) {
-      gridY = 1
-    }
-    return {
-      x: gridX,
-      y: gridY
-    }
-  }
-
-
-  setOptions(options) {
-    if (options) {
-      let optionKeys = Object.keys(options)
-      let dockingStationKeys = Object.keys(this)
-
-      optionKeys.forEach(optionKey => {
-        if (dockingStationKeys.includes(optionKey)) {
-          this[optionKey] = options[optionKey]
-        }
-      })
-    }
   }
 }

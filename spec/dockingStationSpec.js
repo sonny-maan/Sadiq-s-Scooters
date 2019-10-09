@@ -1,8 +1,8 @@
 describe('docking station', () => {
   let dockingStation;
-
+  let world = new World()
   beforeEach(() => {
-    dockingStation = new DockingStation({
+    dockingStation = new DockingStation(world, {
       vehicleClass: Scooter
     });
   });
@@ -24,7 +24,7 @@ describe('docking station', () => {
 
 
   it('docking station releases an object with speed', () => {
-    expect(Object.keys(dockingStation.release())).toContain('_speed')
+    expect(Object.keys(dockingStation.release())).toContain('speed')
   });
 
   it('docking station accepts a vehicle', () => {
@@ -54,7 +54,7 @@ describe('docking station', () => {
     expect(dockingStation.dockedVehicles).toEqual(4)
   });
 
-    it('docking station cant accept scooter if it is full', () => {
+  it('docking station cant accept scooter if it is full', () => {
     dockingStation.dock()
     expect(dockingStation.dockedVehicles).toEqual(6)
   });
@@ -62,8 +62,9 @@ describe('docking station', () => {
 
   it('a docking station cannot release a scooter when its empty', () => {
     let i
-    for (i=0; i <11; i++)
-    {dockingStation.release()}
+    for (i = 0; i < 11; i++) {
+      dockingStation.release()
+    }
 
 
     expect(dockingStation.dockedVehicles).toEqual(0)
@@ -72,15 +73,16 @@ describe('docking station', () => {
 });
 
 describe('unique docking station', () => {
+  let world = new World();
   it('docking station accepts a unique location', () => {
-    dockingStation = new DockingStation({
+    dockingStation = new DockingStation(world, {
       location: new Location(0, 0)
     })
     expect(dockingStation.location.x).toEqual(0)
     expect(dockingStation.location.y).toEqual(0)
   });
   it('docking station accepts a unique cost', () => {
-    dockingStation = new DockingStation({
+    dockingStation = new DockingStation(world, {
       cost: 25
     })
     expect(dockingStation.cost).toEqual(25)

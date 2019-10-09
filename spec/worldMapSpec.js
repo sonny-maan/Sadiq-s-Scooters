@@ -5,21 +5,17 @@ describe('WorldMap', () => {
   describe('calculates width and height', () => {
 
     it('empty grid', () => {
-      worldMap = new WorldMap({
-        grid: []
-      })
-      expect(worldMap.width).toEqual(0)
-      expect(worldMap.height).toEqual(0)
+      worldMap = new WorldMap([])
+      expect(worldMap.width).toEqual(1)
+      expect(worldMap.height).toEqual(1)
       expect(worldMap.gridWidth).toEqual(1)
       expect(worldMap.gridHeight).toEqual(1)
 
     })
     it('single row', () => {
-      worldMap = new WorldMap({
-        grid: [
-          [1, 0, 1, 0, 1, 0, 1]
-        ]
-      })
+      worldMap = new WorldMap([
+        [1, 0, 1, 0, 1, 0, 1]
+      ])
       expect(worldMap.width).toEqual(7)
       expect(worldMap.height).toEqual(1)
 
@@ -27,17 +23,15 @@ describe('WorldMap', () => {
       expect(worldMap.gridHeight).toEqual(1)
     })
     it('single column', () => {
-      worldMap = new WorldMap({
-        grid: [
-          [1],
-          [0],
-          [1],
-          [0],
-          [1],
-          [0],
-          [1]
-        ]
-      })
+      worldMap = new WorldMap([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0],
+        [1]
+      ])
       expect(worldMap.width).toEqual(1)
       expect(worldMap.height).toEqual(7)
 
@@ -60,12 +54,10 @@ describe('WorldMap', () => {
   describe('centerOfGrid', () => {
     let worldMap;
     beforeEach(() => {
-      worldMap = new WorldMap({
-        grid: [
-          [0, 1],
-          [0, 1]
-        ]
-      });
+      worldMap = new WorldMap([
+        [0, 1],
+        [0, 1]
+      ]);
     })
 
     it('return center of grid', () => {
@@ -89,12 +81,10 @@ describe('WorldMap', () => {
   describe('gridLocFromLoc', () => {
     let worldMap;
     beforeEach(() => {
-      worldMap = new WorldMap({
-        grid: [
-          [0, 1],
-          [0, 1]
-        ]
-      });
+      worldMap = new WorldMap([
+        [0, 1],
+        [0, 1]
+      ]);
     })
     it('gives grid loc', () => {
       let gridLoc = worldMap.gridLocFromLoc({
@@ -153,9 +143,7 @@ describe('WorldMap', () => {
         [0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
         [0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
       ]
-      map = new WorldMap({
-        grid: grid
-      })
+      map = new WorldMap(grid)
     })
     it('finds the route', () => {
       let gridLocA = {
@@ -189,12 +177,10 @@ describe('WorldMap', () => {
 
   describe('closestWalkable', () => {
     it('return self if walkable', () => {
-      map = new WorldMap({
-        grid: [
-          [0, 1],
-          [1, 1]
-        ]
-      })
+      map = new WorldMap([
+        [0, 1],
+        [1, 1]
+      ])
       expect(map.closestWalkable({
         x: 0,
         y: 0
@@ -204,13 +190,11 @@ describe('WorldMap', () => {
       })
     })
     it('return top left if not walkable', () => {
-      map2 = new WorldMap({
-        grid: [
-          [0, 0, 0],
-          [0, 1, 0],
-          [0, 0, 0]
-        ]
-      })
+      map2 = new WorldMap([
+        [0, 0, 0],
+        [0, 1, 0],
+        [0, 0, 0]
+      ])
 
       expect(map2.closestWalkable({
         x: 1,
