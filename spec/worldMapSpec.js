@@ -205,4 +205,63 @@ describe('WorldMap', () => {
       })
     })
   })
+
+  describe('makeGridWalkable(gridLoc)', () => {
+    let map;
+    beforeEach(() => {
+      let grid = [
+        [1, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 0, 0, 0, 1, 1],
+        [1, 1, 0, 1, 0, 1, 1]
+      ]
+      map = new WorldMap(grid)
+    })
+
+    it('sets a grid coordinate to walkable', () => {
+      expect(map.isWalkable({
+        x: 0,
+        y: 0
+      })).toEqual(false)
+
+      map.makeWalkable({
+        x: 0,
+        y: 0
+      })
+
+      expect(map.isWalkable({
+        x: 0,
+        y: 0
+      })).toEqual(true)
+
+    })
+
+    it('allows a path to be made now it is walkable', () => {
+      expect(map.pathBetween({
+        x: 4,
+        y: 3
+      }, {
+        x: 3,
+        y: 0
+      }).length).toEqual(0)
+
+      map.makeWalkable({
+        x: 3,
+        y: 0
+      })
+
+      expect(map.pathBetween({
+        x: 4,
+        y: 3
+      }, {
+        x: 3,
+        y: 0
+      }).length).toEqual(4)
+    })
+
+  })
+
 })

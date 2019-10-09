@@ -85,6 +85,12 @@ class WorldMap {
     return undefined
   }
 
+  makeWalkable(gridLoc) {
+    this.grid[gridLoc.y][gridLoc.x] = 0
+    this.graph = new Graph(this.grid)
+    return gridLoc
+  }
+
   setDimensions() {
     if (this.grid.length === 0) {
       this.grid = [

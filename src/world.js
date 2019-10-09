@@ -19,14 +19,18 @@ class World {
   generateDockingStation(options) {
 
     let newDockingStation = new DockingStation(this, options)
+
+    // check if a docking station exists on this tile
+    //
+
     if (newDockingStation.cost > this.balance) {
       return undefined
-    } else {
-      let newDockingStationIndex = this.dockingStations.push(newDockingStation) - 1;
-      this.balance -= newDockingStation.cost
-      // this.updateBalanceDSPurchase(newDockingStation)
-      return this.dockingStations[newDockingStationIndex]
     }
+    let newDockingStationIndex = this.dockingStations.push(newDockingStation) - 1;
+    this.balance -= newDockingStation.cost
+    // this.updateBalanceDSPurchase(newDockingStation)
+    return this.dockingStations[newDockingStationIndex]
+
   }
 
   updateBalanceDSPurchase(newDockingStation) {
