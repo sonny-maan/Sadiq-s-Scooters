@@ -17,22 +17,6 @@ let bg = new Image();
 bg.src = `./assets/maps/map1.png`
 
 
-window.onload = () => {
-  startGame(self)
-};
-
-// menu to show at start of the game
-function startMenu() {
-  let img = new Image();
-  img.src = ("./assets/bg.png");
-  img.onload = () => {
-    context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
-    context.fillStyle = "black";
-    context.font = "30px Comic Sans MS";
-    context.fillText("Play", 358, 210);
-  }
-}
-
 // creates Grids on the background canvas
 function createGrid() {
   let gridBoxWidth = canvas.width / window.game.world.map.width
@@ -52,11 +36,8 @@ function createGrid() {
   }
 };
 
-function setBG(callback) {
+function setBG() {
   context.drawImage(bg, 0, 0, 700, 700);
-  bg.onload = function () {
-    callback.call();
-  }
 }
 
 function toolBar() {
