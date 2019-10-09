@@ -7,13 +7,14 @@ canvasBG.width = 700;
 canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
-let playButton = new Rect("play-btn",300,200,100,50,"blue");
-let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
-let resetButton = new Rect("reset-btn",620, 650, 70, 40,"red");
-let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
+let playButton = new Rect("play-btn", 300, 200, 100, 50, "blue");
+let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
+let resetButton = new Rect("reset-btn", 620, 650, 70, 40, "red");
+let dockingStationButton = new Rect("ds-btn", 90, 650, 70, 30, "blue");
 // setting backgroundImage on top level
 let bg = new Image();
-bg.src = `./assets/map.png`
+bg.src = `./assets/maps/map1.png`
+
 
 
 window.onload = () => {
@@ -47,14 +48,14 @@ function playBtn(e) {
 function createGrid() {
   let gridBoxWidth = canvas.width / window.game.world.map.width
   let gridBoxHeight = canvas.height / window.game.world.map.height
-  for(i = 0; i <= 700; i += gridBoxWidth) {
+  for (i = 0; i <= 700; i += gridBoxWidth) {
     context.moveTo(i, 0);
     context.lineTo(i, 700);
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
     context.stroke();
   }
 
-  for(i = 0; i <= 700; i += gridBoxHeight) {
+  for (i = 0; i <= 700; i += gridBoxHeight) {
     context.moveTo(0, i);
     context.lineTo(700, i);
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
@@ -65,7 +66,7 @@ function createGrid() {
 
 function setBG(callback) {
   context.drawImage(bg, 0, 0, 700, 700);
-  bg.onload = function() {
+  bg.onload = function () {
     callback.call();
   }
 }
@@ -104,4 +105,3 @@ function startGame(self) {
   createGrid();
   toolBar();
 }
-
