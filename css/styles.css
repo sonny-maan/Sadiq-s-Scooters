@@ -1,3 +1,6 @@
+.mutelocation{
+	left:2%;
+}
 .mute img{
 	width:5%;
  height:5%;
@@ -57,7 +60,7 @@ transform: translate(-50%, -50%);
 {
 	background-blend-mode: screen;
 }
-html, body {margin: 0; height: 100%; overflow: hidden;}
+html, body {margin: 0; height: 100%; overflow: hidden}
 
 .chonkyboi
 {
@@ -141,7 +144,7 @@ position:relative;
 {
 	position: fixed;
   left: 2%;
-	top: 2%;
+	top: 10%;
 	width:4%;
   height:5%;
 }
@@ -149,7 +152,7 @@ position:relative;
 {
 		position: fixed;
 		left: 2%;
-  	top: 10%;
+  	top: 18%;
 		width:4%;
 	  height:5%;
 }
