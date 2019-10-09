@@ -7,19 +7,18 @@ canvasBG.width = 700;
 canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
-let playButton = new Rect("play-btn", 300, 200, 100, 50, "blue");
-let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
-let resetButton = new Rect("reset-btn", 620, 650, 70, 40, "red");
-let dockingStationButton = new Rect("ds-btn", 90, 650, 70, 30, "blue");
+
+let playButton = new Rect("play-btn",300,200,100,50,"blue");
+let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
+let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
+
 // setting backgroundImage on top level
 let bg = new Image();
 bg.src = `./assets/maps/map1.png`
 
 
-
 window.onload = () => {
-  startMenu();
-  document.addEventListener('click', playBtn, false);
+  startGame(self)
 };
 
 // menu to show at start of the game
@@ -33,16 +32,6 @@ function startMenu() {
     context.fillText("Play", 358, 210);
   }
 }
-
-// button to play the game
-function playBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  if (playButton.isPointInside(mouseX, mouseY)) {
-    startGame(this);
-  }
-}
-
 
 // creates Grids on the background canvas
 function createGrid() {
@@ -63,7 +52,6 @@ function createGrid() {
   }
 };
 
-
 function setBG(callback) {
   context.drawImage(bg, 0, 0, 700, 700);
   bg.onload = function () {
@@ -73,11 +61,6 @@ function setBG(callback) {
 
 function toolBar() {
   toolBarRect.draw();
-  //Reset Button
-  resetButton.draw();
-  context.fillStyle = "black";
-  context.font = "20px Comic Sans MS";
-  context.fillText("Quit", 630, 670);
   //Docking Station Button
   dockingStationButton.draw();
   context.fillStyle = "black";
@@ -85,20 +68,7 @@ function toolBar() {
   context.fillText("DS", 100, 670);
 }
 
-// button to reset the game
-function resetBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  if (resetButton.isPointInside(mouseX, mouseY)) {
-    location.reload()
-  }
-}
-
-
-
 function startGame(self) {
-  document.addEventListener('click', playBtn, false);
-  document.addEventListener('click', resetBtn, false);
   window.game = new Game(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
