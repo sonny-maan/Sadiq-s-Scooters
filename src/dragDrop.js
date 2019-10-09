@@ -18,12 +18,13 @@ class DragDrop {
       if (this.selection) {
         this.selection.x = this.mouse.x - this.dragOffsetX;
         this.selection.y = this.mouse.y - this.dragOffsetY;
-
+        this.reDrawEverything()
+        
         let dockingStationCopy = new Rect("ds-btn", this.selection.x, this.selection.y, 70, 30, "blue");
         dockingStationCopy.draw()
 
       }
-      this.reDrawEverything()
+
     }, true);
 
     this.game.canvas.addEventListener('mouseup', (event) => {
