@@ -17,8 +17,7 @@ bg.src = `./assets/map.png`
 
 
 window.onload = () => {
-  startMenu();
-  document.addEventListener('click', playBtn, false);
+  startGame(self)
 };
 
 // menu to show at start of the game
@@ -96,7 +95,6 @@ function resetBtn(e) {
 
 
 function startGame(self) {
-  document.addEventListener('click', playBtn, false);
   document.addEventListener('click', resetBtn, false);
   window.game = new Game(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
