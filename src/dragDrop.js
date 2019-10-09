@@ -19,7 +19,7 @@ class DragDrop {
         this.selection.x = this.mouse.x - this.dragOffsetX;
         this.selection.y = this.mouse.y - this.dragOffsetY;
         this.reDrawEverything()
-        let dockingStationCopy = new Rect("ds-btn", this.selection.x, this.selection.y, 70, 30, "blue");
+        let dockingStationCopy = new Rect("ds-btn", this.selection.x, this.selection.y, 23.3, 23.3, "blue");
         dockingStationCopy.draw()
       }
     }, true);
@@ -33,15 +33,20 @@ class DragDrop {
       this.selection.y = tile.y;
       this.selection.x = tile.x;
 
+      let dsX = this.mouse.x / canvas.width
+      let dsY = this.mouse.y / canvas.height
+      let loc = new Location(dsX, dsY)
 
-      let dsX = this.selection.x/canvas.width
-      let dsY = this.selection.y/canvas.height
-      let loc = new Location(dsX,dsY)
       let gridLoc = this.game.world.map.gridLocFromLoc(loc)
-      let fitToGridDS = this.game.world.map.fitToGrid(gridLoc)
-      let newDs = this.game.world.generateDockingStation({location: fitToGridDS})
+      let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
+      let newDs = this.game.world.generateDockingStation({
+        location: centerOfGridDS
+      }, true)
+      if (newDs) {
 
-      this.game.showDockingStation(newDs)
+        this.game.showDockingStation(newDs)
+      }
+
       this.reDrawEverything();
       this.selection.isActive = true;
       this.selection = null;
@@ -59,7 +64,7 @@ class DragDrop {
         alert("Your Balance is Empty: you must earn more money")
 
       } else if (this.mouse.x >= 90 && this.mouse.x < 175) {
-        dockingStationButton = new Rect("ds-btn",90, 650, 23.3, 23.3,"red");
+        dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "red");
 
         dockingStationButton.draw()
       } else {

@@ -16,17 +16,53 @@ class World {
     return this.people[newPersonIndex]
   }
 
-  generateDockingStation(options) {
+  generateDockingStation(options, preventSameGrid = false, enforcePathAdjacent = false, snapToCentre = false) {
 
-    let newDockingStation = new DockingStation(this, options)
-    if (newDockingStation.cost > this.balance) {
-      return undefined
-    } else {
-      let newDockingStationIndex = this.dockingStations.push(newDockingStation) - 1;
-      this.balance -= newDockingStation.cost
-      // this.updateBalanceDSPurchase(newDockingStation)
-      return this.dockingStations[newDockingStationIndex]
+    let newDs = new DockingStation(this, options)
+    let newDsGridLoc = this.map.gridLocFromLoc(newDs.location)
+    if (snapToCentre) {
+      newDs.location = this.map.centerOfGrid(newDsGridLoc)
     }
+
+    // Check all docking stations and if they're in the same grid as the new one
+    let clash = false
+    if (preventSameGrid) {
+      this.dockingStations.forEach((ds) => {
+        let dsLoc = this.map.gridLocFromLoc(ds.location)
+        if (newDsGridLoc.x === dsLoc.x && newDsGridLoc.y === dsLoc.y) {
+          clash = true
+        }
+      })
+    }
+    if (clash) {
+      return undefined
+    }
+
+    if (enforcePathAdjacent) {
+      if (this.map.isWalkable(newDsGridLoc)) {
+        clash = true
+      }
+      if (!this.map.isPathAdjacent(newDsGridLoc)) {
+        clash = true
+      }
+    }
+    if (clash) {
+      return undefined
+    }
+
+    // Prevent balance from going negative
+    if (newDs.cost > this.balance) {
+      return undefined
+    }
+
+    // add docking station to the world
+    this.dockingStations.push(newDs);
+    // Reduce balance by cost
+    this.balance -= newDs.cost
+    // set grid to walkable
+    this.map.makeWalkable(newDsGridLoc)
+
+    return newDs
   }
 
   updateBalanceDSPurchase(newDockingStation) {
@@ -50,4 +86,9 @@ class World {
     this.hasUpdated = false
     this.tickCounter++
   }
+
+
+
+
+
 }

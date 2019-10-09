@@ -12,11 +12,13 @@ class Game {
     this.walkPerson();
   }
 
-showDockingStation(dockingStation) {
-  dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 23.3, 23.3, "blue")
-  dockingStation.draw()
-
-}
+  showDockingStation(dockingStation) {
+    let squareSideLength = 24
+    let drawX = (dockingStation.location.x * this.canvas.width) - (squareSideLength / 2)
+    let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
+    dockingStation = new Rect("ds", drawX, drawY, squareSideLength, squareSideLength, "blue")
+    dockingStation.draw()
+  }
 
   createPerson() {
     let path = []
@@ -98,5 +100,6 @@ showDockingStation(dockingStation) {
   }
 
 
-}
 
+
+}

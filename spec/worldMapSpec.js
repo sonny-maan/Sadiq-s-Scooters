@@ -52,7 +52,7 @@ describe('WorldMap', () => {
   })
 
   describe('centerOfGrid', () => {
-    let worldMap;
+
     beforeEach(() => {
       worldMap = new WorldMap([
         [0, 1],
@@ -79,7 +79,7 @@ describe('WorldMap', () => {
   })
 
   describe('gridLocFromLoc', () => {
-    let worldMap;
+
     beforeEach(() => {
       worldMap = new WorldMap([
         [0, 1],
@@ -129,7 +129,7 @@ describe('WorldMap', () => {
   })
 
   describe('pathBetween(gridLocA,gridLocB)', () => {
-    let map;
+
     beforeEach(() => {
       let grid = [
         [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -143,7 +143,7 @@ describe('WorldMap', () => {
         [0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
         [0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
       ]
-      map = new WorldMap(grid)
+      worldMap = new WorldMap(grid)
     })
     it('finds the route', () => {
       let gridLocA = {
@@ -154,7 +154,7 @@ describe('WorldMap', () => {
         x: 9,
         y: 0
       }
-      path = map.pathBetween(gridLocA, gridLocB)
+      path = worldMap.pathBetween(gridLocA, gridLocB)
 
       expect(path.length).toEqual(28)
       expect(path[0].x).toEqual(9)
@@ -170,18 +170,19 @@ describe('WorldMap', () => {
         x: 0,
         y: 0
       }
-      path = map.pathBetween(gridLocA, gridLocB)
+      path = worldMap.pathBetween(gridLocA, gridLocB)
       expect(path.length).toEqual(0)
     })
   })
 
   describe('closestWalkable', () => {
+
     it('return self if walkable', () => {
-      map = new WorldMap([
+      worldMap = new WorldMap([
         [0, 1],
         [1, 1]
       ])
-      expect(map.closestWalkable({
+      expect(worldMap.closestWalkable({
         x: 0,
         y: 0
       })).toEqual({
@@ -190,13 +191,13 @@ describe('WorldMap', () => {
       })
     })
     it('return top left if not walkable', () => {
-      map2 = new WorldMap([
+      worldMap = new WorldMap([
         [0, 0, 0],
         [0, 1, 0],
         [0, 0, 0]
       ])
 
-      expect(map2.closestWalkable({
+      expect(worldMap.closestWalkable({
         x: 1,
         y: 1
       })).toEqual({
@@ -205,4 +206,100 @@ describe('WorldMap', () => {
       })
     })
   })
+
+  describe('makeGridWalkable(gridLoc)', () => {
+
+    beforeEach(() => {
+      let grid = [
+        [1, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 0, 0, 0, 1, 1],
+        [1, 1, 0, 1, 0, 1, 1]
+      ]
+      worldMap = new WorldMap(grid)
+    })
+
+    it('sets a grid coordinate to walkable', () => {
+      expect(worldMap.isWalkable({
+        x: 0,
+        y: 0
+      })).toEqual(false)
+
+      worldMap.makeWalkable({
+        x: 0,
+        y: 0
+      })
+
+      expect(worldMap.isWalkable({
+        x: 0,
+        y: 0
+      })).toEqual(true)
+
+    })
+
+    it('allows a path to be made now it is walkable', () => {
+      expect(worldMap.pathBetween({
+        x: 4,
+        y: 3
+      }, {
+        x: 3,
+        y: 0
+      }).length).toEqual(0)
+
+      worldMap.makeWalkable({
+        x: 3,
+        y: 0
+      })
+
+      expect(worldMap.pathBetween({
+        x: 4,
+        y: 3
+      }, {
+        x: 3,
+        y: 0
+      }).length).toEqual(4)
+    })
+
+  })
+
+  describe('isPathAdjacent(gridLoc,diagonal?)', () => {
+    beforeEach(() => {
+      let grid = [
+        [0, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 0, 0, 0, 1, 1],
+        [1, 1, 0, 1, 0, 1, 1]
+      ]
+      worldMap = new WorldMap(grid)
+    })
+    it('look at my test, my test is amazing', () => {
+      expect(worldMap.isPathAdjacent({
+        x: 3,
+        y: 3
+      })).toEqual(true)
+      expect(worldMap.isPathAdjacent({
+        x: 4,
+        y: 3
+      })).toEqual(true)
+      expect(worldMap.isPathAdjacent({
+        x: 1,
+        y: 4
+      })).toEqual(false)
+      expect(worldMap.isPathAdjacent({
+        x: 1,
+        y: 4
+      }, true)).toEqual(true)
+      expect(worldMap.isPathAdjacent({
+        x: 0,
+        y: 0
+      })).toEqual(true)
+    })
+  })
+
 })

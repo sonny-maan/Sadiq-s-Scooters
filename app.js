@@ -7,8 +7,8 @@ canvasBG.width = 700;
 canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
-let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
-let dockingStationButton = new Rect("ds-btn",90, 650, 23.3, 23.3,"blue");
+let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
+let dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "blue");
 // setting backgroundImage on top level
 let bg = new Image();
 bg.src = `./assets/map.png`
@@ -33,22 +33,22 @@ function increaseCap(e) {
   mouseY = e.pageY - canvasOffset.top;
   let tile = findTile();
 
-  game.world._dockingStations.filter((ds) => (ds.location.x - tile.x < 30) && (ds.location.y - tile.y < 30))
+  game.world.dockingStations.filter((ds) => (ds.location.x - tile.x < 30) && (ds.location.y - tile.y < 30))
   console.log(tile)
 
   console.log('registering')
   console.log(window.game.world.map.width)
 
-  console.log(game.world._dockingStations.filter((ds) => (ds.location.x - tile.x < -350) && (ds.location.y - tile.y < -350)))
-  }
-  // mouseX = e.pageX - canvasOffset.left;
-  // mouseY = e.pageY - canvasOffset.top;
+  console.log(game.world.dockingStations.filter((ds) => (ds.location.x - tile.x < -350) && (ds.location.y - tile.y < -350)))
+}
+// mouseX = e.pageX - canvasOffset.left;
+// mouseY = e.pageY - canvasOffset.top;
 
-  //
-  // if (canvas.isPointInside(mouseX, mouseY)) {
-  //   let tile = this.findTile();
-  //   console.log(game.world._dockingStations.select((ds) => ds.location.x == tile.x && ds.location.y == tile.y))
-  //   console.log(this)
+//
+// if (canvas.isPointInside(mouseX, mouseY)) {
+//   let tile = this.findTile();
+//   console.log(game.world._dockingStations.select((ds) => ds.location.x == tile.x && ds.location.y == tile.y))
+//   console.log(this)
 
 
 // creates Grids on the background canvas
@@ -68,7 +68,7 @@ function createGrid() {
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
     context.stroke();
   }
-};
+}
 
 function setBG() {
   context.drawImage(bg, 0, 0, 700, 700);
