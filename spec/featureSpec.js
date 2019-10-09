@@ -19,7 +19,7 @@ describe('world', () => {
   });
 
   it('person arrives at destination before disappearing', () => {
-    world.generatePerson({
+    let person = world.generatePerson({
       location: new Location(0, 0),
       destination: new Location(0.5, 0),
       speed: 0.2,
@@ -33,6 +33,8 @@ describe('world', () => {
     world.tick();
     expect(world.people.length).toEqual(1); // still at 0.5?
     world.tick();
+    world.tick();
+    world.tick();
     expect(world.people.length).toEqual(0); // still at 0.5?
   });
 
@@ -40,14 +42,14 @@ describe('world', () => {
   it('person on vehicle goes to docking station closest to destination and walks', () => {
 
     let personA = world.generatePerson({
-      location: new Location(0, 0),
-      destination: new Location(0, 1),
+      location: new Location(0.1, 0.1),
+      destination: new Location(0.1, 0.9),
       speed: 0.002
     })
     world.people[0].vehicle = new Scooter({
       speed: 0.1
     })
-    let dockingStationLoc = new Location(1, 0)
+    let dockingStationLoc = new Location(0.9, 0.1)
     let dockingStation = world.generateDockingStation({
       location: dockingStationLoc
     })
@@ -83,8 +85,8 @@ describe('world', () => {
     expect(world.dockingStations.length).toEqual(2);
 
     let person = world.generatePerson({
-      location: new Location(0, 0),
-      destination: new Location(0, 1)
+      location: new Location(0.1, 0.1),
+      destination: new Location(0.1, 0.9)
     });
 
 
@@ -94,10 +96,9 @@ describe('world', () => {
       world.tick();
       stepCounter++
     }
-
     world.tick();
     world.tick();
-    expect(person.onVehicle).toEqual(true)
+    expect(person.onVehicle()).toEqual(true)
 
     let scootCounter = 0
     while (!person.location.at(dockingStation2.location) && scootCounter < 2000) {
@@ -108,7 +109,7 @@ describe('world', () => {
     world.tick();
 
     expect(scootCounter).toBeLessThan(8)
-    expect(person.onVehicle).toEqual(false)
+    expect(person.onVehicle()).toEqual(false)
   });
 
   it('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
