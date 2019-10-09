@@ -1,6 +1,12 @@
 .mutelocation{
 	left:2%;
 }
+.indexmutelocation{
+	overflow: hidden;
+ position:relative;
+	left:1%;
+bottom:5%;
+}
 .mute img{
 	width:5%;
  height:5%;
