@@ -40,7 +40,7 @@ function increaseCap(e) {
   tile.x = Math.floor(tile.x / (game.canvas.width / window.game.world.map.width))
   tile.y = Math.floor(tile.y / (game.canvas.width / window.game.world.map.width))
 
-
+  // WARNING!!!!!!! DONT TAKE OUT THESE CONSOLE LOGS!!!!!
   console.log(game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y))))
   console.log(game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y)))[0])
 
@@ -87,7 +87,7 @@ function toolBar() {
 
 function startGame(self) {
   window.game = new Game(canvas)
-  document.addEventListener('click', increaseCap, false);
+  document.addEventListener('mouseup', increaseCap, false);
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
