@@ -57,7 +57,6 @@ class DragDrop {
       if (this.game.dragDrop.selection) return;
       if (!(this.mouse.y >= 650 && this.mouse.y <= 700)) return; // not in toolbar!
 
-
       let dockingStationButton;
 
       if (this.mouse.x >= 90 && this.mouse.x < 160 && this.game.world.balance === 0) {
@@ -65,8 +64,8 @@ class DragDrop {
 
       } else if (this.mouse.x >= 90 && this.mouse.x < 175) {
         dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "red");
-
         dockingStationButton.draw()
+ 
       } else {
         return;
       }

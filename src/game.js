@@ -18,7 +18,15 @@ class Game {
     let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
     dockingStation = new Rect("ds", drawX, drawY, squareSideLength, squareSideLength, "blue")
     dockingStation.draw()
+
+    this.world.dockingStations.forEach(function (ds) {
+        context.fillStyle = "white";
+        context.font = "12px Comic Sans MS";
+        context.fillText(ds.capacity, drawX + 5, drawY + 15);
+    });
+
   }
+
 
   createPerson() {
     let path = []
@@ -35,9 +43,6 @@ class Game {
     this.world.generatePerson(options)
     console.log(this.world.people);
   }
-
-
-
 
   walkPerson() {
     // clears the canvas on each run time
