@@ -28,8 +28,9 @@ createPerson() {
 }
 
 showDockingStation(dockingStation) {
-  dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 70, 30, "blue")
+  dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 23.3, 23.3, "blue")
   dockingStation.draw()
+
 }
 
 walkPerson(){

@@ -1,13 +1,13 @@
 class WorldMap {
   constructor(options) {
     this.grid = [
-     
+
         [0, 0, 1, 0],
         [0, 0, 1, 0],
         [0, 0, 1, 0],
         [0, 0, 1, 0]
           ]
-    
+
     this.setOptions(options)
     this.width
     this.height
@@ -65,6 +65,15 @@ class WorldMap {
     }).reverse()
   }
 
+
+  fitToGrid(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
+    let locX = (gridLoc.x * this.gridWidth)
+    let locY = (gridLoc.y * this.gridHeight)
+    return new Location(locX, locY)
+  }
 
 
 
