@@ -7,13 +7,12 @@ class Game {
     this.world = new World({
       map: new WorldMap(maps.map1.grid)
     })
-
+    this.dragDrop = new DragDrop(this);
     this.createPerson();
     this.walkPerson();
   }
 
   createPerson() {
-    context.globalAlpha = 0.7;
     let path = []
     let steps = Math.floor(Math.random() * 100)
     for (let i = 0; i < steps; i++) {
@@ -29,36 +28,40 @@ class Game {
     console.log(this.world.people);
   }
 
-  createDockingStation(options) {
-    context.globalAlpha = 0.7;
-    // this.world.generateDockingStation({location: [ cursorX / canvas.height , cursorY / canvas.width ]})
-    let dockingStation = this.world.generateDockingStation(options);
-    this.showDockingStation(dockingStation);
-    console.log(dockingStation);
-  }
-
   showDockingStation(dockingStation) {
-    let width = 30;
-    let height = 20;
-    this.contextBG.fillRect(dockingStation.location.x * this.canvasBG.width, dockingStation.location.y * this.canvasBG.height, width, height);
+    dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 70, 30, "blue")
+    dockingStation.draw()
   }
 
   walkPerson() {
     // clears the canvas on each run time
+    let onScooterIMG = new Image()
+    onScooterIMG.src = ("./assets/person_scooter.png")
+    let walkingIMG = new Image()
+    walkingIMG.src = ("./assets/person.png")
+
+    this.world.tick();
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     // sets the font for balance
     this.context.fillStyle = "black";
     this.context.font = '28px serif';
     this.context.fillText(`£ ${this.world.balance}`, 600, 50);
     // on each tick person takes a step
-    this.world.tick();
-    let width = 20;
-    let height = 20;
+    let width = 40;
+    let height = 40;
     this.world.people.forEach(person1 => {
-      if (person1.onVehicle()) {
-        this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
+      if (person1.onVehicle) {
+        // this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
+        this.context.drawImage(onScooterIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
+        this.context.fillStyle = "black";
+
       } else {
-        this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);
+        onScooterIMG.onload = () => {
+          this.context.drawImage(walkingIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
+          this.context.fillStyle = "black";
+        }
+        //this.context.drawImage
+        //this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);
       }
       // TO BE TAKEN OUT LATER
       // draw lines to see where people are going.

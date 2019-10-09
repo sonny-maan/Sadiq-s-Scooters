@@ -1,8 +1,162 @@
+.mute img{
+	width:5%;
+ height:5%;
+
+ overflow: hidden;
+position:relative;
+
+}
+.unmute img {
+    display: none;
+		width:5%;
+	 height:5%;
+
+	 overflow: hidden;
+	position:relative;
+
+
+}
+input#un-mute {
+    display: none;
+}
+
+.unmute img {
+    display: none;
+
+}
+
+input#un-mute:checked ~ .unmute img {
+    display: initial;
+}
+
+input#un-mute:checked ~ .mute img {
+    display: none;
+}
+
+body
+{
+	background: url(../assets/background.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	font-size: 30pt;
+}
+
 canvas {
+
 top: 50%;
 left: 50%;
 display: block;
 margin: auto;
 position: absolute;
 transform: translate(-50%, -50%);
+}
+
+.mixBlnd
+{
+	background-blend-mode: screen;
+}
+html, body {margin: 0; height: 100%; overflow: hidden}
+
+.chonkyboi
+{
+	width:70%;
+ height:70%;
+ overflow: hidden;
+position:relative;
+	 right:15%;
+}
+.logo
+{
+	width:25%;
+ height:30%;
+ position: fixed;
+ right: 2%;
+ top: 2%;
+}
+
+.start
+{
+	 z-index: 1;
+	 position: fixed;
+	 width:25%;
+	 height:5%;
+ right: 13%;
+ top: 93%;
+ rgba(0, 0, 0, 1);
+ transform: scale(1);
+ animation: pulse 2s infinite;
+}
+.click
+{
+	width:150%;
+	height:150%;
+	z-index: 1;
+	position: fixed;
+	overflow: hidden;
+
+}
+
+.thegame
+{
+	width:10%;
+ height:4%;
+ position: fixed;
+ right: 9.5%;
+ top: 21%;
+ z-index: 1;
+ rgba(0, 0, 0, 1);
+ transform: scale(1);
+ animation: pulsestart 2s infinite;
+
+}
+@keyframes pulsestart{
+    0% {
+        transform: scale(0.9);
+    }
+
+    70% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0.9);
+    }
+}
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+    }
+
+    70% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(0.9);
+    }
+}
+.gitcolor {
+	width:4%;
+ height:5%;
+ position: fixed;
+ right: 2%;
+ bottom: 2%;
+ -webkit-transition: all 0.7s ease;
+ transition: all 0.7s ease;
+ z-index: 5;
+}
+.gitcolor:hover {
+ transform:scale(1.3);
+
+-webkit-filter: invert(100%);
+}
+.gitzoom {
+ -webkit-transition: all 0.7s ease;
+ transition: all 0.7s ease;
+}
+.gitzoom:hover {
+-webkit-transform:scale(2);
+transform:scale(2);
 }
