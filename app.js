@@ -12,7 +12,7 @@ let dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "blue");
 // setting backgroundImage on top level
 // Load assets
 let bg = new Image();
-bg.src = `./assets/maps/map1.png`
+bg.src = `./assets/map.png`
 let onScooterIMG = new Image()
 onScooterIMG.src = ("./assets/person_scooter.png")
 let walkingIMG = new Image()
