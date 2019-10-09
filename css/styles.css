@@ -196,8 +196,9 @@ transform:scale(1.5);
 }
 
 #container_rules {
-			font-size: 12pt;
-			border: 5px solid WhiteSmoke ;
+			font-size: 17pt;
+			border: 9px solid black;
+			background: WhiteSmoke;
 			padding: 10px;
 		}
 
