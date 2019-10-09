@@ -40,11 +40,14 @@ class World {
 
     if (enforcePathAdjacent) {
       if (this.map.isWalkable(newDsGridLoc)) {
-        return undefined
+        clash = true
       }
       if (!this.map.isPathAdjacent(newDsGridLoc)) {
-        return undefined
+        clash = true
       }
+    }
+    if (clash) {
+      return undefined
     }
 
     // Prevent balance from going negative

@@ -1,9 +1,11 @@
 class WorldMap {
+
   constructor(grid, locationClass = Location) {
     this.grid = (grid || [
       [0]
     ])
     this.locationClass = locationClass
+
 
     this.width
     this.height
@@ -121,6 +123,25 @@ class WorldMap {
     return gridLoc
   }
 
+  fitToGrid(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
+    let locX = (gridLoc.x * this.gridWidth)
+    let locY = (gridLoc.y * this.gridHeight)
+    return new Location(locX, locY)
+  }
+
+  centerOfGrid(gridLoc) {
+    if (this.isOutsideGrid(gridLoc)) {
+      return undefined
+    }
+    let locX = (gridLoc.x * this.gridWidth) + (0.5 * this.gridWidth)
+    let locY = (gridLoc.y * this.gridHeight) + (0.5 * this.gridHeight)
+    return new Location(locX, locY)
+  }
+
+
   setDimensions() {
     if (this.grid.length === 0) {
       this.grid = [
@@ -137,5 +158,35 @@ class WorldMap {
     this.gridHeight = 1 / this.height
     this.gridWidth = 1 / this.width
     return
+  }
+
+
+  gridLocFromLoc(loc) {
+    let gridX = Math.floor(loc.x / this.gridWidth)
+    let gridY = Math.floor(loc.y / this.gridHeight)
+    if (loc.x === 1) {
+      gridX = 1
+    }
+    if (loc.y === 1) {
+      gridY = 1
+    }
+    return {
+      x: gridX,
+      y: gridY
+    }
+  }
+
+
+  setOptions(options) {
+    if (options) {
+      let optionKeys = Object.keys(options)
+      let dockingStationKeys = Object.keys(this)
+
+      optionKeys.forEach(optionKey => {
+        if (dockingStationKeys.includes(optionKey)) {
+          this[optionKey] = options[optionKey]
+        }
+      })
+    }
   }
 }
