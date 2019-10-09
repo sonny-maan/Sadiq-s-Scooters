@@ -59,7 +59,7 @@ class DragDrop {
 
       let dockingStationButton;
 
-      if (this.mouse.x >= 90 && this.mouse.x < 160 && this.game.world.balance === 0) {
+      if (this.mouse.x >= 150 && this.mouse.x < 170 && this.game.world.balance === 0) {
         alert("Your Balance is Empty: you must earn more money")
 
       } else if (this.mouse.x >= 150 && this.mouse.x < 170) {
