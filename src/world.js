@@ -16,21 +16,37 @@ class World {
     return this.people[newPersonIndex]
   }
 
-  generateDockingStation(options) {
+  generateDockingStation(options, preventSameGrid = false) {
 
-    let newDockingStation = new DockingStation(this, options)
+    let newDs = new DockingStation(this, options)
+    let newDsGridLoc = this.map.gridLocFromLoc(newDs.location)
 
-    // check if a docking station exists on this tile
-    //
-
-    if (newDockingStation.cost > this.balance) {
+    // Check all docking stations and if they're in the same grid as the new one
+    let clash = false
+    if (preventSameGrid) {
+      this.dockingStations.forEach((ds) => {
+        let dsLoc = this.map.gridLocFromLoc(ds.location)
+        if (newDsGridLoc.x === dsLoc.x && newDsGridLoc.y === dsLoc.y) {
+          clash = true
+        }
+      })
+    }
+    if (clash) {
+      return
+    }
+    // Prevent balance from going negative
+    if (newDs.cost > this.balance) {
       return undefined
     }
-    let newDockingStationIndex = this.dockingStations.push(newDockingStation) - 1;
-    this.balance -= newDockingStation.cost
-    // this.updateBalanceDSPurchase(newDockingStation)
-    return this.dockingStations[newDockingStationIndex]
 
+    // add docking station to the world
+    this.dockingStations.push(newDs);
+    // Reduce balance by cost
+    this.balance -= newDs.cost
+    // set grid to walkable
+    this.map.makeWalkable(newDsGridLoc)
+
+    return newDs
   }
 
   updateBalanceDSPurchase(newDockingStation) {
@@ -54,4 +70,9 @@ class World {
     this.hasUpdated = false
     this.tickCounter++
   }
+
+
+
+
+
 }
