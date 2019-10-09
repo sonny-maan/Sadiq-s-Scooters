@@ -16,6 +16,10 @@ let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
 let bg = new Image();
 bg.src = `./assets/maps/map1.png`
 
+window.onload = () => {
+  startGame(self);
+
+};
 
 // creates Grids on the background canvas
 function createGrid() {
