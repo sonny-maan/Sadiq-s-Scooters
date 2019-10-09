@@ -8,6 +8,7 @@ class World {
     this.map = new WorldMap(maps.map0.grid)
     util.setOptions(this, options)
     this.personGenerator = new PersonGenerator(this)
+    this.tickCounter = 0
   }
 
   generatePerson(options) {
@@ -47,5 +48,6 @@ class World {
       person.walk(this);
     })
     this.hasUpdated = false
+    this.tickCounter++
   }
 }

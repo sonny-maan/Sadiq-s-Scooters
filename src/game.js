@@ -4,8 +4,10 @@ class Game {
     this.canvasBG = canvasBG;
     this.contextBG = this.canvasBG.getContext("2d");
     this.context = this.canvas.getContext("2d");
-    this.world = new World
-    this.person = new Person
+    this.world = new World({
+      map: new WorldMap(maps.map1.grid)
+    })
+
     this.createPerson();
     this.walkPerson();
   }

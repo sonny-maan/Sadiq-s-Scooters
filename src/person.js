@@ -13,10 +13,23 @@ class Person {
     this.vehicle = undefined
     this.personDirections = new PersonDirections(this.world, this)
     // Set Dem Options
-    util.setOptions(this, options)
+    // util.setOptions(this, options)
+    this.setOptions(options)
     // Clean Up
     this.location = this.location.moveToOnMap()
     this.destination = this.destination.moveToOnMap()
+  }
+
+  setOptions(options) {
+    if (options) {
+      let optionKeys = Object.keys(options)
+      let selfKeys = Object.keys(this)
+      optionKeys.forEach(optionKey => {
+        if (selfKeys.includes(optionKey)) {
+          this[optionKey] = options[optionKey]
+        }
+      })
+    }
   }
 
   onVehicle() {

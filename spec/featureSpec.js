@@ -24,19 +24,14 @@ describe('world', () => {
       destination: new Location(0.5, 0),
       speed: 0.2,
     });
-
     world.tick();
     expect(world.people.length).toEqual(1); // at 0.2
-
     world.tick();
     expect(world.people.length).toEqual(1); // at 0.4
-
     world.tick();
     expect(world.people.length).toEqual(1); // at 0.5
-
     world.tick();
     expect(world.people.length).toEqual(1); // still at 0.5?
-
     world.tick();
     expect(world.people.length).toEqual(0); // still at 0.5?
   });
@@ -44,7 +39,7 @@ describe('world', () => {
 
   it('person on vehicle goes to docking station closest to destination and walks', () => {
 
-    let person = world.generatePerson({
+    let personA = world.generatePerson({
       location: new Location(0, 0),
       destination: new Location(0, 1),
       speed: 0.002
@@ -60,7 +55,7 @@ describe('world', () => {
     expect(world.dockingStations[0].location.at(dockingStationLoc)).toEqual(true)
 
     let scootCounter = 0
-    while (!person.location.at(dockingStation.location) && scootCounter < 2000) {
+    while (!personA.location.at(dockingStation.location) && scootCounter < 2000) {
       world.tick();
       scootCounter++
     }
@@ -68,7 +63,7 @@ describe('world', () => {
     expect(world.dockingStations[0].location.at(dockingStationLoc)).toEqual(true)
 
     let walkCounter = 0
-    while (!person.location.at(new Location(0, 1)) && walkCounter < 2000) {
+    while (!personA.location.at(new Location(0, 1)) && walkCounter < 2000) {
       world.tick();
       walkCounter++
     }
