@@ -1,9 +1,8 @@
 class Scooter {
-  constructor() {
-    this._speed = 0.04
+  constructor(options) {
+    this.speed = 0.04
+    util.setOptions(this, options)
   }
 
-  get speed() {
-    return this._speed
-  }
+
 }

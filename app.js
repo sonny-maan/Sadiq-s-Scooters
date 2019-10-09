@@ -7,8 +7,10 @@ canvasBG.width = 700;
 canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
+
 let playButton = new Rect("play-btn",300,200,100,50,"blue");
 let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
+
 let resetButton = new Rect("reset-btn",620, 650, 70, 40,"red");
 let dockingStationButton = new Rect("ds-btn",90, 650, 23.3, 23.3,"blue");
 // setting backgroundImage on top level
@@ -43,6 +45,9 @@ function playBtn(e) {
 
   }
 }
+
+// setting backgroundImage on top level
+
 
 function findTile() {
   let gridBoxWidth = game.canvas.width / window.game.world.map.width
@@ -87,14 +92,14 @@ function increaseCap(e) {
 function createGrid() {
   let gridBoxWidth = canvas.width / window.game.world.map.width
   let gridBoxHeight = canvas.height / window.game.world.map.height
-  for(i = 0; i <= 700; i += gridBoxWidth) {
+  for (i = 0; i <= 700; i += gridBoxWidth) {
     context.moveTo(i, 0);
     context.lineTo(i, 700);
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
     context.stroke();
   }
 
-  for(i = 0; i <= 700; i += gridBoxHeight) {
+  for (i = 0; i <= 700; i += gridBoxHeight) {
     context.moveTo(0, i);
     context.lineTo(700, i);
     context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
@@ -102,21 +107,12 @@ function createGrid() {
   }
 };
 
-
-function setBG(callback) {
+function setBG() {
   context.drawImage(bg, 0, 0, 700, 700);
-  bg.onload = function() {
-    callback.call();
-  }
 }
 
 function toolBar() {
   toolBarRect.draw();
-  //Reset Button
-  resetButton.draw();
-  context.fillStyle = "black";
-  context.font = "20px Comic Sans MS";
-  context.fillText("Quit", 630, 670);
   //Docking Station Button
   dockingStationButton.draw();
   context.fillStyle = "black";
@@ -124,24 +120,16 @@ function toolBar() {
   context.fillText("DS", 100, 670);
 }
 
-// button to reset the game
-function resetBtn(e) {
-  mouseX = e.pageX - canvasOffset.left;
-  mouseY = e.pageY - canvasOffset.top;
-  if (resetButton.isPointInside(mouseX, mouseY)) {
-    location.reload()
-  }
-}
-
-
-
 function startGame(self) {
+
   document.addEventListener('click', playBtn, false);
-  document.addEventListener('click', resetBtn, false);
+
   document.addEventListener('click', increaseCap, false);
+
   window.game = new Game(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
   toolBar();
+
 }
