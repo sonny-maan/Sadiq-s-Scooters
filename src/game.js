@@ -12,6 +12,12 @@ class Game {
     this.walkPerson();
   }
 
+showDockingStation(dockingStation) {
+  dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 23.3, 23.3, "blue")
+  dockingStation.draw()
+
+}
+
   createPerson() {
     let path = []
     let steps = Math.floor(Math.random() * 100)
@@ -28,10 +34,8 @@ class Game {
     console.log(this.world.people);
   }
 
-  showDockingStation(dockingStation) {
-    dockingStation = new Rect("ds", dockingStation.location.x * this.canvas.width, dockingStation.location.y * this.canvas.height, 70, 30, "blue")
-    dockingStation.draw()
-  }
+
+
 
   walkPerson() {
     // clears the canvas on each run time
@@ -93,4 +97,6 @@ class Game {
     }, 50);
   }
 
+
 }
+

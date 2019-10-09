@@ -10,11 +10,82 @@ let canvasOffset = canvas.getBoundingClientRect();
 
 let playButton = new Rect("play-btn",300,200,100,50,"blue");
 let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
-let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
 
+let resetButton = new Rect("reset-btn",620, 650, 70, 40,"red");
+let dockingStationButton = new Rect("ds-btn",90, 650, 23.3, 23.3,"blue");
 // setting backgroundImage on top level
 let bg = new Image();
-bg.src = `./assets/maps/map1.png`
+bg.src = `./assets/map.png`
+
+
+window.onload = () => {
+  startMenu();
+  document.addEventListener('click', playBtn, false);
+};
+
+// menu to show at start of the game
+function startMenu() {
+  let img = new Image();
+  img.src = ("./assets/bg.png");
+  img.onload = () => {
+    context.drawImage(img, 0, 0, 800, 700, 0, 0, 800, 700)
+    context.fillStyle = "black";
+    context.font = "30px Comic Sans MS";
+    context.fillText("Play", 358, 210);
+  }
+}
+
+// button to play the game
+function playBtn(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  if (playButton.isPointInside(mouseX, mouseY)) {
+    startGame(this);
+
+
+  }
+}
+
+// setting backgroundImage on top level
+
+
+function findTile() {
+  let gridBoxWidth = game.canvas.width / window.game.world.map.width
+  let gridBoxHeight = game.canvas.height / window.game.world.map.height
+  return {
+    x: Math.floor(this.mouseX / gridBoxWidth) * gridBoxWidth,
+    y: Math.floor(this.mouseY / gridBoxHeight) * gridBoxHeight
+  };
+}
+
+function increaseCap(e) {
+  mouseX = e.pageX - canvasOffset.left;
+  mouseY = e.pageY - canvasOffset.top;
+  let tile = findTile();
+
+  game.world._dockingStations.filter((ds) => (ds.location.x - tile.x < 30) && (ds.location.y - tile.y < 30))
+  console.log(tile)
+
+  console.log('registering')
+  console.log(window.game.world.map.width)
+
+  console.log(game.world._dockingStations.filter((ds) => (ds.location.x - tile.x < -350) && (ds.location.y - tile.y < -350)))
+  }
+  // mouseX = e.pageX - canvasOffset.left;
+  // mouseY = e.pageY - canvasOffset.top;
+
+  //
+  // if (canvas.isPointInside(mouseX, mouseY)) {
+  //   let tile = this.findTile();
+  //   console.log(game.world._dockingStations.select((ds) => ds.location.x == tile.x && ds.location.y == tile.y))
+  //   console.log(this)
+
+
+
+
+
+
+
 
 window.onload = () => {
   startGame(self);
@@ -54,9 +125,15 @@ function toolBar() {
 }
 
 function startGame(self) {
+
+  document.addEventListener('click', playBtn, false);
+
+  document.addEventListener('click', increaseCap, false);
+
   window.game = new Game(canvas)
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
   toolBar();
+
 }
