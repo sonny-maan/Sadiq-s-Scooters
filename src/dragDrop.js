@@ -55,7 +55,6 @@ class DragDrop {
     }, true);
 
     this.game.canvas.addEventListener('mousedown', (event) => {
-      this.game.drawDsPlacement = true
       if (this.game.dragDrop.selection) return;
       if (!(this.mouse.y >= 650 && this.mouse.y <= 700)) return; // not in toolbar!
 
@@ -66,6 +65,8 @@ class DragDrop {
         alert("Your Balance is Empty: you must earn more money")
 
       } else if (this.mouse.x >= 90 && this.mouse.x < 175) {
+        this.game.drawDsPlacement = true
+
         dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "red");
 
         dockingStationButton.draw()
