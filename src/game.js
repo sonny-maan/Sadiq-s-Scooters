@@ -9,9 +9,9 @@ class Game {
     })
     this.world.personGenerator.start()
     this.dragDrop = new DragDrop(this);
-    this.createPerson();
-    this.walkPerson();
+
     this.drawWalkable = false
+    this.walkPerson();
   }
 
   showDockingStation(dockingStation) {
@@ -22,51 +22,12 @@ class Game {
     dockingStation.draw()
   }
 
-  createPerson() {
-    let path = []
-    let steps = Math.floor(Math.random() * 100)
-    for (let i = 0; i < steps; i++) {
-      path.push(new Location(Math.random(), Math.random()))
-    }
-    let options = {
-      location: new Location(0, 0),
-      destination: new Location(0, 0),
-      path: path,
-      speed: Math.random() / 10
-    }
-    this.world.generatePerson(options)
-    console.log(this.world.people);
-  }
-
-
-  walkable(canvas, worldMap) {
-    let ctx = canvas.getContext("2d")
-    for (let x = 0; x < worldMap.width; x++) {
-      for (let y = 0; y < worldMap.height; y++) {
-        let gridLoc = {
-          x: x,
-          y: y
-        }
-        if (worldMap.isWalkable(gridLoc)) {
-          ctx.fillStyle = 'rgb(255, 255, 255)'
-        } else if (worldMap.isPathAdjacent(gridLoc)) {
-          ctx.fillStyle = 'rgba(0, 255, 255, 1)'
-        } else if (worldMap.isNotWalkable(gridLoc)) {
-          ctx.fillStyle = 'rgba(255, 0, 255, 1)'
-        }
-        ctx.fillRect(x * canvas.width, y * canvas.height, worldMap.gridWidth, worldMap.gridHeight)
-      }
-    }
-  }
-
-
-
   walkPerson() {
     // clears the canvas on each run time
-    let onScooterIMG = new Image()
-    onScooterIMG.src = ("./assets/person_scooter.png")
-    let walkingIMG = new Image()
-    walkingIMG.src = ("./assets/person.png")
+    // let onScooterIMG = new Image()
+    // onScooterIMG.src = ("./assets/person_scooter.png")
+    // let walkingIMG = new Image()
+    // walkingIMG.src = ("./assets/person.png")
 
     this.world.tick();
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
