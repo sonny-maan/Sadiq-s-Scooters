@@ -11,6 +11,7 @@ class Game {
     this.dragDrop = new DragDrop(this);
 
     this.drawWalkable = false
+    this.drawDsPlacement = false
     this.walkPerson();
   }
 
@@ -34,6 +35,11 @@ class Game {
     if (this.drawWalkable) {
       drawHelpers.walkable(this.canvas, this.world.map)
     }
+    if (this.drawDsPlacement) {
+      drawHelpers.dsPlacement(this.canvas, this.world.map)
+    }
+
+
     // sets the font for balance
     this.context.fillStyle = "black";
     this.context.font = '28px serif';

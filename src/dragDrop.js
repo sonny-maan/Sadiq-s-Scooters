@@ -25,6 +25,8 @@ class DragDrop {
     }, true);
 
     this.game.canvas.addEventListener('mouseup', (event) => {
+      this.game.drawDsPlacement = false
+
       if (this.isOccupied(this.mouse, this.ds)) return;
       if (this.mouse.y > 650) return;
 
@@ -41,7 +43,7 @@ class DragDrop {
       let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
       let newDs = this.game.world.generateDockingStation({
         location: centerOfGridDS
-      }, true)
+      }, true, true, true)
       if (newDs) {
 
         this.game.showDockingStation(newDs)
@@ -53,7 +55,7 @@ class DragDrop {
     }, true);
 
     this.game.canvas.addEventListener('mousedown', (event) => {
-
+      this.game.drawDsPlacement = true
       if (this.game.dragDrop.selection) return;
       if (!(this.mouse.y >= 650 && this.mouse.y <= 700)) return; // not in toolbar!
 
