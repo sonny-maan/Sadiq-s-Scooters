@@ -33,13 +33,24 @@ function increaseCap(e) {
   mouseY = e.pageY - canvasOffset.top;
   let tile = findTile();
 
-  game.world.dockingStations.filter((ds) => (ds.location.x - tile.x < 30) && (ds.location.y - tile.y < 30))
-  console.log(tile)
+  let gridBoxWidth = game.canvas.width / window.game.world.map.width
+  let gridBoxHeight = game.canvas.height / window.game.world.map.height
 
-  console.log('registering')
-  console.log(window.game.world.map.width)
 
-  console.log(game.world.dockingStations.filter((ds) => (ds.location.x - tile.x < -350) && (ds.location.y - tile.y < -350)))
+  tile.x = Math.floor(tile.x / (game.canvas.width / window.game.world.map.width))
+  tile.y = Math.floor(tile.y / (game.canvas.width / window.game.world.map.width))
+
+
+  console.log(game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y))))
+  console.log(game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y)))[0])
+
+  let DSs = game.world.dockingStations.filter((ds) => ((tile.x == (game.world.map.gridLocFromLoc(ds.location)).x) && (tile.y == (game.world.map.gridLocFromLoc(ds.location)).y)))[0]
+
+  DSs.increaseCapacity()
+
+
+
+  // console.log(game.world.dockingStations.filter((ds) => (ds.location.x - tile.x < -350) && (ds.location.y - tile.y < -350)))
 }
 // mouseX = e.pageX - canvasOffset.left;
 // mouseY = e.pageY - canvasOffset.top;
@@ -85,6 +96,7 @@ function toolBar() {
 
 function startGame(self) {
   window.game = new Game(canvas)
+  document.addEventListener('click', increaseCap, false);
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
