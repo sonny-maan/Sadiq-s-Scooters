@@ -1,3 +1,10 @@
+.resetposition{
+		width:4%;
+		height:5%;
+		position: fixed;
+		left: 2%;
+		top: 25%;
+		}
 .mutelocation{
 	left:2%;
 }
