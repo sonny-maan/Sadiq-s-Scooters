@@ -29,6 +29,9 @@ class DockingStation {
   }
 
   increaseCapacity() {
+    if (this.increaseCapacityCost > this.world.balance) {
+      return
+    }
     this.capacity += 2
     this.dockedVehicles += 1
     this.world.payToBalance(-this.increaseCapacityCost)

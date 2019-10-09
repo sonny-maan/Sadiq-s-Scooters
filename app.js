@@ -49,17 +49,8 @@ function increaseCap(e) {
   DSs.increaseCapacity()
 
 
-
-  // console.log(game.world.dockingStations.filter((ds) => (ds.location.x - tile.x < -350) && (ds.location.y - tile.y < -350)))
 }
-// mouseX = e.pageX - canvasOffset.left;
-// mouseY = e.pageY - canvasOffset.top;
 
-//
-// if (canvas.isPointInside(mouseX, mouseY)) {
-//   let tile = this.findTile();
-//   console.log(game.world._dockingStations.select((ds) => ds.location.x == tile.x && ds.location.y == tile.y))
-//   console.log(this)
 
 
 // creates Grids on the background canvas
