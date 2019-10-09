@@ -28,6 +28,32 @@
 </head>
 
 <body>
+
+ <div>
+   <script>
+     var un_mute = document.getElementById('un-mute');
+     un_mute.onclick = function() {
+     alert('toggle player here');};
+   </script>
+
+   <input type="checkbox" name="un-mute" id="un-mute">
+       <label for="un-mute" class="unmute">
+           <img
+           src="http://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg"
+           alt="Mute_Icon.svg"
+           title="Mute icon"
+           onclick="document.getElementById('backgroundmusic').play()"
+           class="mutelocation invertcoloranimation">
+       </label>
+       <label for="un-mute" class="mute">
+           <img src="http://upload.wikimedia.org/wikipedia/commons/3/3f/Mute_Icon.svg" alt="Speaker_Icon.svg" class="mutelocation invertcoloranimation" title="Unmute/speaker icon"
+           onclick="document.getElementById('backgroundmusic').pause()"
+       </label>
+   </div>
+
+  <audio id="backgroundmusic" autoplay="autoplay"><source src="./assets/queen.mp3" type="audio/mp3"></audio>
+  <a href="./index.html"><img   src="./assets/home.png" class="invertcoloranimation homeposition zoomanimation" ></a>
+  <a href=""><img   src="./assets/questionmark.png" class="invertcoloranimation zoomanimation helpposition" ></a>
   <canvas id="canvas-bg"></canvas>
   <canvas id="canvas"></canvas>
   <script src="app.js"></script>
