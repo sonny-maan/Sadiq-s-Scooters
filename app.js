@@ -10,6 +10,7 @@ let canvasOffset = canvas.getBoundingClientRect();
 let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
 let dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "blue");
 // setting backgroundImage on top level
+// Load assets
 let bg = new Image();
 bg.src = `./assets/maps/map1.png`
 let onScooterIMG = new Image()

@@ -42,16 +42,15 @@ class Game {
     let width = 40;
     let height = 40;
     this.world.people.forEach(person1 => {
-      if (person1.onVehicle) {
+      if (person1.onVehicle()) {
         // this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
         this.context.drawImage(onScooterIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
         this.context.fillStyle = "black";
 
       } else {
-        onScooterIMG.onload = () => {
-          this.context.drawImage(walkingIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
-          this.context.fillStyle = "black";
-        }
+
+        this.context.drawImage(walkingIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
+        this.context.fillStyle = "black";
         //this.context.drawImage
         //this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);
       }
