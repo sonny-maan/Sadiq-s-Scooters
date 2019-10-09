@@ -7,8 +7,10 @@ class Game {
     this.world = new World({
       map: new WorldMap(maps.map1.grid)
     })
+    this.world.personGenerator.start()
     this.dragDrop = new DragDrop(this);
-    this.createPerson();
+
+    this.drawWalkable = false
     this.walkPerson();
   }
 
@@ -26,32 +28,18 @@ class Game {
     });
   }
 
-
-  createPerson() {
-    let path = []
-    let steps = Math.floor(Math.random() * 100)
-    for (let i = 0; i < steps; i++) {
-      path.push(new Location(Math.random(), Math.random()))
-    }
-    let options = {
-      location: new Location(0, 0),
-      destination: new Location(0, 0),
-      path: path,
-      speed: Math.random() / 10
-    }
-    this.world.generatePerson(options)
-    console.log(this.world.people);
-  }
-
   walkPerson() {
     // clears the canvas on each run time
-    let onScooterIMG = new Image()
-    onScooterIMG.src = ("./assets/bicycle_rider.png")
-    let walkingIMG = new Image()
-    walkingIMG.src = ("./assets/person.png")
+    // let onScooterIMG = new Image()
+    // onScooterIMG.src = ("./assets/person_scooter.png")
+    // let walkingIMG = new Image()
+    // walkingIMG.src = ("./assets/person.png")
 
     this.world.tick();
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.drawWalkable) {
+      drawHelpers.walkable(this.canvas, this.world.map)
+    }
     // sets the font for balance
     this.context.fillStyle = "black";
     this.context.font = '28px serif';
@@ -60,16 +48,15 @@ class Game {
     let width = 40;
     let height = 40;
     this.world.people.forEach(person1 => {
-      if (person1.onVehicle) {
+      if (person1.onVehicle()) {
         // this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width + 20, height);
         this.context.drawImage(onScooterIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
         this.context.fillStyle = "black";
 
       } else {
-        onScooterIMG.onload = () => {
-          this.context.drawImage(walkingIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
-          this.context.fillStyle = "black";
-        }
+
+        this.context.drawImage(walkingIMG, person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height)
+        this.context.fillStyle = "black";
         //this.context.drawImage
         //this.context.fillRect(person1.location.x * this.canvas.width, person1.location.y * this.canvas.height, width, height);
       }
