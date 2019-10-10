@@ -46,7 +46,28 @@ class Game {
       }
     });
 
-    // Drawing balance last to be on top of everything
+    // updates the toolBar
+
+    let peopleCount = new Rect("ppl-count", 250, 650, 70, 30, "white", this.context);
+    peopleCount.draw()
+    this.context.fillStyle = "black";
+    this.context.font = "10px Comic Sans MS";
+    this.context.fillText(`People: ${this.world.people.length}`, 255, 670);
+
+    let peopleOnScootCount = new Rect("ppl-bike-count", 400, 650, 80, 30, "white", this.context);
+    peopleOnScootCount.draw()
+    this.context.fillStyle = "black";
+    this.context.font = "10px Comic Sans MS";
+
+
+    let riderCount = this.world.people.filter((person) => {
+      return person.onVehicle()
+    }).length;
+    context.fillText(`On bikes: ${riderCount}`, 405, 670);
+
+
+
+    // Drawing balance last to be ontop of everything
     drawHelpers.balance(this.canvas, this.world.balance)
 
     drawToolBar();
