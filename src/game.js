@@ -46,18 +46,22 @@ class Game {
       }
     });
 
-    // updates the toolBar
+    // Drawing balance last to be ontop of everything
+    drawHelpers.balance(this.canvas, this.world.balance)
 
-    let peopleCount = new Rect("ppl-count", 250, 650, 70, 30, "white", this.context);
+    drawToolBar();
+
+    // updates the toolBar
+    let peopleCount = new Rect("ppl-count", 245, 650, 100, 30, "white", this.context);
     peopleCount.draw()
     this.context.fillStyle = "black";
-    this.context.font = "10px Comic Sans MS";
+    this.context.font = "16px Comic Sans MS";
     this.context.fillText(`People: ${this.world.people.length}`, 255, 670);
 
-    let peopleOnScootCount = new Rect("ppl-bike-count", 400, 650, 80, 30, "white", this.context);
+    let peopleOnScootCount = new Rect("ppl-bike-count", 395, 650, 110, 30, "white", this.context);
     peopleOnScootCount.draw()
     this.context.fillStyle = "black";
-    this.context.font = "10px Comic Sans MS";
+    this.context.font = "16px Comic Sans MS";
 
 
     let riderCount = this.world.people.filter((person) => {
@@ -67,10 +71,7 @@ class Game {
 
 
 
-    // Drawing balance last to be ontop of everything
-    drawHelpers.balance(this.canvas, this.world.balance)
 
-    drawToolBar();
 
     setTimeout(() => {
       this.walkPerson();

@@ -13,7 +13,7 @@ drawHelpers = {
   balance(canvas, balance) {
     let ctx = canvas.getContext("2d")
     ctx.fillStyle = 'rgba(255,255,255,1)';
-    ctx.fillRect(570, 16, 100, 50)
+    ctx.fillRect(578, 16, 100, 50)
     ctx.fillStyle = "black";
     ctx.font = '28px serif';
     ctx.fillText(`£ ${balance}`, 590, 50);
