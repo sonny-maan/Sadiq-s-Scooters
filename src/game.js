@@ -13,6 +13,8 @@ class Game {
     this.drawWalkable = false
     this.drawDsPlacement = false
     this.drawPersonPath = false
+
+
     this.walkPerson();
   }
 
@@ -50,8 +52,5 @@ class Game {
       this.walkPerson();
     }, 50);
   }
-
-
-
 
 }
