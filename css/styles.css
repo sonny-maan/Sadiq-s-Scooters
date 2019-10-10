@@ -91,7 +91,18 @@ position:relative;
  right: 2%;
  top: 2%;
 }
-
+.brexit
+{
+	 z-index: 1;
+	 position: fixed;
+	 width:25%;
+	 height:5%;
+ right: 38%;
+ top: 94%;
+ rgba(0, 0, 0, 1);
+ transform: scale(1);
+ animation: pulse 2s infinite;
+}
 .start
 {
 	 z-index: 1;
