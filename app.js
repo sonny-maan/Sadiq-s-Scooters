@@ -18,6 +18,9 @@ onScooterIMG.src = ("./assets/person_scooter.png")
 let walkingIMG = new Image()
 walkingIMG.src = ("./assets/person.png")
 
+
+
+
 window.onload = () => {
   startGame(self);
 };
