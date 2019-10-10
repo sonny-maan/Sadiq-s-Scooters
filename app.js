@@ -1,16 +1,18 @@
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
-let canvasBG = document.getElementById("canvas-bg");
-let contextBG = canvasBG.getContext("2d");
 canvas.width = 700;
 canvas.height = 700;
+
+let canvasBG = document.getElementById("canvas-bg");
+let contextBG = canvasBG.getContext("2d");
 canvasBG.width = 700;
 canvasBG.height = 700;
-let canvasOffset = canvas.getBoundingClientRect();
-//buttons
-let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black", contextBG);
-let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue", contextBG);
 
+let canvasOffset = canvas.getBoundingClientRect();
+
+//buttons
+let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black", context);
+let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue", context);
 // setting backgroundImage on top level
 // Load assets
 let bg = new Image();
@@ -64,13 +66,13 @@ function setBG() {
   contextBG.drawImage(bg, 0, 0, 700, 700);
 }
 
-function toolBar() {
+function drawToolBar() {
   toolBarRect.draw();
   //Docking Station Button
   dockingStationButton.draw();
-  contextBG.fillStyle = "white";
-  contextBG.font = "16px Comic Sans MS";
-  contextBG.fillText("Docking Station", 20, 670);
+  context.fillStyle = "white";
+  context.font = "16px Comic Sans MS";
+  context.fillText("Docking Station", 20, 670);
 }
 
 function startGame(self) {
@@ -79,6 +81,4 @@ function startGame(self) {
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
-  toolBar();
-
 }
