@@ -19,8 +19,6 @@ let walkingIMG = new Image()
 walkingIMG.src = ("./assets/person.png")
 
 
-
-
 window.onload = () => {
   startGame(self);
 };
@@ -36,10 +34,7 @@ function findTile() {
 }
 
 
-
 function increaseCap(e) {
-
-
   mouseX = e.pageX - canvasOffset.left;
   mouseY = e.pageY - canvasOffset.top;
   let tile = findTile();
@@ -56,7 +51,6 @@ function increaseCap(e) {
       }
     })
   }
-
 
 
 // creates Grids on the background canvas
