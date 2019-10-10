@@ -12,39 +12,41 @@ drawHelpers = {
   },
   balance(canvas, balance) {
     let ctx = canvas.getContext("2d")
-    ctx.fillStyle = 'rgba(255,255,255,0.8)';
-    ctx.fillRect(540, 15, 100, 50)
+    ctx.fillStyle = 'rgba(255,255,255,1)';
+    ctx.fillRect(537, 16, 100, 50)
     ctx.fillStyle = "black";
     ctx.font = '28px serif';
     ctx.fillText(`£ ${balance}`, 550, 50);
   },
 
   personPath(canvas, person) {
-    console.log('pp')
     let ctx = canvas.getContext("2d")
 
-    ctx.lineWidth = 1
+    ctx.lineWidth = 1.5
     ctx.strokeStyle = `rgba(0,255,0,0.5)`
     ctx.beginPath();
     ctx.moveTo(person.location.x * canvas.width, person.location.y * canvas.height);
     ctx.lineTo(person.destination.x * canvas.width, person.destination.y * canvas.height);
     ctx.stroke();
 
-    let fromX = person.location.x * canvas.width
-    let fromY = person.location.y * canvas.height
+    let fromX = person.destination.x * canvas.width
+    let fromY = person.destination.y * canvas.height
 
     let pathNum = 1
-    person.path.forEach((loc) => {
+    person.path.slice().reverse().forEach((loc) => {
       let toX = loc.x * canvas.width
       let toY = loc.y * canvas.height
-
-      ctx.strokeStyle = `rgba(255,0,0,${1/pathNum})`
+      let r = 255
+      let g = 255 - Math.floor(255 - pathNum * 8)
+      let b = 255 - Math.floor(255 - pathNum * 8)
+      ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',1)'
       ctx.beginPath();
       ctx.moveTo(fromX, fromY);
       ctx.lineTo(toX, toY);
       ctx.stroke();
       fromX = toX || fromX
       fromY = toY || fromY
+      pathNum++
     })
 
   },

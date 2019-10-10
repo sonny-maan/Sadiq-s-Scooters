@@ -36,20 +36,16 @@ class Game {
     if (this.drawDsPlacement) {
       drawHelpers.dsPlacement(this.canvas, this.world.map)
     }
-
+    // Drawing the people!
+    this.world.people.forEach(person1 => {
+      drawHelpers.person(this.canvas, person1, 30)
+      if (this.drawPersonPath) {
+        drawHelpers.personPath(this.canvas, person1)
+      }
+    });
 
     drawHelpers.balance(this.canvas, this.world.balance)
 
-    this.world.people.forEach(person1 => {
-
-      drawHelpers.person(this.canvas, person1, 30)
-
-      drawHelpers.personPath(this.canvas, person1)
-
-      if (this.personPath) {
-
-      }
-    });
     setTimeout(() => {
       this.walkPerson();
     }, 50);
