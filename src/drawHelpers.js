@@ -148,6 +148,9 @@ drawHelpers = {
     let offsetY = (location.y) - (squareSideLength / 2)
     ctx.fillStyle = "blue"
     ctx.fillRect(offsetX, offsetY, squareSideLength, squareSideLength)
+  },
+  toolBar(canvas) {
+
   }
 
 }

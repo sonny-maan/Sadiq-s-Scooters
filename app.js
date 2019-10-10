@@ -66,7 +66,7 @@ function setBG() {
   contextBG.drawImage(bg, 0, 0, 700, 700);
 }
 
-function toolBar() {
+function drawToolBar() {
   toolBarRect.draw();
   //Docking Station Button
   dockingStationButton.draw();
@@ -81,6 +81,4 @@ function startGame(self) {
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
-  toolBar();
-
 }

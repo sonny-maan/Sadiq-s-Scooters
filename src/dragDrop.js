@@ -22,8 +22,11 @@ class DragDrop {
           x: this.selection.x,
           y: this.selection.y
         }
+        // redraw the background with the dragged object ontop
         this.reDrawEverything()
-        drawHelpers.dockingStationCopy(canvasBG, this.game.world.map, selectionLocation)
+        let dockingStationCopy = new Rect("Docking-Station", selectionLocation.x, selectionLocation.y, 23.3, 23.3, "blue", contextBG);
+        dockingStationCopy.draw()
+        // drawHelpers.dockingStationCopy(canvasBG, this.game.world.map, selectionLocation)
       }
     }, true);
 
@@ -47,6 +50,7 @@ class DragDrop {
       this.game.world.generateDockingStation({
         location: centerOfGridDS
       }, true, true, true)
+
 
       this.reDrawEverything();
       this.selection.isActive = true;
@@ -79,8 +83,8 @@ class DragDrop {
   }
 
   updateMousePos(event) {
-    this.mouse.x = (event.clientX - this.canvasOffset.left) / (this.canvasOffset.right - this.canvasOffset.left) * canvas.width;
-    this.mouse.y = (event.clientY - this.canvasOffset.top) / (this.canvasOffset.bottom - this.canvasOffset.top) * canvas.height;
+    this.mouse.x = (event.clientX - this.canvasOffset.left) // (this.canvasOffset.right - this.canvasOffset.left) * canvas.width;
+    this.mouse.y = (event.clientY - this.canvasOffset.top) // (this.canvasOffset.bottom - this.canvasOffset.top) * canvas.height;
   }
 
   isOccupied() {
@@ -100,6 +104,5 @@ class DragDrop {
   reDrawEverything() {
     setBG();
     createGrid();
-    toolBar();
   }
 }
