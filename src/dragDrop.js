@@ -18,9 +18,12 @@ class DragDrop {
       if (this.selection) {
         this.selection.x = this.mouse.x - this.dragOffsetX;
         this.selection.y = this.mouse.y - this.dragOffsetY;
+        let selectionLocation = {
+          x: this.selection.x,
+          y: this.selection.y
+        }
         this.reDrawEverything()
-        let dockingStationCopy = new Rect("Docking-Station", this.selection.x, this.selection.y, 23.3, 23.3, "blue", contextBG);
-        dockingStationCopy.draw()
+        drawHelpers.dockingStationCopy(canvasBG, this.game.world.map, selectionLocation)
       }
     }, true);
 
@@ -41,13 +44,9 @@ class DragDrop {
 
       let gridLoc = this.game.world.map.gridLocFromLoc(loc)
       let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
-      let newDs = this.game.world.generateDockingStation({
+      this.game.world.generateDockingStation({
         location: centerOfGridDS
       }, true, true, true)
-      if (newDs) {
-
-        this.game.showDockingStation(newDs)
-      }
 
       this.reDrawEverything();
       this.selection.isActive = true;

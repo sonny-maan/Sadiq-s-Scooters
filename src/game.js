@@ -18,21 +18,24 @@ class Game {
     this.walkPerson();
   }
 
-  showDockingStation(dockingStation) {
-    let squareSideLength = 24
-    let drawX = (dockingStation.location.x * this.canvas.width) - (squareSideLength / 2)
-    let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
-    let colour = "blue"
-    if (dockingStation.capacity === dockingStation.dockedVehicles) {
-      colour = "purple"
-    } else if (dockingStation.dockedVehicles === 0) {
-      colour = "red"
-    }
-    dockingStation = new Rect("Docking-Station", drawX, drawY, squareSideLength, squareSideLength, colour, context)
-    dockingStation.draw()
+  // showDockingStation(dockingStation) {
+
+  //   drawHelpers.dockingStation(canvas, this.world.map, dockingStation)
+  //   drawHelpers.dockingStationNumber(canvas, this.world.map, dockingStation)
+  //   // let squareSideLength = 24
+  //   // let drawX = (dockingStation.location.x * this.canvas.width) - (squareSideLength / 2)
+  //   // let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
+  //   // let colour = "blue"
+  //   // if (dockingStation.capacity === dockingStation.dockedVehicles) {
+  //   //   colour = "purple"
+  //   // } else if (dockingStation.dockedVehicles === 0) {
+  //   //   colour = "red"
+  //   // }
+  //   // dockingStation = new Rect("Docking-Station", drawX, drawY, squareSideLength, squareSideLength, colour, context)
+  //   // dockingStation.draw()
 
 
-  }
+  // }
 
   walkPerson() {
     this.world.tick();
@@ -47,21 +50,21 @@ class Game {
       drawHelpers.dsPlacement(this.canvas, this.world.map)
     }
 
-
     // Shows updated docking station capacity
-    let self = this;
-    this.world.dockingStations.forEach(function (ds) {
-      self.showDockingStation(ds)
-      let squareSideLength = 24
-      let drawX = (ds.location.x * self.canvas.width) - (squareSideLength / 2)
-      let drawY = (ds.location.y * self.canvas.height) - (squareSideLength / 2)
-      context.fillStyle = "white";
-      context.font = "12px Comic Sans MS";
-      context.fillText(ds.dockedVehicles, drawX + 5, drawY + 15);
+    this.world.dockingStations.forEach((ds) => {
+      drawHelpers.dockingStation(canvas, this.world.map, ds)
+      drawHelpers.dockingStationNumber(canvas, this.world.map, ds)
+      // this.showDockingStation(ds)
+      // console.log(this)
+      //   let squareSideLength = 24
+      //   let drawX = (ds.location.x * self.canvas.width) - (squareSideLength / 2)
+      //   let drawY = (ds.location.y * self.canvas.height) - (squareSideLength / 2)
+      //   context.fillStyle = "white";
+      //   context.font = "12px Comic Sans MS";
+      //   context.fillText(ds.dockedVehicles, drawX + 5, drawY + 15);
       // context.fillText(ds.capacity, drawX + 5, drawY + 15);
 
     });
-
 
     // Drawing the people!
     this.world.people.forEach(person1 => {
@@ -71,8 +74,7 @@ class Game {
       }
     });
 
-
-    // Drawing balance last to be ontop of everything
+    // Drawing balance last to be on top of everything
     drawHelpers.balance(this.canvas, this.world.balance)
 
     setTimeout(() => {

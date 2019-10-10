@@ -80,7 +80,7 @@ drawHelpers = {
     let ctx = canvas.getContext("2d")
     let drawX = worldMap.gridWidth * canvas.width
     let drawY = worldMap.gridHeight * canvas.width
-    ctx.fillStyle = 'rgba(0, 255, 0, 0.8)'
+    ctx.fillStyle = 'rgba(0, 255, 0, 0.6)'
 
     for (let x = 0; x < worldMap.width; x++) {
       for (let y = 0; y < worldMap.height; y++) {
@@ -116,4 +116,38 @@ drawHelpers = {
       ctx.stroke();
     }
   },
+
+  dockingStation(canvas, worldMap, dockingStation) {
+    let ctx = canvas.getContext("2d")
+    let squareSideLength = worldMap.gridWidth * canvas.width
+    let offsetX = (dockingStation.location.x * canvas.width) - (squareSideLength / 2)
+    let offsetY = (dockingStation.location.y * canvas.width) - (squareSideLength / 2)
+    ctx.fillStyle = "blue"
+    if (dockingStation.capacity === dockingStation.dockedVehicles) {
+      ctx.fillStyle = "purple"
+    } else if (dockingStation.dockedVehicles === 0) {
+      ctx.fillStyle = "red"
+    }
+    ctx.fillRect(offsetX, offsetY, squareSideLength, squareSideLength)
+  },
+
+  dockingStationNumber(canvas, worldMap, dockingStation) {
+    let ctx = canvas.getContext("2d")
+    let squareSideLength = worldMap.gridWidth * canvas.width
+    let offsetX = (dockingStation.location.x * canvas.width) - (squareSideLength / 2)
+    let offsetY = (dockingStation.location.y * canvas.width) - (squareSideLength / 2)
+    ctx.fillStyle = "white";
+    // ctx.font = `${Math.floor(squareSideLength/2)}px Comic Sans MS`;
+    ctx.font = `12px Comic Sans MS`;
+    ctx.fillText(dockingStation.dockedVehicles, offsetX + 5, offsetY + 15);
+  },
+  dockingStationCopy(canvas, worldMap, location) {
+    let ctx = canvas.getContext("2d")
+    let squareSideLength = worldMap.gridWidth * canvas.width
+    let offsetX = (location.x) - (squareSideLength / 2)
+    let offsetY = (location.y) - (squareSideLength / 2)
+    ctx.fillStyle = "blue"
+    ctx.fillRect(offsetX, offsetY, squareSideLength, squareSideLength)
+  }
+
 }
