@@ -51,7 +51,6 @@ drawHelpers = {
 
   },
 
-
   walkable(canvas, worldMap) {
     let ctx = canvas.getContext("2d")
     let drawX = worldMap.gridWidth * canvas.width
@@ -96,5 +95,25 @@ drawHelpers = {
         }
       }
     }
-  }
+  },
+
+  grid(canvas, worldMap) {
+    let ctx = canvas.getContext("2d")
+    let gridBoxWidth = canvas.width * worldMap.gridWidth
+    let gridBoxHeight = canvas.height * worldMap.gridHeight
+    ctx.lineWidth = 0.5
+    ctx.strokeStyle = 'rgba(200,200,200,0.7)'
+    for (i = 0; i <= canvas.width; i += gridBoxWidth) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, canvas.height);
+      ctx.stroke();
+    }
+    for (i = 0; i <= canvas.height; i += gridBoxHeight) {
+      ctx.beginPath();
+      ctx.moveTo(0, i);
+      ctx.lineTo(canvas.width, i);
+      ctx.stroke();
+    }
+  },
 }
