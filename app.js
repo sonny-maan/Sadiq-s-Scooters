@@ -10,6 +10,7 @@ let canvasOffset = canvas.getBoundingClientRect();
 //buttons
 let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black", contextBG);
 let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue", contextBG);
+
 // setting backgroundImage on top level
 // Load assets
 let bg = new Image();
