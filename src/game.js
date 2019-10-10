@@ -76,6 +76,7 @@ class Game {
 
     // Drawing balance last to be on top of everything
     drawHelpers.balance(this.canvas, this.world.balance)
+    toolBar();
 
     setTimeout(() => {
       this.walkPerson();
