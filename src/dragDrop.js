@@ -25,6 +25,8 @@ class DragDrop {
     }, true);
 
     this.game.canvas.addEventListener('mouseup', (event) => {
+      this.game.drawDsPlacement = false
+
       if (this.isOccupied(this.mouse, this.ds)) return;
       if (this.mouse.y > 650) return;
 
@@ -41,7 +43,7 @@ class DragDrop {
       let centerOfGridDS = this.game.world.map.centerOfGrid(gridLoc)
       let newDs = this.game.world.generateDockingStation({
         location: centerOfGridDS
-      }, true)
+      }, true, true, true)
       if (newDs) {
 
         this.game.showDockingStation(newDs)
@@ -53,7 +55,6 @@ class DragDrop {
     }, true);
 
     this.game.canvas.addEventListener('mousedown', (event) => {
-
       if (this.game.dragDrop.selection) return;
       if (!(this.mouse.y >= 650 && this.mouse.y <= 700)) return; // not in toolbar!
 
@@ -61,11 +62,9 @@ class DragDrop {
 
       if (this.mouse.x >= 150 && this.mouse.x < 170 && this.game.world.balance === 0) {
         alert("Your Balance is Empty: you must earn more money")
-
       } else if (this.mouse.x >= 150 && this.mouse.x < 170) {
         dockingStationButton = new Rect("Docking-Station", 150, 650, 23.3, 23.3, "red");
         dockingStationButton.draw()
- 
       } else {
         return;
       }
