@@ -14,7 +14,7 @@ let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3,
 let bg = new Image();
 bg.src = `./assets/map.png`
 let onScooterIMG = new Image()
-onScooterIMG.src = ("./assets/person_scooter.png")
+onScooterIMG.src = ("./assets/bicycle_rider.png")
 let walkingIMG = new Image()
 walkingIMG.src = ("./assets/person.png")
 
