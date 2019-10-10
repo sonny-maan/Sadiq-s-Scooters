@@ -1,14 +1,15 @@
 let canvas = document.getElementById("canvas");
+let context = canvas.getContext("2d");
 let canvasBG = document.getElementById("canvas-bg");
-let context = canvasBG.getContext("2d");
+let contextBG = canvasBG.getContext("2d");
 canvas.width = 700;
 canvas.height = 700;
 canvasBG.width = 700;
 canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
-let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
-let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue");
+let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black", contextBG);
+let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue", contextBG);
 // setting backgroundImage on top level
 // Load assets
 let bg = new Image();
@@ -42,15 +43,15 @@ function increaseCap(e) {
   let gridBoxWidth = game.canvas.width / window.game.world.map.width
   let gridBoxHeight = game.canvas.height / window.game.world.map.height
 
-   let array = []
-    game.world.dockingStations.forEach(function(ds){
+  let array = []
+  game.world.dockingStations.forEach(function (ds) {
 
-      if (((Math.floor(tile.x/23.3)) == game.world.map.gridLocFromLoc(ds.location).x ) &&  ((Math.floor(tile.y/23.3)) == game.world.map.gridLocFromLoc(ds.location).y )){
-        array.push(ds)
-        array[0].increaseCapacity()
-      }
-    })
-  }
+    if (((Math.floor(tile.x / 23.3)) == game.world.map.gridLocFromLoc(ds.location).x) && ((Math.floor(tile.y / 23.3)) == game.world.map.gridLocFromLoc(ds.location).y)) {
+      array.push(ds)
+      array[0].increaseCapacity()
+    }
+  })
+}
 
 
 // creates Grids on the background canvas
@@ -59,16 +60,16 @@ function createGrid() {
 }
 
 function setBG() {
-  context.drawImage(bg, 0, 0, 700, 700);
+  contextBG.drawImage(bg, 0, 0, 700, 700);
 }
 
 function toolBar() {
   toolBarRect.draw();
   //Docking Station Button
   dockingStationButton.draw();
-  context.fillStyle = "white";
-  context.font = "16px Comic Sans MS";
-  context.fillText("Docking Station", 20, 670);
+  contextBG.fillStyle = "white";
+  contextBG.font = "16px Comic Sans MS";
+  contextBG.fillText("Docking Station", 20, 670);
 }
 
 function startGame(self) {
