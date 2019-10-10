@@ -8,7 +8,7 @@ canvasBG.height = 700;
 let canvasOffset = canvas.getBoundingClientRect();
 //buttons
 let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
-let dockingStationButton = new Rect("ds-btn", 90, 650, 23.3, 23.3, "blue");
+let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue");
 // setting backgroundImage on top level
 // Load assets
 let bg = new Image();
@@ -68,9 +68,9 @@ function toolBar() {
   toolBarRect.draw();
   //Docking Station Button
   dockingStationButton.draw();
-  context.fillStyle = "black";
-  context.font = "20px Comic Sans MS";
-  context.fillText("DS", 100, 670);
+  context.fillStyle = "white";
+  context.font = "16px Comic Sans MS";
+  context.fillText("Docking Station", 20, 670);
 }
 
 function startGame(self) {
