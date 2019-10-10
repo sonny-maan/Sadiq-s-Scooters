@@ -252,11 +252,8 @@ transform:scale(1.2);
 .containerposition{
 	position: fixed;
 	z-index: -5;
-	width: 18%;
-	top: 18%;
-	left: 6%;
+	width: 22%;
+	top: 30%;
+	left: 1%;
 	text-align: left;
 	vertical-align: middle;
-
-
-
