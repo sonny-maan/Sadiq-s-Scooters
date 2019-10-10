@@ -13,10 +13,10 @@ drawHelpers = {
   balance(canvas, balance) {
     let ctx = canvas.getContext("2d")
     ctx.fillStyle = 'rgba(255,255,255,1)';
-    ctx.fillRect(537, 16, 100, 50)
+    ctx.fillRect(570, 16, 100, 50)
     ctx.fillStyle = "black";
     ctx.font = '28px serif';
-    ctx.fillText(`£ ${balance}`, 550, 50);
+    ctx.fillText(`£ ${balance}`, 590, 50);
   },
 
   personPath(canvas, person) {
