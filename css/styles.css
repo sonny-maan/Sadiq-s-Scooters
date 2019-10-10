@@ -1,3 +1,10 @@
+.resetposition{
+		width:4%;
+		height:5%;
+		position: fixed;
+		left: 2%;
+		top: 25%;
+		}
 .mutelocation{
 	left:2%;
 }
@@ -76,6 +83,15 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 position:relative;
 	 right:15%;
 }
+.peeky
+{
+
+ position: fixed;
+	top: 68%;
+	left: 64%;
+	height: 60%;
+	width: 50%;
+}
 .logo
 {
 	width:25%;
@@ -84,7 +100,18 @@ position:relative;
  right: 2%;
  top: 2%;
 }
-
+.brexit
+{
+	 z-index: 1;
+	 position: fixed;
+	 width:25%;
+	 height:5%;
+ right: 38%;
+ top: 94%;
+ rgba(0, 0, 0, 1);
+ transform: scale(1);
+ animation: pulse 2s infinite;
+}
 .start
 {
 	 z-index: 1;
@@ -186,4 +213,22 @@ position:relative;
 .zoomanimation:hover {
 -webkit-transform:scale(1.5);
 transform:scale(1.5);
+}
+
+#container_rules {
+			font-size: 17pt;
+			border: 9px solid black;
+			background: WhiteSmoke;
+			padding: 10px;
+		}
+
+.containerposition{
+	     position: fixed;
+		    z-index: -5;
+				width:20%;
+				top:35%;
+				left: 2%;
+				text-align: center;
+vertical-align: middle;
+}
 }
