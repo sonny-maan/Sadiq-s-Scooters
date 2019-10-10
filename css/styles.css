@@ -83,6 +83,15 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 position:relative;
 	 right:15%;
 }
+.peeky
+{
+
+ position: fixed;
+	top: 68%;
+	left: 64%;
+	height: 60%;
+	width: 50%;
+}
 .logo
 {
 	width:25%;
