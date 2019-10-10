@@ -14,6 +14,10 @@ Clone from [here](https://github.com/JodiFoster/Sadiq-s-Scooters).
 
 Simply visit [here](https://jodifoster.github.io/Sadiq-s-Scooters/)
 
+This is what our game looks like:
+
+![gameplay](./assets/gameplay.gif)
+
 
 ## User Stories/Features
 **Main Menu**
@@ -25,7 +29,7 @@ I want Queen - Bike Race to play
 ```
 As a User
 So that cursed humans that dont like Queen can have fun too
-I want there to be a mute button on the game page 
+I want there to be a mute button on the game page
 ```
 ```
 As a User
@@ -39,12 +43,12 @@ I want a github button on the main menu
 ```
 ```
 As a User
-So that people think our game looks nice 
+So that people think our game looks nice
 I want cool animations for some of the text on the index
 ```
 ```
 As a User
-So that people think our game looks nice 
+So that people think our game looks nice
 I want a cool parallax effect on Boris himself
 ```
 **Buy and place docking station**
