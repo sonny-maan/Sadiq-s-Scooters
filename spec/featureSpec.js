@@ -114,17 +114,17 @@ describe('world', () => {
 
   it('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
 
-    expect(world.balance).toEqual(100)
+    expect(world.balance).toEqual(250)
     world.generateDockingStation()
-    expect(world.balance).toEqual(50)
+    expect(world.balance).toEqual(200)
   })
 
 
   it('the balance of the world goes down by docking station cost when a docking station is purchased', () => {
-    expect(world.balance).toEqual(100)
+    expect(world.balance).toEqual(250)
     let dockingStation = world.generateDockingStation()
     dockingStation.dock(world)
-    expect(world.balance).toEqual(55)
+    expect(world.balance).toEqual(205)
   })
 
 });

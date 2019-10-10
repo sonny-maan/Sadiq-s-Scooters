@@ -1,20 +1,24 @@
 let canvas = document.getElementById("canvas");
-let canvasBG = document.getElementById("canvas-bg");
-let context = canvasBG.getContext("2d");
+let context = canvas.getContext("2d");
 canvas.width = 700;
 canvas.height = 700;
+
+let canvasBG = document.getElementById("canvas-bg");
+let contextBG = canvasBG.getContext("2d");
 canvasBG.width = 700;
 canvasBG.height = 700;
+
 let canvasOffset = canvas.getBoundingClientRect();
+
 //buttons
-let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black");
-let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue");
+let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black", context);
+let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue", context);
 // setting backgroundImage on top level
 // Load assets
 let bg = new Image();
 bg.src = `./assets/map.png`
 let onScooterIMG = new Image()
-onScooterIMG.src = ("./assets/person_scooter.png")
+onScooterIMG.src = ("./assets/bicycle_rider.png")
 let walkingIMG = new Image()
 walkingIMG.src = ("./assets/person.png")
 
@@ -42,15 +46,15 @@ function increaseCap(e) {
   let gridBoxWidth = game.canvas.width / window.game.world.map.width
   let gridBoxHeight = game.canvas.height / window.game.world.map.height
 
-   let array = []
-    game.world.dockingStations.forEach(function(ds){
+  let array = []
+  game.world.dockingStations.forEach(function (ds) {
 
-      if (((Math.floor(tile.x/23.3)) == game.world.map.gridLocFromLoc(ds.location).x ) &&  ((Math.floor(tile.y/23.3)) == game.world.map.gridLocFromLoc(ds.location).y )){
-        array.push(ds)
-        array[0].increaseCapacity()
-      }
-    })
-  }
+    if (((Math.floor(tile.x / 23.3)) == game.world.map.gridLocFromLoc(ds.location).x) && ((Math.floor(tile.y / 23.3)) == game.world.map.gridLocFromLoc(ds.location).y)) {
+      array.push(ds)
+      array[0].increaseCapacity()
+    }
+  })
+}
 
 
 // creates Grids on the background canvas
@@ -59,10 +63,10 @@ function createGrid() {
 }
 
 function setBG() {
-  context.drawImage(bg, 0, 0, 700, 700);
+  contextBG.drawImage(bg, 0, 0, 700, 700);
 }
 
-function toolBar() {
+function drawToolBar() {
   toolBarRect.draw();
   //Docking Station Button
   dockingStationButton.draw();
@@ -77,6 +81,4 @@ function startGame(self) {
   context.clearRect(0, 0, canvas.width, canvas.height);
   setBG();
   createGrid();
-  toolBar();
-
 }
