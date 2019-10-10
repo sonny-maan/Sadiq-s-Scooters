@@ -18,26 +18,11 @@ class Game {
     this.walkPerson();
   }
 
-  showDockingStation(dockingStation) {
-    let squareSideLength = 24
-    let drawX = (dockingStation.location.x * this.canvas.width) - (squareSideLength / 2)
-    let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
-    let colour = "blue"
-    if (dockingStation.capacity === dockingStation.dockedVehicles) {
-      colour = "purple"
-    } else if (dockingStation.dockedVehicles === 0) {
-      colour = "red"
-    }
-    dockingStation = new Rect("Docking-Station", drawX, drawY, squareSideLength, squareSideLength, colour, context)
-    dockingStation.draw()
-
-
-  }
-
   walkPerson() {
     this.world.tick();
 
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
     // Shows which squares are walkable, next to walkable, and neither
     if (this.drawWalkable) {
       drawHelpers.walkable(this.canvas, this.world.map)
@@ -47,21 +32,11 @@ class Game {
       drawHelpers.dsPlacement(this.canvas, this.world.map)
     }
 
-
     // Shows updated docking station capacity
-    let self = this;
-    this.world.dockingStations.forEach(function (ds) {
-      self.showDockingStation(ds)
-      let squareSideLength = 24
-      let drawX = (ds.location.x * self.canvas.width) - (squareSideLength / 2)
-      let drawY = (ds.location.y * self.canvas.height) - (squareSideLength / 2)
-      context.fillStyle = "white";
-      context.font = "12px Comic Sans MS";
-      context.fillText(ds.dockedVehicles, drawX + 5, drawY + 15);
-      // context.fillText(ds.capacity, drawX + 5, drawY + 15);
-
+    this.world.dockingStations.forEach((ds) => {
+      drawHelpers.dockingStation(canvas, this.world.map, ds)
+      drawHelpers.dockingStationNumber(canvas, this.world.map, ds)
     });
-
 
     // Drawing the people!
     this.world.people.forEach(person1 => {
@@ -71,26 +46,32 @@ class Game {
       }
     });
 
-		// updates the toolBar
-		let peopleCount = new Rect("ppl-count",250, 650, 70, 30,"white", context);
-		 peopleCount.draw()
-		context.fillStyle = "black";
-	  context.font = "10px Comic Sans MS";
-	  context.fillText(`People: ${this.world.people.length}`, 255, 670);
-
-		let peopleOnScootCount = new Rect("ppl-count",400, 650, 80, 30,"white", context);
-		 peopleOnScootCount .draw()
-		context.fillStyle = "black";
-		context.font = "10px Comic Sans MS";
-
-		let vehicle = undefined
-		var count = this.world.people.filter((obj) => obj.vehicle != undefined).length;
-		context.fillText(`On bikes: ${count}`, 405, 670);
-
-
-
     // Drawing balance last to be ontop of everything
     drawHelpers.balance(this.canvas, this.world.balance)
+
+    drawToolBar();
+
+    // updates the toolBar
+    let peopleCount = new Rect("ppl-count", 245, 650, 100, 30, "white", this.context);
+    peopleCount.draw()
+    this.context.fillStyle = "black";
+    this.context.font = "16px Comic Sans MS";
+    this.context.fillText(`People: ${this.world.people.length}`, 255, 670);
+
+    let peopleOnScootCount = new Rect("ppl-bike-count", 395, 650, 110, 30, "white", this.context);
+    peopleOnScootCount.draw()
+    this.context.fillStyle = "black";
+    this.context.font = "16px Comic Sans MS";
+
+
+    let riderCount = this.world.people.filter((person) => {
+      return person.onVehicle()
+    }).length;
+    context.fillText(`On bikes: ${riderCount}`, 405, 670);
+
+
+
+
 
     setTimeout(() => {
       this.walkPerson();
