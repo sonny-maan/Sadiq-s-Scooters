@@ -1,4 +1,4 @@
-# Sadiq's Scooters- [![badge](https://img.shields.io/badge/made--by-hunnies-red)](https://github.com/sindresorhus/awesome#readme) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+# Boris Bikes- [![badge](https://img.shields.io/badge/made--by-hunnies-red)](https://github.com/sindresorhus/awesome#readme) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 
 ## The hunnies
 
@@ -23,48 +23,19 @@ This is what our game looks like:
 **Main Menu**
 ```
 As a User
-So that people can jam out to some bike related musics
-I want Queen - Bike Race to play
-```
-```
-As a User
-So that cursed humans that dont like Queen can have fun too
-I want there to be a mute button on the game page
-```
-```
-As a User
-So that people can play the game easily
-I want for them to click on the screen to be taken to the game
-```
-```
-As a User
-So that people can see our code
-I want a github button on the main menu
-```
-```
-As a User
-So that people think our game looks nice
-I want cool animations for some of the text on the index
-```
-```
-As a User
-So that people think our game looks nice
-I want a cool parallax effect on Boris himself
+So that I can play a well presented game
+I want a fun main menu
 ```
 **Buy and place docking station**
 ```
 As a User
-So that people can buy scooters and have a sick time
+So that people can rent bikes
 I want to be able to buy a docking station and put it on the map
 ```
+
 ```
 As a User
-So that people can rent scooters,
-I want a person to be able to get a scooter from a station
-```
-```
-As a User
-So that people can drop off scooters
+So that people can drop off bikes
 I want a person to be able to put a scooter back in a station
 ```
 
@@ -73,29 +44,46 @@ As a User
 So that docking stations don't create infinite vehicles
 I want each docking station to have a capacity, a person can't get a scooter from an empty docking station
 ```
-**Money**
+
 ```
 As a User
-So that people can tell how well Im doing
-I want to be able to see how much money I have
+So that docking stations can store more bikes
+I want to be able to increase the capacity of individual docking stations
 ```
 
 ```
 As a User
-So that the game isn't too easy
+So that I know what docking stations need upgrading
+I want to be able to see when a docking station is empty or full
+```
+
+```
+As a User
+So that I know where I can place a docking station
+I want those tiles to light up when I buy a docking station
+```
+
+**Metrics**
+```
+As a User
+So that I can tell how well I'm doing
+I want to be able to see what my balance is
+```
+
+```
+As a User
+So that the game is challenging
 I want to only be able to buy docking stations I can afford
 ```
+
+```
+As a User
+So that I can get an quick overview of my world
+I want to be able to see how many people there are, and how many are on bikes
+```
+
 **People**
-```
-As a User
-So that there are people to rent my scooters
-I want to be able to create a person
-```
-```
-As a User
-So that people can rent scooters,
-I want people to be able to rent scoot's from stations
-```
+
 ```
 As a User
 So that the game is realistic
@@ -104,7 +92,7 @@ I want to people to move towards their destination
 
 ```
 As a User
-So that my world doesn't get overpopulated,
+So that my world doesn't get overpopulated
 I want people to disappear when they reach their destination
 ```
 
@@ -114,9 +102,10 @@ So that I know that people have arrived at their destination
 I want to be able to see them there
 ```
 **Road**
+
 ```
 As a User
-So that people don't get their shoes dirty,
+So that people don't get their shoes dirty
 I want a road for them to follow
 ```
 
