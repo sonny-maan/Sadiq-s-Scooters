@@ -25,18 +25,18 @@
   <script src="./src/dragDrop.js"></script>
 
   <script>
-  var showing_rules = false;
-  function showRules()
-  {
-    var rules = document.getElementById("container_rules");
-    if (showing_rules) {
-      rules.style.display = "none";
-      showing_rules = false;
-    } else {
-      rules.style.display = "block";
-      showing_rules = true;
+    var showing_rules = false;
+
+    function showRules() {
+      var rules = document.getElementById("container_rules");
+      if (showing_rules) {
+        rules.style.display = "none";
+        showing_rules = false;
+      } else {
+        rules.style.display = "block";
+        showing_rules = true;
+      }
     }
-  }
   </script>
 
 
@@ -47,7 +47,7 @@
 <body>
 
 
-
+  <!--
   <div>
     <input type="checkbox" name="un-mute" id="un-mute">
     <label for="un-mute" class="unmute">
@@ -64,25 +64,28 @@
       ;};
       </script>
   </div>
-    <img src="./assets/boris.png" class="peeky">
+  <img src="./assets/boris.png" class="peeky">
 
-<img src="./assets/brexitisntreal.png" class="brexit">
-  <audio id="backgroundmusic" autoplay="autoplay"> <source src="./assets/queen.mp3" type="audio/mp3"></audio>
+  <img src="./assets/brexitisntreal.png" class="brexit">
+  <audio id="backgroundmusic" autoplay="autoplay">
+    <source src="./assets/queen.mp3" type="audio/mp3"></audio>
+    -->
   <a href="./index.html"><img src="./assets/home.png" class="invertcoloranimation homeposition zoomanimation"></a>
   <a href="./game.html"><img src="./assets/reset.png" class="invertcoloranimation resetposition zoomanimation"></a>
 
-  <div id="container_rules" style="display: none;" class="containerposition" >
-      <div>
-        <b>How to play Boris Bikes!</b>
-      </div>
-      <ul>
-        <li>Drag and drop docking stations around the map so that people can travel around<br/><br/></li>
-        <li>Earn money to build more stations so that people always have the option of scooting!<br/><br/></li>
-        <li>Docking stations cost £50 each so be careful with where you place your first two!</li>
-      </ul>
-			</div>
+  <div id="container_rules" style="display: none;" class="containerposition">
+    <div>
+      <b>How to play Boris Bikes!</b>
+    </div>
+    <ul>
+      <li>Drag and drop docking stations around the map so that people can travel around<br /><br /></li>
+      <li>Earn money to build more stations so that people always have the option of scooting!<br /><br /></li>
+      <li>Docking stations cost £50 each so be careful with where you place your first two!</li>
+    </ul>
+  </div>
 
-  <a onclick="showRules();" id="button_rules"><img src="./assets/questionmark.png" class="invertcoloranimation zoomanimation helpposition"></a>
+  <a onclick="showRules();" id="button_rules"><img src="./assets/questionmark.png"
+      class="invertcoloranimation zoomanimation helpposition"></a>
 
   <canvas id="canvas-bg"></canvas>
   <canvas id="canvas"></canvas>
