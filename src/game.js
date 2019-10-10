@@ -18,6 +18,16 @@ class Game {
     this.walkPerson();
   }
 
+
+  showDockingStation(dockingStation) {
+    let squareSideLength = 24
+    let drawX = (dockingStation.location.x * this.canvas.width) - (squareSideLength / 2)
+    let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
+    dockingStation = new Rect("Docking-Station", drawX, drawY, squareSideLength, squareSideLength, "blue")
+    dockingStation.draw()
+  }
+
+
   walkPerson() {
     this.world.tick();
 
@@ -46,7 +56,20 @@ class Game {
       }
     });
 
-    // Drawing balance last to be ontop of everything
+
+    // Shows updated docking station capacity
+    let self = this;
+    this.world.dockingStations.forEach(function (ds) {
+      self.showDockingStation(ds) 
+      let squareSideLength = 24
+      let drawX = (ds.location.x * self.canvas.width) - (squareSideLength / 2)
+      let drawY = (ds.location.y * self.canvas.height) - (squareSideLength / 2)
+      context.fillStyle = "white";
+      context.font = "12px Comic Sans MS";
+      context.fillText(ds.capacity, drawX + 5, drawY + 15);
+    });
+    
+
     drawHelpers.balance(this.canvas, this.world.balance)
 
     drawToolBar();
