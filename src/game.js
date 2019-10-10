@@ -45,6 +45,23 @@ walkPerson(){
   this.context.fillStyle = "black";
   this.context.font = '28px serif';
   this.context.fillText(`£ ${this.world.balance}`,600,50);
+	// updates the toolBar
+	let peopleCount = new Rect("ppl-count",250, 650, 70, 30,"white");
+	 peopleCount.draw()
+	context.fillStyle = "black";
+  context.font = "10px Comic Sans MS";
+  context.fillText(`People: ${this.world.people.length}`, 255, 670);
+
+	let peopleOnScootCount = new Rect("ppl-count",400, 650, 70, 30,"white");
+	 peopleOnScootCount .draw()
+	context.fillStyle = "black";
+	context.font = "10px Comic Sans MS";
+
+	let vehicle = undefined
+	var count = this.world.people.filter((obj) => obj.vehicle != undefined).length;
+	context.fillText(`On bikes: ${count}`, 405, 670);
+
+
   // on each tick person takes a step
   let width = 40;
   let height = 40;

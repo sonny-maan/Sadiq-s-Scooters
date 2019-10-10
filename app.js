@@ -11,6 +11,7 @@ let playButton = new Rect("play-btn",300,200,100,50,"blue");
 let toolBarRect = new Rect("tool-bar",0, 639, 700, 500,"black");
 let resetButton = new Rect("reset-btn",620, 650, 70, 40,"red");
 let dockingStationButton = new Rect("ds-btn",90, 650, 70, 30,"blue");
+let peopleCount = new Rect("ppl-count",250, 650, 70, 30,"white");
 // setting backgroundImage on top level
 let bg = new Image();
 bg.src = `./assets/map.png`
@@ -104,4 +105,3 @@ function startGame(self) {
   createGrid();
   toolBar();
 }
-
