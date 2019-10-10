@@ -58,21 +58,7 @@ function increaseCap(e) {
 
 // creates Grids on the background canvas
 function createGrid() {
-  let gridBoxWidth = canvas.width / window.game.world.map.width
-  let gridBoxHeight = canvas.height / window.game.world.map.height
-  for (i = 0; i <= 700; i += gridBoxWidth) {
-    context.moveTo(i, 0);
-    context.lineTo(i, 700);
-    context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
-    context.stroke();
-  }
-
-  for (i = 0; i <= 700; i += gridBoxHeight) {
-    context.moveTo(0, i);
-    context.lineTo(700, i);
-    context.strokeStyle = 'rgba(0, 0, 0, 0.9)';
-    context.stroke();
-  }
+  drawHelpers.grid(canvasBG, window.game.world.map)
 }
 
 function setBG() {
