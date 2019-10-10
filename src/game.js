@@ -72,7 +72,7 @@ class Game {
     });
 
 
-
+    // Drawing balance last to be ontop of everything
     drawHelpers.balance(this.canvas, this.world.balance)
 
     setTimeout(() => {
