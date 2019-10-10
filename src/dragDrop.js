@@ -19,7 +19,7 @@ class DragDrop {
         this.selection.x = this.mouse.x - this.dragOffsetX;
         this.selection.y = this.mouse.y - this.dragOffsetY;
         this.reDrawEverything()
-        let dockingStationCopy = new Rect("Docking-Station", this.selection.x, this.selection.y, 23.3, 23.3, "blue");
+        let dockingStationCopy = new Rect("Docking-Station", this.selection.x, this.selection.y, 23.3, 23.3, "blue", contextBG);
         dockingStationCopy.draw()
       }
     }, true);
@@ -65,7 +65,8 @@ class DragDrop {
 
       } else if (this.mouse.x >= 150 && this.mouse.x < 170) {
         this.game.drawDsPlacement = true
-        dockingStationButton = new Rect("Docking-Station", 150, 650, 23.3, 23.3, "red");
+
+        dockingStationButton = new Rect("Docking-Station", 150, 650, 23.3, 23.3, "red", context);
         dockingStationButton.draw()
       } else {
         return;
@@ -101,9 +102,5 @@ class DragDrop {
     setBG();
     createGrid();
     toolBar();
-    this.game.world.dockingStations.forEach((ds) => {
-      this.game.showDockingStation(ds)
-    })
-
   }
 }

@@ -103,7 +103,7 @@ describe('custom person', () => {
 });
 
 describe('person on scooter', () => {
-  it('person on vehicle moves fast', () => {
+  xit('person on vehicle moves fast', () => {
     let world = new World();
     person = new Person(world);
     person_fast = new Person(world);
