@@ -24,8 +24,6 @@ class Game {
     let drawY = (dockingStation.location.y * this.canvas.height) - (squareSideLength / 2)
     dockingStation = new Rect("Docking-Station", drawX, drawY, squareSideLength, squareSideLength, "blue")
     dockingStation.draw()
-
-  
   }
 
   walkPerson() {
@@ -58,7 +56,6 @@ class Game {
       context.fillStyle = "white";
       context.font = "12px Comic Sans MS";
       context.fillText(ds.capacity, drawX + 5, drawY + 15);
-
     });
     
     drawHelpers.balance(this.canvas, this.world.balance)
