@@ -228,11 +228,10 @@ body {
 }
 
 .gitposition {
-  position: fixed;
-  right: 2%;
-  bottom: 2%;
-  width: 4%;
-  height: 5%;
+  position: relative;
+  left: 1%;
+  width: 3%;
+  height: auto;
 }
 
 .invertcoloranimation {
