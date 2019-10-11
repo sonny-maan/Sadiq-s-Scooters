@@ -245,15 +245,18 @@ transform:scale(1.2);
 		}
 
 
-		#container_rules 	h2 {
-			font-size: 25px;
+		#container_rules h2 {
+			font-size: 22px;
 			text-align: center;
 		}
+
+		#container_rules ul {    font-size: 16px;}
 .containerposition{
 	position: fixed;
 	z-index: -5;
-	width: 22%;
+	width: 18%;
 	top: 30%;
-	left: 1%;
+	left: 6%;
 	text-align: left;
 	vertical-align: middle;
+}
