@@ -63,7 +63,7 @@ class DragDrop {
 
       let dockingStationButton;
 
-      if (this.mouse.x >= 150 && this.mouse.x < 170 && this.game.world.balance <= 70) {
+      if (this.mouse.x >= 150 && this.mouse.x < 170 && this.game.world.balance < 70) {
         alert("Insufficient funds")
 
       } else if (this.mouse.x >= 150 && this.mouse.x < 170) {

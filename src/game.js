@@ -46,7 +46,6 @@ class Game {
       }
     });
 
-    // Drawing balance last to be ontop of everything
     drawHelpers.balance(this.canvas, this.world.balance)
 
     drawToolBar();
@@ -68,10 +67,6 @@ class Game {
       return person.onVehicle()
     }).length;
     context.fillText(`On bikes: ${riderCount}`, 405, 670);
-
-
-
-
 
     setTimeout(() => {
       this.walkPerson();
