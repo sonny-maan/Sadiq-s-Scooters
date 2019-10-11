@@ -11,6 +11,7 @@ class Person {
     this.questCompleted = false
     this.vehicle = undefined
     this.personDirections = new PersonDirections(this.world, this)
+    this.direction = 'r'
     // Set Dem Options
     util.setOptions(this, options)
     // Clean Up
@@ -49,9 +50,23 @@ class Person {
     newLoc = newLoc.moveToOnMap()
     let newGridLoc = worldMap.gridLocFromLoc(newLoc)
     if (worldMap.isWalkable(newGridLoc)) {
+      this.direction = this.setDirection(loc, destination)
       return newLoc
     } else {
       return loc
+    }
+  }
+
+  setDirection(loc, destination) {
+    let angle = loc.angleTo(destination)
+    if (angle >= -45 && angle <= 45) {
+      return 'r'
+    } else if (angle >= 45 && angle <= 135) {
+      return 'd' // fixed the images?
+    } else if (angle <= -45 && angle >= -135) {
+      return 'u'
+    } else {
+      return 'l'
     }
   }
 

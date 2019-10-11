@@ -37,6 +37,11 @@ class Location {
     return new Location(newX, newY)
   }
 
+  angleTo(locB) {
+    let direction = this.to(locB)
+    return Math.atan2(direction.y, direction.x) * 180 / Math.PI;
+  }
+
   onMap() {
     return (this.x >= 0 && this.x <= 1 && this.y >= 0 && this.y <= 1)
   }
