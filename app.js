@@ -51,7 +51,7 @@ function findTile() {
   return {
     x: Math.floor(this.mouseX / gridBoxWidth) * gridBoxWidth,
     y: Math.floor(this.mouseY / gridBoxHeight) * gridBoxHeight
-  };
+  }; 
 }
 
 
