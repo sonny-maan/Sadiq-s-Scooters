@@ -13,6 +13,10 @@ class DragDrop {
   }
 
   init() {
+    window.addEventListener("resize", (event) => {
+      this.canvasOffset = this.game.canvas.getBoundingClientRect();
+
+    });
     this.game.canvas.addEventListener('mousemove', (event) => {
       this.updateMousePos(event);
       if (this.selection) {

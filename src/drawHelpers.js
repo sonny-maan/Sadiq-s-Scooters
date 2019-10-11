@@ -1,14 +1,33 @@
 drawHelpers = {
   person(canvas, person, size = 30) {
     let ctx = canvas.getContext("2d")
-    ctx.fillStyle = "black";
+    let image = personRightImg
+    if (person.onVehicle()) {
+      if (person.direction === 'u') {
+        image = bicycleUpImg
+      } else if (person.direction === 'd') {
+        image = bicycleDownImg
+      } else if (person.direction === 'l') {
+        image = bicycleLeftImg
+      } else if (person.direction === 'r') {
+        image = bicycleRightImg
+      }
+    } else {
+      if (person.direction === 'u') {
+        image = personUpImg
+      } else if (person.direction === 'd') {
+        image = personDownImg
+      } else if (person.direction === 'l') {
+        image = personLeftImg
+      } else if (person.direction === 'r') {
+        image = personRightImg
+      }
+    }
+
     let offsetX = (person.location.x * canvas.width) - (size / 2)
     let offsetY = (person.location.y * canvas.width) - (size / 2)
-    if (person.onVehicle()) {
-      ctx.drawImage(onScooterIMG, offsetX, offsetY, size, size)
-    } else {
-      ctx.drawImage(walkingIMG, offsetX, offsetY, size, size)
-    }
+    ctx.drawImage(image, offsetX, offsetY, size, size)
+
   },
   balance(canvas, balance) {
     let ctx = canvas.getContext("2d")

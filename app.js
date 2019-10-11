@@ -14,13 +14,30 @@ let canvasOffset = canvas.getBoundingClientRect();
 let toolBarRect = new Rect("tool-bar", 0, 639, 700, 500, "black", context);
 let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3, "blue", context);
 // setting backgroundImage on top level
+
 // Load assets
-let bg = new Image();
-bg.src = `./assets/map.png`
-let onScooterIMG = new Image()
-onScooterIMG.src = ("./assets/bicycle_rider.png")
-let walkingIMG = new Image()
-walkingIMG.src = ("./assets/person.png")
+let backgroundImg = new Image();
+backgroundImg.src = (`./assets/map.png`)
+
+let personLeftImg = new Image()
+personLeftImg.src = ("./assets/personLeft.png")
+let personRightImg = new Image()
+personRightImg.src = ("./assets/personRight.png")
+let personUpImg = new Image()
+personUpImg.src = ("./assets/personUp.png")
+let personDownImg = new Image()
+personDownImg.src = ("./assets/personDown.png")
+
+let bicycleLeftImg = new Image()
+bicycleLeftImg.src = ("./assets/bicycleRiderLeft.png")
+let bicycleRightImg = new Image()
+bicycleRightImg.src = ("./assets/bicycleRiderRight.png")
+let bicycleUpImg = new Image()
+bicycleUpImg.src = ("./assets/bicycleRiderUp.png")
+let bicycleDownImg = new Image()
+bicycleDownImg.src = ("./assets/bicycleRiderDown.png")
+
+
 
 
 window.onload = () => {
@@ -63,7 +80,7 @@ function createGrid() {
 }
 
 function setBG() {
-  contextBG.drawImage(bg, 0, 0, 700, 700);
+  contextBG.drawImage(backgroundImg, 0, 0, 700, 700);
 }
 
 function drawToolBar() {
