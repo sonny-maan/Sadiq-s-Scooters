@@ -59,12 +59,12 @@ class Person {
 
   setDirection(loc, destination) {
     let angle = loc.angleTo(destination)
-    if (angle >= -90 && angle <= 90) {
+    if (angle >= -45 && angle <= 45) {
       return 'r'
-      // } else if (angle >= 45 && angle <= 135) {
-      //   return 'u'
-      // } else if (angle <= -45 && angle >= -135) {
-      //   return 'd'
+    } else if (angle >= 45 && angle <= 135) {
+      return 'd'
+    } else if (angle <= -45 && angle >= -135) {
+      return 'u'
     } else {
       return 'l'
     }

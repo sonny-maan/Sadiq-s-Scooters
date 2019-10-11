@@ -18,14 +18,24 @@ let dockingStationButton = new Rect("Docking-Station-btn", 150, 650, 23.3, 23.3,
 // Load assets
 let backgroundImg = new Image();
 backgroundImg.src = (`./assets/map.png`)
+
 let personLeftImg = new Image()
 personLeftImg.src = ("./assets/personLeft.png")
 let personRightImg = new Image()
 personRightImg.src = ("./assets/personRight.png")
+let personUpImg = new Image()
+personUpImg.src = ("./assets/personUp.png")
+let personDownImg = new Image()
+personDownImg.src = ("./assets/personDown.png")
+
 let bicycleLeftImg = new Image()
 bicycleLeftImg.src = ("./assets/bicycleRiderLeft.png")
 let bicycleRightImg = new Image()
 bicycleRightImg.src = ("./assets/bicycleRiderRight.png")
+let bicycleUpImg = new Image()
+bicycleUpImg.src = ("./assets/bicycleRiderUp.png")
+let bicycleDownImg = new Image()
+bicycleDownImg.src = ("./assets/bicycleRiderDown.png")
 
 
 
