@@ -62,7 +62,7 @@ class Person {
     if (angle >= -45 && angle <= 45) {
       return 'r'
     } else if (angle >= 45 && angle <= 135) {
-      return 'd'
+      return 'd' // fixed the images?
     } else if (angle <= -45 && angle >= -135) {
       return 'u'
     } else {
