@@ -1,262 +1,285 @@
 /* instructions css */
-.icons{
-	list-style: none;
-	text-align:left;
-}
-.box{width: 23.3px;
-	height: 23.3px;
-	border: 1px solid black;
-	vertical-align: bottom;
-	display: inline-block;
-}
-.box.blue{
-	background: blue;
-}
-.box.red{
-	background: red;
-}
-.box.purple{
-	background: purple;
+.icons {
+  list-style: none;
+  text-align: left;
 }
 
-.resetposition{
-		width:3%;
-		height:auto;
-		position: relative;
-		display:block;
-		left: 2%;
-		margin: 1% 0;
-		}
-.mutelocation{
-	left:2%;
+.box {
+  width: 23.3px;
+  height: 23.3px;
+  border: 1px solid black;
+  vertical-align: bottom;
+  display: inline-block;
 }
-.indexmutelocation{
-	overflow: hidden;
- position:relative;
-	left:1%;
-bottom:5%;
+
+.box.blue {
+  background: blue;
 }
-.mute img{
-	width:3.5%;
- height:auto;
- overflow: hidden;
-position:relative;
+
+.box.red {
+  background: red;
+}
+
+.box.purple {
+  background: purple;
+}
+
+.resetposition {
+  width: 3%;
+  height: auto;
+  position: relative;
+  display: block;
+  left: 2%;
+  margin: 1% 0;
+}
+
+.mutelocation {
+  left: 2%;
+}
+
+.indexmutelocation {
+  overflow: hidden;
+  position: relative;
+  left: 1%;
+  bottom: 5%;
+}
+
+.mute img {
+  width: 3.5%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
 
 }
+
 .unmute img {
-    display: none;
-		width:3.5%;
-	 height:auto;
-	 overflow: hidden;
-	position:relative;
+  display: none;
+  width: 3.5%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
 
 
 }
+
 input#un-mute {
-    display: none;
+  display: none;
 }
 
 .unmute img {
-    display: none;
+  display: none;
 
 }
 
-input#un-mute:checked ~ .unmute img {
-    display: initial;
+input#un-mute:checked~.unmute img {
+  display: initial;
 }
 
-input#un-mute:checked ~ .mute img {
-    display: none;
+input#un-mute:checked~.mute img {
+  display: none;
 }
 
-body
-{
-	background: url(../assets/background.png) no-repeat center center fixed;
+body {
+  background: url(../assets/background.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-	font-size: 30pt;
+  font-size: 30pt;
 }
 
 canvas {
 
-top: 50%;
-left: 50%;
-display: block;
-margin: auto;
-position: absolute;
-transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  display: block;
+  margin: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 6px 6px #0000008c;
 }
 
-.mixBlnd
-{
-	background-blend-mode: screen;
-}
-html, body {margin: 0; height: 100%; overflow: hidden}
-
-.chonkyboi
-{
-	width:70%;
- height:70%;
- overflow: hidden;
-position:relative;
-	 right:15%;
-}
-.peeky
-{
-
- position: fixed;
-	top: 68%;
-	left: 64%;
-	height: 60%;
-	width: 50%;
-}
-.logo
-{
-	width:25%;
- height:30%;
- position: fixed;
- right: 2%;
- top: 2%;
-}
-.brexit
-{
-	 z-index: 1;
-	 position: fixed;
-	 width:25%;
-	 height:5%;
- right: 38%;
- top: 94%;
- rgba(0, 0, 0, 1);
- transform: scale(1);
- animation: pulse 2s infinite;
-}
-.start
-{
-	 z-index: 1;
-	 position: fixed;
-	 width:25%;
-	 height:5%;
- right: 13%;
- top: 93%;
- rgba(0, 0, 0, 1);
- transform: scale(1);
- animation: pulse 2s infinite;
-}
-.click
-{
-	width:150%;
-	height:150%;
-	z-index: 1;
-	position: fixed;
-	overflow: hidden;
-
+.mixBlnd {
+  background-blend-mode: screen;
 }
 
-.thegame
-{
-	width:10%;
- height:4%;
- position: fixed;
- right: 9.5%;
- top: 21%;
- z-index: 1;
- rgba(0, 0, 0, 1);
- transform: scale(1);
- animation: pulsestart 2s infinite;
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden
+}
+
+.chonkyboi {
+  width: 70%;
+  height: 70%;
+  overflow: hidden;
+  position: relative;
+  right: 15%;
+}
+
+.peeky {
+
+  position: fixed;
+  top: 68%;
+  left: 64%;
+  height: 60%;
+  width: 50%;
+}
+
+.logo {
+  width: 25%;
+  height: 30%;
+  position: fixed;
+  right: 2%;
+  top: 2%;
+}
+
+.brexit {
+  z-index: 1;
+  position: fixed;
+  width: 25%;
+  height: 5%;
+  right: 38%;
+  top: 94%;
+  /* rgba(0, 0, 0, 1); */
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+.start {
+  z-index: 1;
+  position: fixed;
+  width: 25%;
+  height: 5%;
+  right: 13%;
+  top: 93%;
+  /* rgba(0, 0, 0, 1); */
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+.click {
+  width: 150%;
+  height: 150%;
+  z-index: 1;
+  position: fixed;
+  overflow: hidden;
 
 }
-@keyframes pulsestart{
-    0% {
-        transform: scale(0.9);
-    }
 
-    70% {
-        transform: scale(1);
-    }
+.thegame {
+  width: 10%;
+  height: 4%;
+  position: fixed;
+  right: 9.5%;
+  top: 21%;
+  z-index: 1;
+  /* rgba(0, 0, 0, 1); */
+  transform: scale(1);
+  animation: pulsestart 2s infinite;
 
-    100% {
-        transform: scale(0.9);
-    }
 }
+
+@keyframes pulsestart {
+  0% {
+    transform: scale(0.9);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.9);
+  }
+}
+
 @keyframes pulse {
-    0% {
-        transform: scale(0.9);
-    }
+  0% {
+    transform: scale(0.9);
+  }
 
-    70% {
-        transform: scale(1.3);
-    }
+  70% {
+    transform: scale(1.3);
+  }
 
-    100% {
-        transform: scale(0.9);
-    }
+  100% {
+    transform: scale(0.9);
+  }
 }
-.homeposition
-{
-	position: relative;
+
+.homeposition {
+  position: relative;
   left: 2%;
-	top: 10%;
-	width:3%;
-	height:auto;
-	display:block;
+  top: 10%;
+  width: 3%;
+  height: auto;
+  display: block;
 }
-.helpposition
-{
-		position: relative;
-		left: 2%;
-  	top: 18%;
-		width:3%;
-		height:auto;
-		display:block;
-}
-.gitposition{
-	position: fixed;
-	right: 2%;
-	bottom: 2%;
-	width:4%;
-  height:5%;
-}
-.invertcoloranimation {
- -webkit-transition: all 0.7s ease;
- transition: all 0.7s ease;
- z-index: 5;
-}
-.invertcoloranimation:hover {
- transform:scale(1.3);
 
--webkit-filter: invert(100%);
+.helpposition {
+  position: relative;
+  left: 2%;
+  top: 18%;
+  width: 3%;
+  height: auto;
+  display: block;
 }
+
+.gitposition {
+  position: fixed;
+  right: 2%;
+  bottom: 2%;
+  width: 4%;
+  height: 5%;
+}
+
+.invertcoloranimation {
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+  z-index: 5;
+}
+
+.invertcoloranimation:hover {
+  transform: scale(1.3);
+
+  -webkit-filter: invert(100%);
+}
+
 .zoomanimation {
- -webkit-transition: all 0.7s ease;
- transition: all 0.7s ease;
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
 }
+
 .zoomanimation:hover {
--webkit-transform:scale(1.2);
-transform:scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 #container_rules {
-	    border-radius: 11px;
-    font-size: 17pt;
-    background: WhiteSmoke;
-    padding: 10px;
-		}
+  border-radius: 11px;
+  font-size: 17pt;
+  background: WhiteSmoke;
+  padding: 10px;
+}
 
 
-		#container_rules h2 {
-			font-size: 22px;
-			text-align: center;
-		}
+#container_rules h2 {
+  font-size: 22px;
+  text-align: center;
+}
 
-		#container_rules ul {    font-size: 16px;}
-.containerposition{
-	position: fixed;
-	z-index: -5;
-	width: 18%;
-	top: 30%;
-	left: 6%;
-	text-align: left;
-	vertical-align: middle;
+#container_rules ul {
+  font-size: 16px;
+}
+
+.containerposition {
+  position: fixed;
+  z-index: -5;
+  width: 18%;
+  top: 30%;
+  left: 6%;
+  text-align: left;
+  vertical-align: middle;
 }
